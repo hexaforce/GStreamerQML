@@ -1,0 +1,6 @@
+qrc_qml.o
+qrc_qml.cpp
+Makefile
+main.o
+GStreamerQML
+.qmake.stash
