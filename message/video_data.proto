@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message VideoFrame {
+  uint32 width = 1;
+  uint32 height = 2;
+  bytes data = 3;
+}
