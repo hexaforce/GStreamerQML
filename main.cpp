@@ -1,4 +1,4 @@
-#include "SetPlaying.h"
+#include "set_playing.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>

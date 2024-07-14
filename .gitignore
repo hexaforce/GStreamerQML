@@ -9,3 +9,4 @@ build/
 video_streamer
 message_receiver
 message_streamer
+.vscode/settings.json
