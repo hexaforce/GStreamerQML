@@ -2,6 +2,26 @@
 #include <gst/app/gstappsink.h>
 #include "../message/video_data.pb.h"  // protocで生成されたヘッダー
 
+void processVideoBuffer(GstElement *appsink) {
+    GstSample *sample = gst_app_sink_pull_sample(GST_APP_SINK(appsink));
+    GstBuffer *buffer = gst_sample_get_buffer(sample);
+    GstMapInfo map;
+    gst_buffer_map(buffer, &map, GST_MAP_READ);
+
+    // プロトコルバッファをデシリアライズ
+    VideoFrame frame;
+    if (!frame.ParseFromArray(map.data, map.size)) {
+        g_printerr("Failed to parse video frame.\n");
+    } else {
+        // フレームの内容を表示
+        g_print("Received frame: width=%d, height=%d\n", frame.width(), frame.height());
+    }
+
+    // クリーンアップ
+    gst_buffer_unmap(buffer, &map);
+    gst_sample_unref(sample);
+}
+
 void receiveVideoData(gint port) {
     // GStreamer初期化
     gst_init(NULL, NULL);
@@ -10,6 +30,9 @@ void receiveVideoData(gint port) {
     GstElement *pipeline = gst_pipeline_new("video-receive-pipeline");
     GstElement *tcpserversrc = gst_element_factory_make("tcpserversrc", "tcp-src");
     GstElement *appsink = gst_element_factory_make("appsink", "video-sink");
+
+    // appsinkにシグナルハンドラを追加 (new-sample)
+    g_signal_connect(appsink, "new-sample", G_CALLBACK(processVideoBuffer), NULL);
 
     // パイプラインに要素を追加
     gst_bin_add_many(GST_BIN(pipeline), tcpserversrc, appsink, NULL);
@@ -28,25 +51,10 @@ void receiveVideoData(gint port) {
     gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
     // メインループ
-    // GMainLoop *loop = g_main_loop_new(NULL, FALSE);
-    // g_main_loop_run(loop);
+    GMainLoop *loop = g_main_loop_new(NULL, FALSE);
+    g_main_loop_run(loop);
 
-    // データ受信処理
-    GstSample *sample = gst_app_sink_pull_sample(GST_APP_SINK(appsink));
-    GstBuffer *buffer = gst_sample_get_buffer(sample);
-    GstMapInfo map;
-    gst_buffer_map(buffer, &map, GST_MAP_READ);
-
-    // プロトコルバッファをデシリアライズ
-    VideoFrame frame;
-    frame.ParseFromArray(map.data, map.size);
-
-    // フレームの内容を表示
-    g_print("Received frame: width=%d, height=%d\n", frame.width(), frame.height());
-
-    // クリーンアップ
-    gst_buffer_unmap(buffer, &map);
-    gst_sample_unref(sample);
+    // パイプラインを停止
     gst_element_set_state(pipeline, GST_STATE_NULL);
     gst_object_unref(pipeline);
 }
