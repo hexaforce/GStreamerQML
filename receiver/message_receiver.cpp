@@ -1,5 +1,6 @@
 #include <gst/gst.h>
-#include "video_data.pb.h"  // protocで生成されたヘッダー
+#include <gst/app/gstappsink.h>
+#include "../message/video_data.pb.h"  // protocで生成されたヘッダー
 
 void receiveVideoData(gint port) {
     // GStreamer初期化
@@ -27,8 +28,8 @@ void receiveVideoData(gint port) {
     gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
     // メインループ
-    GMainLoop *loop = g_main_loop_new(NULL, FALSE);
-    g_main_loop_run(loop);
+    // GMainLoop *loop = g_main_loop_new(NULL, FALSE);
+    // g_main_loop_run(loop);
 
     // データ受信処理
     GstSample *sample = gst_app_sink_pull_sample(GST_APP_SINK(appsink));

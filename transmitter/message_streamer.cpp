@@ -1,5 +1,6 @@
 #include <gst/gst.h>
-#include "video_data.pb.h"  // protocで生成されたヘッダー
+#include <gst/app/gstappsrc.h>
+#include "../message/video_data.pb.h"  // protocで生成されたヘッダー
 
 void sendVideoData(const VideoFrame& frame, const char* host, gint port) {
     // GStreamer初期化

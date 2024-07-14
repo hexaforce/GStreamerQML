@@ -7,3 +7,5 @@ GStreamerQML
 GStreamerQML.pro.user
 build/
 video_streamer
+message_receiver
+message_streamer
