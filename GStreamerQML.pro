@@ -13,11 +13,11 @@ DEFINES += GST_USE_UNSTABLE_API
 INCLUDEPATH += ../lib
 
 HEADERS += set_playing.h \
-           protobuf_example.cpp
+           protobuf_handler.cpp
 
 SOURCES += main.cpp \
            set_playing.cpp \
-           protobuf_example.cpp
+           protobuf_handler.cpp
 
 RESOURCES += qml.qrc
 

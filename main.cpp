@@ -1,9 +1,10 @@
-#include "SetPlaying.h"
+#include "set_playing.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
 #include <QQuickWindow>
 #include <gst/gst.h>
+#include "protobuf_handler.h" 
 
 enum class CodecType { H264, H265 };
 enum class VendorType { Libav, Nvidia };
@@ -114,6 +115,7 @@ int main(int argc, char *argv[]) {
 
   {
     QGuiApplication app(argc, argv);
+qmlRegisterType<ProtobufHandler>("com.example", 1, 0, "ProtobufHandler");
 
     GstElement *pipeline = gst_pipeline_new(NULL);
     GstElement *sink     = gst_element_factory_make("qmlglsink", NULL);
