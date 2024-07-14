@@ -6,3 +6,4 @@ GStreamerQML
 .qmake.stash
 GStreamerQML.pro.user
 build/
+video_streamer

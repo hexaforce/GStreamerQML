@@ -1,4 +1,4 @@
-#include "SetPlaying.h"
+#include "set_playing.h"
 
 SetPlaying::SetPlaying(GstElement *pipeline) { this->m_pipeline = pipeline ? static_cast<GstElement *>(gst_object_ref(pipeline)) : NULL; }
 

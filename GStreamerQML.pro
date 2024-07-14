@@ -12,10 +12,10 @@ DEFINES += GST_USE_UNSTABLE_API
 
 INCLUDEPATH += ../lib
 
-HEADERS += SetPlaying.h
+HEADERS += set_playing.h
 
 SOURCES += main.cpp \
-           SetPlaying.cpp
+           set_playing.cpp
 
 RESOURCES += qml.qrc
 
