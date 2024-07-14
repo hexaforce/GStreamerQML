@@ -62,28 +62,23 @@ ApplicationWindow {
     }
 
     Item {
-        // Instantiate ProtobufHandler
-        property ProtobufHandler protobufHandler: ProtobufHandler {}
-
         Text {
             id: receivedMessage
+            text: "Waiting for message..."
             anchors.centerIn: parent
-            text: "Received Message: "
         }
 
-        // Connect signal from C++ to update UI
         Connections {
             target: protobufHandler
-            onDataReceived: {
-                receivedMessage.text = "Received Message: " + message
+            function onMessageReceived() {
+                receivedMessage.text = "Received Message: " + protobufHandler.receivedMessage
             }
         }
 
         Component.onCompleted: {
             // Simulate receiving protobuf data
-            var data = new QByteArray();
-            data.append(" \x0A\x0D\x03\x68\x65\x6C\x6C\x6F\x07\x77\x6F\x72\x6C\x64", 14);
-            protobufHandler.receiveData(data);
+            var base64Data = "CgwDaGVsbG8Hd29ybGQ="; // base64-encoded protobuf data
+            protobufHandler.receiveData(base64Data);
         }
     }
 }

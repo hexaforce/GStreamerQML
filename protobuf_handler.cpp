@@ -1,23 +1,19 @@
 #include "protobuf_handler.h"
-#include "message/message.pb.h" // Include your generated protobuf message header
 
 ProtobufHandler::ProtobufHandler(QObject *parent) : QObject(parent)
 {
-    // Constructor implementation
 }
 
-ProtobufHandler::~ProtobufHandler()
+QString ProtobufHandler::receivedMessage() const
 {
-    // Destructor implementation
+    return m_receivedMessage;
 }
 
-void ProtobufHandler::receiveData(const QByteArray &data)
+void ProtobufHandler::receiveData(const QString &data)
 {
-    Data message; // Use the actual protobuf message type
-    if (message.ParseFromArray(data.constData(), data.size())) {
-        // Successfully parsed message, emit signal with some data from message
-        emit dataReceived(QString::fromStdString(message.message()));
-    } else {
-        // Error handling if parsing failed
-    }
+    // Simulate protobuf data processing
+    QByteArray byteArray = QByteArray::fromBase64(data.toUtf8());
+    m_receivedMessage = QString::fromUtf8(byteArray);
+
+    emit messageReceived();
 }

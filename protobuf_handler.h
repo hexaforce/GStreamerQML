@@ -2,28 +2,27 @@
 #define PROTOBUF_HANDLER_H
 
 #include <QObject>
-#include <QString>
 #include <QByteArray>
-
-// Forward declaration of Data class (assuming it's defined elsewhere)
-class Data;
+#include <QString>
 
 class ProtobufHandler : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString receivedMessage READ receivedMessage NOTIFY messageReceived)
+
 public:
     explicit ProtobufHandler(QObject *parent = nullptr);
-    virtual ~ProtobufHandler();
 
-    // Example function to receive and process Protobuf data
-    Q_INVOKABLE void receiveData(const QByteArray &data);
+    QString receivedMessage() const;
+
+public slots:
+    void receiveData(const QString &data);
 
 signals:
-    // Signal to notify about received data
-    void dataReceived(const QString &message);
+    void messageReceived();
 
 private:
-    // Private members and methods
+    QString m_receivedMessage;
 };
 
 #endif // PROTOBUF_HANDLER_H
