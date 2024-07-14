@@ -1,14 +1,23 @@
-QT += qml quick multimedia
+TEMPLATE = app
 
-CONFIG += c++11
+QT += qml quick widgets
 
-SOURCES += main.cpp
+QT_CONFIG -= no-pkg-config
+CONFIG += link_pkgconfig debug
+PKGCONFIG = \
+    gstreamer-1.0 \
+    gstreamer-video-1.0
+
+DEFINES += GST_USE_UNSTABLE_API
+
+INCLUDEPATH += ../lib
+
+HEADERS += SetPlaying.h
+
+SOURCES += main.cpp \
+           SetPlaying.cpp
 
 RESOURCES += qml.qrc
 
-unix:!macx {
-    LIBS += -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0
-    LIBS += -lQt5MultimediaQuick -lQt5Quick -lQt5Multimedia -lQt5Gui -lQt5QmlModels -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread
-}
-
-# Additional build configuration for other platforms
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
