@@ -36,24 +36,29 @@ ApplicationWindow {
             height: parent.height - 30
             radius: 8
 
-            MouseArea {
-                id: mousearea
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: {
-                    parent.opacity = 1.0
-                    hidetimer.start()
-                }
-            }
+    // Instantiate ProtobufHandler
+    property ProtobufHandler protobufHandler: ProtobufHandler {}
 
-            Timer {
-                id: hidetimer
-                interval: 5000
-                onTriggered: {
-                    parent.opacity = 0.0
-                    stop()
-                }
-            }
+    Text {
+        id: receivedMessage
+        anchors.centerIn: parent
+        text: "Received Message: "
+    }
+
+    // Connect signal from C++ to update UI
+    Connections {
+        target: protobufHandler
+        onDataReceived: {
+            receivedMessage.text = "Received Message: " + message
+        }
+    }
+
+    Component.onCompleted: {
+        // Simulate receiving protobuf data
+        var data = new QByteArray();
+        data.append(" \x0A\x0D\x03\x68\x65\x6C\x6C\x6F\x07\x77\x6F\x72\x6C\x64", 14);
+        protobufHandler.receiveData(data);
+    }
         }
     }
 }

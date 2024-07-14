@@ -10,3 +10,7 @@ g++ -g -o message_receiver receiver/message_receiver.cpp message/video_data.pb.c
 
 g++ -g -o message_streamer transmitter/message_streamer.cpp message/video_data.pb.cc `pkg-config --cflags --libs gstreamer-1.0 gstreamer-app-1.0` -lprotobuf
 ./message_streamer
+
+protoc --cpp_out=. video_data.proto
+
+protoc --cpp_out=. message.proto
