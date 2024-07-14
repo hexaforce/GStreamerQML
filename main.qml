@@ -5,6 +5,8 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
+import com.example 1.0
+
 ApplicationWindow {
     id: window
     visible: true
@@ -13,7 +15,9 @@ ApplicationWindow {
     x: 30
     y: 30
     color: "black"
-
+    ProtobufHandler {
+        id: protobufHandler // QML内で使う場合はインスタンスを生成する
+    }
     Item {
         anchors.fill: parent
 
@@ -54,6 +58,32 @@ ApplicationWindow {
                     stop()
                 }
             }
+        }
+    }
+
+    Item {
+        // Instantiate ProtobufHandler
+        property ProtobufHandler protobufHandler: ProtobufHandler {}
+
+        Text {
+            id: receivedMessage
+            anchors.centerIn: parent
+            text: "Received Message: "
+        }
+
+        // Connect signal from C++ to update UI
+        Connections {
+            target: protobufHandler
+            onDataReceived: {
+                receivedMessage.text = "Received Message: " + message
+            }
+        }
+
+        Component.onCompleted: {
+            // Simulate receiving protobuf data
+            var data = new QByteArray();
+            data.append(" \x0A\x0D\x03\x68\x65\x6C\x6C\x6F\x07\x77\x6F\x72\x6C\x64", 14);
+            protobufHandler.receiveData(data);
         }
     }
 }
