@@ -76,88 +76,23 @@ ApplicationWindow {
             }
         }
     }
+    // Loader {
+    //     id: page1Loader
+    //     source: "Page1.qml"
+    // }
+
+    // Loader {
+    //     id: page2Loader
+    //     source: "Page2.qml"
+    // }
 
     Component {
         id: page1
-        Item {
-            focus: true
-            width: 960
-            height: 540
-            Row{
-                Column {
-                    Text {
-                        text: "This is page1"
-                    }
-                    Button {
-                        text: "Go Back"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.pop(stack.find(function(item) {
-                            return item.name === "page1"
-                        }))
-                    }
-                    Button {
-                        text: "Go page1"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.push(page1)
-                        enabled: false
-                        opacity: enabled ? 1.0 : 0.75
-                    }
-                    Button {
-                        text: "Go page2"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.push(page2)
-                    }
-                }
-                Column {
-                    Rectangle {
-                        width: 400
-                        height: 300
-                        color: "red"
-                    }
-                }
-            }
-        }
+        Page1 { }
     }
+
     Component {
         id: page2
-        Item {
-            focus: true
-            width: 960
-            height: 540
-            Row{
-                Column {
-                    Text {
-                        text: "This is page2"
-                    }
-                    Button {
-                        text: "Go Back"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.pop(stack.find(function(item) {
-                            return item.name === "page2"
-                        }))
-                    }
-                    Button {
-                        text: "Go page1"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.push(page1)
-                    }
-                    Button {
-                        text: "Go page2"
-                        Material.foreground: Material.Primary
-                        onClicked: stack.push(page2)
-                        enabled: false
-                        opacity: enabled ? 1.0 : 0.75
-                    }
-                }
-                Column {
-                    Rectangle {
-                        width: 400
-                        height: 300
-                        color: "blue"
-                    }
-
-                }
-            }
-        }
+        Page2 { }
     }
 }
