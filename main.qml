@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
@@ -12,15 +14,31 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    x: 30
-    y: 30
-    color: "black"
+    color: "transparent"
+    // flags: Qt.FramelessWindowHint
+    x: (Screen.width - width) / 2
+    y: (Screen.height - height) / 2
+
+    Material.theme: Material.Dark
 
     ProcessRunner {
         id: processRunner
     }
 
-
+    Image {
+        layer.enabled: true
+        x:10
+        y:10
+        source: "icons/online-streaming-icon.svg"
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                // stack.push(receiverWifi)
+                processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                console.log(processRunner.result)
+            }
+        }
+    }
 
     Item {
         anchors.fill: parent
@@ -39,38 +57,38 @@ ApplicationWindow {
             height: parent.height
         }
 
-        Rectangle {
-            color: Qt.rgba(1, 1, 1, 0.7)
-            border.width: 1
-            border.color: "white"
-            anchors.bottom: video.bottom
-            anchors.bottomMargin: 15
-            anchors.horizontalCenter: parent.horizontalCenter
-            width : parent.width - 30
-            height: parent.height - 30
-            radius: 8
+        // Rectangle {
+        //     color: Qt.rgba(1, 1, 1, 0.7)
+        //     border.width: 1
+        //     border.color: "white"
+        //     anchors.bottom: video.bottom
+        //     anchors.bottomMargin: 15
+        //     anchors.horizontalCenter: parent.horizontalCenter
+        //     width : parent.width - 30
+        //     height: parent.height - 30
+        //     radius: 8
 
-            MouseArea {
-                id: mousearea
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: {
-                    // parent.opacity = 1.0
-                    processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                    console.log(processRunner.result)
-                    // hidetimer.start()
-                }
-            }
+        //     MouseArea {
+        //         id: mousearea
+        //         anchors.fill: parent
+        //         hoverEnabled: true
+        //         onEntered: {
+        //             // parent.opacity = 1.0
+        //             processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+        //             console.log(processRunner.result)
+        //             // hidetimer.start()
+        //         }
+        //     }
 
-            // Timer {
-            //     id: hidetimer
-            //     interval: 5000
-            //     onTriggered: {
-            //         parent.opacity = 0.0
-            //         stop()
-            //     }
-            // }
-        }
+        //     // Timer {
+        //     //     id: hidetimer
+        //     //     interval: 5000
+        //     //     onTriggered: {
+        //     //         parent.opacity = 0.0
+        //     //         stop()
+        //     //     }
+        //     // }
+        // }
     }
 
 }

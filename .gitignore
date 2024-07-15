@@ -12,3 +12,4 @@ message_streamer
 .vscode/settings.json
 data/UdpStreamer
 data/UdpSender
+main.qml.autosave

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>icons/online-streaming-icon.svg</file>
         <file>main.qml</file>
     </qresource>
 </RCC>
