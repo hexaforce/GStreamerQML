@@ -1,8 +1,9 @@
 import gi
 import json
 
-gi.require_version('Gst', '1.0')
+gi.require_version("Gst", "1.0")
 from gi.repository import Gst
+
 
 def caps_to_string(caps):
     caps_list = []
@@ -11,11 +12,12 @@ def caps_to_string(caps):
         caps_list.append(structure.to_string())
     return caps_list
 
+
 def device_to_dict(device):
     device_info = {
-        'Device': device.get_display_name(),
+        "Device": device.get_display_name(),
     }
-    
+
     # Get properties
     properties = device.get_properties()
     if properties is not None:
@@ -38,23 +40,25 @@ def device_to_dict(device):
     # Get caps information
     caps = device.get_caps()
     if caps is not None:
-        device_info['caps'] = caps_to_string(caps)
-    
+        device_info["caps"] = caps_to_string(caps)
+
     return device_info
+
 
 def main():
     Gst.init(None)
-    
+
     device_monitor = Gst.DeviceMonitor.new()
     device_monitor.add_filter("Audio/Source", None)
-    
+
     device_list = device_monitor.get_devices()
-    
+
     devices = []
     for device in device_list:
         devices.append(device_to_dict(device))
-    
+
     print(json.dumps(devices, indent=2, ensure_ascii=False))
+
 
 if __name__ == "__main__":
     main()
