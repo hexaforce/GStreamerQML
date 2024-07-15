@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <unistd.h> // close 関数を使用するために必要
 
 UdpReceiver::UdpReceiver(unsigned short udpPort)
     : udp_port(udpPort), udp_socket(-1) {}
