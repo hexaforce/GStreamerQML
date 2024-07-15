@@ -11,15 +11,16 @@ PKGCONFIG += \
 
 DEFINES += GST_USE_UNSTABLE_API
 
-INCLUDEPATH += ../lib
-INCLUDEPATH += message
+# INCLUDEPATH += ../lib
+# INCLUDEPATH += message
+INCLUDEPATH += src
 
-HEADERS += pipeline_thread.h \
-           process_runner.h 
+HEADERS += src/pipeline_thread.h \
+           src/process_runner.h 
 
 SOURCES += main.cpp \
-           pipeline_thread.cpp  \
-           process_runner.cpp 
+           src/pipeline_thread.cpp  \
+           src/process_runner.cpp 
 
 RESOURCES += qml.qrc
 
