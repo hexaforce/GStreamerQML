@@ -19,7 +19,6 @@ def device_to_dict(device):
     }
     properties = device.get_properties()
     n_fields = properties.n_fields()
-
     for i in range(n_fields):
         field_name = properties.nth_field_name(i)
         value = properties.get_value(field_name)
