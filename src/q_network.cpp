@@ -1,11 +1,11 @@
-// IwconfigInfo.cpp
-#include "IwconfigInfo.h"
+// q_network.cpp
+#include "q_network.h"
 #include <QProcess>
 #include <QRegularExpression>
 
-IwconfigInfo::IwconfigInfo(QObject *parent) : QObject(parent) {}
+Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
-QString IwconfigInfo::getIwconfigOutput() {
+QString Q_Network::getIwconfigOutput() {
   QProcess process;
   process.start("iwconfig");
   process.waitForFinished(-1); // Wait until the process finishes
@@ -14,12 +14,12 @@ QString IwconfigInfo::getIwconfigOutput() {
   return result;
 }
 
-QStringList IwconfigInfo::getWifiDevices() {
+QStringList Q_Network::getWifiDevices() {
   QString output = getIwconfigOutput();
   return parseIwconfigOutput(output);
 }
 
-QStringList IwconfigInfo::parseIwconfigOutput(const QString &output) {
+QStringList Q_Network::parseIwconfigOutput(const QString &output) {
   QStringList        devices;
   QStringList        lines = output.split('\n');
   QRegularExpression regex("^\\S+\\s+IEEE 802\\.11"); // WIFIデバイスの行を検出する正規表現
@@ -35,7 +35,7 @@ QStringList IwconfigInfo::parseIwconfigOutput(const QString &output) {
   return devices;
 }
 
-QString IwconfigInfo::getDeviceStatus(const QString &device) {
+QString Q_Network::getDeviceStatus(const QString &device) {
   QProcess process;
   process.start("nmcli", QStringList() << "device" << "show" << device);
   process.waitForFinished(-1); // Wait until the process finishes
@@ -45,7 +45,7 @@ QString IwconfigInfo::getDeviceStatus(const QString &device) {
 }
 
 
-QString IwconfigInfo::getDeviceSupport(const QString &device) {
+QString Q_Network::getDeviceSupport(const QString &device) {
     QProcess process;
     QString result;
 

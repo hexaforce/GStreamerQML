@@ -1,6 +1,6 @@
 #include "pipeline_thread.h"
 #include "process_runner.h"
-#include "IwconfigInfo.h"
+#include "q_network.h"
 #include "udp_receiver.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    qmlRegisterType<IwconfigInfo>("jp.fpv.IwconfigInfo", 1, 0, "IwconfigInfo");
+    qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

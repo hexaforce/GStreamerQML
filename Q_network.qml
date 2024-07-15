@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.IwconfigInfo 1.0 
+import jp.fpv.Q_Network 1.0 
 
 Item {
     focus: true
@@ -13,8 +13,8 @@ Item {
     height: 540
 
 
-    IwconfigInfo {
-        id: iwconfigInfo
+    Q_Network {
+        id: q_Network
     }
 
     Row {
@@ -56,7 +56,7 @@ Item {
             ComboBox {
                 id: deviceComboBox
                 width: 240
-                model: iwconfigInfo.getWifiDevices()
+                model: q_Network.getWifiDevices()
                 
                 onCurrentIndexChanged: {
                     deviceInfoText.text = ""

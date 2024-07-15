@@ -1,16 +1,16 @@
-// IwconfigInfo.h
-#ifndef IWCONFIGINFO_H
-#define IWCONFIGINFO_H
+// q_network.h
+#ifndef Q_NETWORK_H
+#define Q_NETWORK_H
 
 #include <QObject>
 #include <QString>
 #include <QStringList>
 
-class IwconfigInfo : public QObject
+class Q_Network : public QObject
 {
     Q_OBJECT
 public:
-    explicit IwconfigInfo(QObject *parent = nullptr);
+    explicit Q_Network(QObject *parent = nullptr);
 
 public slots:
     QString getIwconfigOutput();
@@ -22,4 +22,4 @@ private:
     QStringList parseIwconfigOutput(const QString &output);
 };
 
-#endif // IWCONFIGINFO_H
+#endif // Q_NETWORK_H
