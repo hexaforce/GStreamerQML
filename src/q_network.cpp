@@ -7,8 +7,11 @@ Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
 QString Q_Network::getIwconfigOutput() {
   QProcess process;
-  process.start("iwconfig", QStringList() << "");
-  process.waitForFinished(-1); // Wait until the process finishes
+  QString program = "iwconfig";
+  QStringList arguments; // 空の引数リストを作成
+  
+  process.start(program, arguments); // プログラムと引数リストを指定してプロセスを開始
+  process.waitForFinished(-1); // プロセスが終了するまで待機
 
   QString result = QString::fromLocal8Bit(process.readAllStandardOutput());
   return result;
