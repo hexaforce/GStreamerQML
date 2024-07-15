@@ -1,4 +1,5 @@
 #include "pipeline_thread.h"
+#include "process_runner.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
@@ -149,6 +150,7 @@ int main(int argc, char *argv[])
     // setupJpegReceivePipeline(pipeline, sink, port);
 
     // qmlRegisterType<ProtobufHandler>("com.example", 1, 0, "ProtobufHandler");
+    qmlRegisterType<ProcessRunner>("jp.fpv", 1, 0, "ProcessRunner");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

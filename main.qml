@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
-
+import jp.fpv 1.0
 
 ApplicationWindow {
     id: window
@@ -16,9 +16,21 @@ ApplicationWindow {
     y: 30
     color: "black"
 
+    ProcessRunner {
+        id: processRunner
+    }
+
+
+
     Item {
         anchors.fill: parent
-
+        // Button {
+        //     text: "List Devices"
+        //     onClicked: {
+        //         processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+        //         console.log(processRunner.result)
+        //     }
+        // }
         GstGLVideoItem {
             id: video
             objectName: "videoItem"
@@ -43,19 +55,21 @@ ApplicationWindow {
                 anchors.fill: parent
                 hoverEnabled: true
                 onEntered: {
-                    parent.opacity = 1.0
-                    hidetimer.start()
+                    // parent.opacity = 1.0
+                    processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                    console.log(processRunner.result)
+                    // hidetimer.start()
                 }
             }
 
-            Timer {
-                id: hidetimer
-                interval: 5000
-                onTriggered: {
-                    parent.opacity = 0.0
-                    stop()
-                }
-            }
+            // Timer {
+            //     id: hidetimer
+            //     interval: 5000
+            //     onTriggered: {
+            //         parent.opacity = 0.0
+            //         stop()
+            //     }
+            // }
         }
     }
 
