@@ -13,8 +13,8 @@ import jp.fpv.UdpReceiver 1.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
-    height: 480
+    width: 960
+    height: 540
     color: "transparent"
     // flags: Qt.FramelessWindowHint
     x: (Screen.width - width) / 2
@@ -37,14 +37,7 @@ ApplicationWindow {
         udpReceiver.startListening(5009)
     }
 
-    StackView {
-        id: stack
-        initialItem: mainView
-        anchors.fill: parent
-    }
-
     Item {
-        id: mainView
         anchors.fill: parent
         GstGLVideoItem {
             id: video
@@ -53,17 +46,32 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
         }
-        Image {
-            layer.enabled: true
-            x:10
-            y:10
-            source: "icons/online-streaming-icon.svg"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                    console.log(processRunner.result)
-                    stack.push(page1)
+    }
+
+    StackView {
+        id: stack
+        initialItem: mainView
+        anchors.fill: parent
+    }
+
+    Component {
+        id: mainView
+
+        Item {
+            anchors.fill: parent
+
+            Image {
+                layer.enabled: true
+                x:10
+                y:10
+                source: "icons/online-streaming-icon.svg"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                        console.log(processRunner.result)
+                        stack.push(page1)
+                    }
                 }
             }
         }
@@ -73,8 +81,8 @@ ApplicationWindow {
         id: page1
         Item {
             focus: true
-            width: 640
-            height: 480
+            width: 960
+            height: 540
             Row{
                 Column {
                     Text {
@@ -114,8 +122,8 @@ ApplicationWindow {
         id: page2
         Item {
             focus: true
-            width: 640
-            height: 480
+            width: 960
+            height: 540
             Row{
                 Column {
                     Text {
