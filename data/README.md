@@ -8,3 +8,14 @@ g++ -o UdpStreamer SerialToUdpStreamer.cpp UdpReceiver.cpp main.cpp
 ./UdpStreamer receive 受信許可IPアドレス 受信ポート
 ./UdpStreamer receive 0.0.0.0 5005
 
+
+
+
+# テスト
+$ g++ -o UdpSender UdpSender.cpp
+
+$ ./UdpSender 127.0.0.1 5005
+Sent data to 127.0.0.1:5005
+
+$ ./UdpStreamer receive 0.0.0.0 5005
+Received: Hello, UDP!*�
