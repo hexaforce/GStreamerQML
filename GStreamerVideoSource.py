@@ -18,21 +18,22 @@ def device_to_dict(device):
         "Device": device.get_display_name(),
     }
     properties = device.get_properties()
-    n_fields = properties.n_fields()
-    for i in range(n_fields):
-        field_name = properties.nth_field_name(i)
-        value = properties.get_value(field_name)
-        if value is not None:
-            if isinstance(value, str):
-                device_info[field_name] = value
-            elif isinstance(value, int):
-                device_info[field_name] = value
-            elif isinstance(value, float):
-                device_info[field_name] = value
-            elif isinstance(value, bool):
-                device_info[field_name] = value
-            else:
-                device_info[field_name] = str(value)
+    if properties is not None:
+        n_fields = properties.n_fields()
+        for i in range(n_fields):
+            field_name = properties.nth_field_name(i)
+            value = properties.get_value(field_name)
+            if value is not None:
+                if isinstance(value, str):
+                    device_info[field_name] = value
+                elif isinstance(value, int):
+                    device_info[field_name] = value
+                elif isinstance(value, float):
+                    device_info[field_name] = value
+                elif isinstance(value, bool):
+                    device_info[field_name] = value
+                else:
+                    device_info[field_name] = str(value)
 
     # Get caps information
     caps = device.get_caps()
