@@ -14,11 +14,13 @@ public:
 public slots:
     QString getVideoStreamOutput();
     QStringList getVideoDevices();
+    // QStringList getDeviceList2();
     QString getVideoFormats(const QString &device);
     QString getVideoDeviceDetails(const QString &device);
 
 private:
     QStringList parseVideoOutput(const QString &output);
+    // QJsonArray parseDeviceOutput2(const QByteArray &output)
 };
 
 #endif // Q_VIDEO_H

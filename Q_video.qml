@@ -56,7 +56,7 @@ Item {
             ComboBox {
                 id: cameraComboBox
                 width: 240
-                model:  q_Video.getVideoDevices()
+                // model: q_Video.getVideoDevices()
                 onCurrentIndexChanged: {
 
                 }
