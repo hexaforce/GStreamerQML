@@ -10,12 +10,5 @@ g++ -o UdpStreamer SerialToUdpStreamer.cpp UdpReceiver.cpp main.cpp
 
 
 
-
 # テスト
-$ g++ -o UdpSender UdpSender.cpp
-
-$ ./UdpSender 127.0.0.1 5005
-Sent data to 127.0.0.1:5005
-
-$ ./UdpStreamer receive 0.0.0.0 5005
-Received: Hello, UDP!*�
+./src/blackbox/UdpSender  127.0.0.1 5005

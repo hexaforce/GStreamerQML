@@ -1,6 +1,6 @@
 #include "pipeline_thread.h"
 #include "process_runner.h"
-#include "blackbox/UdpReceiver.h"
+#include "UdpReceiver.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
@@ -152,7 +152,8 @@ int main(int argc, char *argv[])
 
     // qmlRegisterType<ProtobufHandler>("com.example", 1, 0, "ProtobufHandler");
     qmlRegisterType<ProcessRunner>("jp.fpv", 1, 0, "ProcessRunner");
-    qmlRegisterType<ProcessRunner>("jp.fpv", 1, 0, "UdpReceiver");
+    qmlRegisterType<UdpReceiver>("com.example.UdpReceiver", 1, 0, "UdpReceiver");
+    // qmlRegisterType<ProcessRunner>("jp.fpv", 1, 0, "UdpReceiver");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

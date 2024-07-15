@@ -8,6 +8,7 @@ import QtQuick.Dialogs 1.3
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 import jp.fpv 1.0
+import com.example.UdpReceiver 1.0 
 
 ApplicationWindow {
     id: window
@@ -25,20 +26,15 @@ ApplicationWindow {
         id: processRunner
     }
 
-    // Instantiate UdpReceiver
-    property UdpReceiver udpReceiver: UdpReceiver {}
-        Text {
-        id: receivedMessage
-        anchors.centerIn: parent
-        text: "Received Message: "
+    UdpReceiver {
+        id: udpReceiver
+        onMessageReceived: {
+            console.log("Received message in QML:", message)
+        }
     }
 
-    Connections {
-        target: udpReceiver
-        onDataReceived: {
-            console.log(message)
-            receivedMessage.text = "Received Message: " + message
-        }
+    Component.onCompleted: {
+        udpReceiver.startListening(5009)
     }
 
     Image {
