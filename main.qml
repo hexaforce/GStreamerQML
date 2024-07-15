@@ -51,13 +51,19 @@ ApplicationWindow {
         id: stack
         initialItem: mainView
         anchors.fill: parent
+        pushEnter: Transition {
+            id: pushEnter
+            ParallelAnimation {
+                PropertyAction { property: "x"; value: pushEnter.ViewTransition.item.pos }
+                NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 400; easing.type: Easing.OutCubic }
+            }
+        }
     }
 
     Component {
         id: mainView
 
         Item {
-            anchors.fill: parent
 
             Image {
                 layer.enabled: true
@@ -78,7 +84,7 @@ ApplicationWindow {
 
     Component {
         id: q_network
-        Q_network { }
+        Q_network {  }
     }
 
     Component {
@@ -88,11 +94,11 @@ ApplicationWindow {
 
     Component {
         id: q_audio
-        Q_audio { }
+        Q_audio {  }
     }
 
     Component {
         id: q_telemetry
-        Q_telemetry { }
+        Q_telemetry {  }
     }
 }
