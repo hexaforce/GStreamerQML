@@ -1,6 +1,6 @@
 #include "pipeline_thread.h"
 #include "process_runner.h"
-#include "Udp_receiver.h"
+#include "udp_receiver.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
