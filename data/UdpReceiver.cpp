@@ -11,7 +11,7 @@ UdpReceiver::UdpReceiver(const std::string &ip, unsigned short port)
     : udp_ip(ip), udp_port(port)
 {
     // Initialize socket, bind, etc.
-    setupUdpSocket();
+    setupUdpSocket(); // setupUdpSocket 関数を呼び出す
 }
 
 UdpReceiver::~UdpReceiver()
