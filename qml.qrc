@@ -1,8 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/online-streaming-icon.svg</file>
-        <file>video_overlay.qml</file>
-        <file>Page1.qml</file>
-        <file>Page2.qml</file>
+        <file>main.qml</file>
+        <file>Q_network.qml</file>
+        <file>Q_video.qml</file>
+        <file>Q_audio.qml</file>
+        <file>Q_video.qml</file>
     </qresource>
 </RCC>

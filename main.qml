@@ -76,23 +76,14 @@ ApplicationWindow {
             }
         }
     }
-    // Loader {
-    //     id: page1Loader
-    //     source: "Page1.qml"
-    // }
-
-    // Loader {
-    //     id: page2Loader
-    //     source: "Page2.qml"
-    // }
 
     Component {
         id: page1
-        Page1 { }
+        Q_network { }
     }
 
     Component {
         id: page2
-        Page2 { }
+        Q_video { }
     }
 }

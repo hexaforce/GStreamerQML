@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/video_overlay.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     QQuickItem *videoItem;
     QQuickWindow *rootObject;

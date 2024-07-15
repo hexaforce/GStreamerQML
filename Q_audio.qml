@@ -38,7 +38,7 @@ Item {
             Rectangle {
                 width: 400
                 height: 300
-                color: "red"
+                color: "green"
             }
         }
     }
