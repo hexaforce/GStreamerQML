@@ -51,8 +51,7 @@ void UdpReceiver::startListening()
     while (true)
     {
         // Receive data
-        recv_len = recvfrom(udp_socket, buffer, sizeof(buffer), 0,
-                            (struct sockaddr *)&client_addr, &client_addr_len);
+        recv_len = recvfrom(udp_socket, buffer, sizeof(buffer), 0, (struct sockaddr *)&client_addr, &client_addr_len);
         if (recv_len == -1)
         {
             std::cerr << "Error in receiving data" << std::endl;
@@ -61,5 +60,6 @@ void UdpReceiver::startListening()
 
         // Process received data (example)
         std::cout << "Received: " << buffer << std::endl;
+        
     }
 }

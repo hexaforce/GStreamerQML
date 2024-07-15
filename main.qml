@@ -25,6 +25,22 @@ ApplicationWindow {
         id: processRunner
     }
 
+    // Instantiate UdpReceiver
+    property UdpReceiver udpReceiver: UdpReceiver {}
+        Text {
+        id: receivedMessage
+        anchors.centerIn: parent
+        text: "Received Message: "
+    }
+
+    Connections {
+        target: udpReceiver
+        onDataReceived: {
+            console.log(message)
+            receivedMessage.text = "Received Message: " + message
+        }
+    }
+
     Image {
         layer.enabled: true
         x:10

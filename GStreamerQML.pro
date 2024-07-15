@@ -16,11 +16,13 @@ DEFINES += GST_USE_UNSTABLE_API
 INCLUDEPATH += src
 
 HEADERS += src/pipeline_thread.h \
-           src/process_runner.h 
+           src/process_runner.h \
+           src/blackbox/UdpReceiver.h
 
 SOURCES += main.cpp \
            src/pipeline_thread.cpp  \
-           src/process_runner.cpp 
+           src/process_runner.cpp \
+           src/blackbox/UdpReceiver.cpp
 
 RESOURCES += qml.qrc
 
