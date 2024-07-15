@@ -1,44 +1,55 @@
-#include <iostream>
 #include "SerialToUdpStreamer.h"
 #include "UdpReceiver.h"
-#include <stdexcept>
-#include <termios.h>
+#include <iostream>
+#include <string>
 
 int main(int argc, char *argv[])
 {
-    if (argc < 6)
+    if (argc < 3)
     {
-        std::cerr << "Usage: " << argv[0] << " <send|receive> <serial_port> <baud_rate> <udp_ip> <udp_port>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <send|receive> <serial_port> <baud_rate> <udp_ip> <udp_port>\n";
         return 1;
     }
 
     std::string mode = argv[1];
-    std::string serial_port_name = argv[2];
-    unsigned int baud_rate = std::stoi(argv[3]);
-    std::string udp_ip = argv[4];
-    unsigned short udp_port = std::stoi(argv[5]);
-
-    try
+    if (mode == "send" && argc == 6)
     {
-        if (mode == "send")
+        std::string serial_port_name = argv[2];
+        unsigned int baud_rate = std::stoi(argv[3]);
+        std::string udp_ip = argv[4];
+        unsigned short udp_port = std::stoi(argv[5]);
+
+        try
         {
             SerialToUdpStreamer streamer(serial_port_name, baud_rate, udp_ip, udp_port);
             streamer.startStreaming();
         }
-        else if (mode == "receive")
+        catch (const std::exception &e)
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+            return 1;
+        }
+    }
+    else if (mode == "receive" && argc == 4)
+    {
+        std::string udp_ip = argv[2];
+        unsigned short udp_port = std::stoi(argv[3]);
+
+        try
         {
             UdpReceiver receiver(udp_ip, udp_port);
             receiver.startListening();
         }
-        else
+        catch (const std::exception &e)
         {
-            std::cerr << "Unknown mode: " << mode << std::endl;
+            std::cerr << "Error: " << e.what() << std::endl;
             return 1;
         }
     }
-    catch (const std::exception &e)
+    else
     {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr << "Invalid usage or incorrect number of arguments.\n";
+        std::cerr << "Usage: " << argv[0] << " <send|receive> <serial_port> <baud_rate> <udp_ip> <udp_port>\n";
         return 1;
     }
 
