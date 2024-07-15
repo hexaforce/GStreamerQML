@@ -18,7 +18,6 @@ def device_to_dict(device):
         "Device": device.get_display_name(),
     }
 
-    # Get properties
     properties = device.get_properties()
     if properties is not None:
         n_fields = properties.n_fields()
