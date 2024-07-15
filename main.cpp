@@ -8,6 +8,8 @@
 #include <QQuickWindow>
 #include <gst/gst.h>
 
+#include "VideoStreamInfo.h"
+
 enum class CodecType
 {
   H264,
@@ -154,6 +156,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
+    qmlRegisterType<VideoStreamInfo>("jp.fpv.VideoStreamInfo", 1, 0, "VideoStreamInfo");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

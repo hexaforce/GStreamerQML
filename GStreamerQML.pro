@@ -18,13 +18,15 @@ INCLUDEPATH += src
 HEADERS += src/pipeline_thread.h \
            src/process_runner.h \
            src/udp_receiver.h \
+           src/VideoStreamInfo.h \
            src/q_network.h
 
 SOURCES += main.cpp \
            src/pipeline_thread.cpp  \
            src/process_runner.cpp \
            src/udp_receiver.cpp \
-           src/q_network.cpp \
+           src/VideoStreamInfo.cpp \
+           src/q_network.cpp
 
 RESOURCES += qml.qrc
 

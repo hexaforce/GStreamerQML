@@ -57,9 +57,8 @@ Item {
                 id: deviceComboBox
                 width: 240
                 model: q_Network.getWifiDevices()
-                
                 onCurrentIndexChanged: {
-                    deviceInfoText.text = ""
+
                 }
             }
             Rectangle {
