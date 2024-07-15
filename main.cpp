@@ -1,4 +1,4 @@
-#include "set_playing.h"
+#include "pipeline_thread.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
     videoItem = rootObject->findChild<QQuickItem *>("videoItem");
     g_object_set(sink, "widget", videoItem, NULL);
 
-    rootObject->scheduleRenderJob(new SetPlaying(pipeline), QQuickWindow::BeforeSynchronizingStage);
+    rootObject->scheduleRenderJob(new PipelineThread(pipeline), QQuickWindow::BeforeSynchronizingStage);
 
     ret = app.exec();
 

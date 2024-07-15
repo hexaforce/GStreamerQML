@@ -14,10 +14,11 @@ DEFINES += GST_USE_UNSTABLE_API
 INCLUDEPATH += ../lib
 INCLUDEPATH += message
 
-HEADERS += set_playing.h \
+HEADERS += pipeline_thread.h \
            process_runner.h 
 
 SOURCES += main.cpp \
+           pipeline_thread.cpp  \
            process_runner.cpp 
 
 RESOURCES += qml.qrc
