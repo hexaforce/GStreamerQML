@@ -1,6 +1,6 @@
 # GStreamerQML Data
 ```bash
-g++ -o UdpStreamer SerialToUdpStreamer.cpp UdpReceiver.cpp main.cpp
+g++ -o UdpStreamer SerialToUdpStreamer.cpp Udp_receiver.cpp main.cpp
 
 ./UdpStreamer send シリアルポート ボーレート 送信先IPアドレス 受信側ポート
 ./UdpStreamer send /dev/ttyUSB0 115200 127.0.0.1 5005

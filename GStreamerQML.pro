@@ -17,12 +17,12 @@ INCLUDEPATH += src
 
 HEADERS += src/pipeline_thread.h \
            src/process_runner.h \
-           src/UdpReceiver.h
+           src/Udp_receiver.h
 
 SOURCES += main.cpp \
            src/pipeline_thread.cpp  \
            src/process_runner.cpp \
-           src/UdpReceiver.cpp
+           src/Udp_receiver.cpp
 
 RESOURCES += qml.qrc
 

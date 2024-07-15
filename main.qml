@@ -7,8 +7,8 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
-import jp.fpv 1.0
-import com.example.UdpReceiver 1.0 
+import jp.fpv.processrunner 1.0
+import jp.fpv.UdpReceiver 1.0 
 
 ApplicationWindow {
     id: window
