@@ -5,10 +5,18 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
+import jp.fpv.IwconfigInfo 1.0 
+
 Item {
     focus: true
     width: 960
     height: 540
+
+
+    IwconfigInfo {
+        id: iwconfigInfo
+    }
+
     Row {
         Column {
             Text {
@@ -45,6 +53,15 @@ Item {
             }
         }
         Column {
+            ComboBox {
+                id: deviceComboBox
+                width: 240
+                model: iwconfigInfo.getWifiDevices()
+                
+                onCurrentIndexChanged: {
+                    deviceInfoText.text = ""
+                }
+            }
             Rectangle {
                 width: 400
                 height: 300
