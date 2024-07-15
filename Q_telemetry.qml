@@ -12,26 +12,36 @@ Item {
     Row {
         Column {
             Text {
-                text: "This is page1"
+                text: "This is Telemetry"
             }
             Button {
                 text: "Go Back"
                 Material.foreground: Material.Primary
                 onClicked: stack.pop(stack.find(function(item) {
-                    return item.name === "page1"
+                    return item.name === "q_telemetry"
                 }))
             }
             Button {
-                text: "Go page1"
+                text: "Go Network"
                 Material.foreground: Material.Primary
-                onClicked: stack.push(page1)
-                enabled: false
-                opacity: enabled ? 1.0 : 0.75
+                onClicked: stack.push(q_network)
             }
             Button {
-                text: "Go page2"
+                text: "Go Video"
                 Material.foreground: Material.Primary
-                onClicked: stack.push(page2)
+                onClicked: stack.push(q_video)
+            }
+            Button {
+                text: "Go Audio"
+                Material.foreground: Material.Primary
+                onClicked: stack.push(q_audio)
+            }
+            Button {
+                text: "Go Telemetry"
+                Material.foreground: Material.Primary
+                onClicked: stack.push(q_telemetry)
+                enabled: false
+                opacity: enabled ? 1.0 : 0.75
             }
         }
         Column {

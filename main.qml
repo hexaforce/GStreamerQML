@@ -40,7 +40,6 @@ ApplicationWindow {
     Item {
         anchors.fill: parent
         GstGLVideoItem {
-            id: video
             objectName: "videoItem"
             anchors.centerIn: parent
             width: parent.width
@@ -70,7 +69,7 @@ ApplicationWindow {
                     onClicked: {
                         processRunner.runCommand("v4l2-ctl", ["--list-devices"])
                         console.log(processRunner.result)
-                        stack.push(page1)
+                        stack.push(q_network)
                     }
                 }
             }
@@ -78,22 +77,22 @@ ApplicationWindow {
     }
 
     Component {
-        id: page1
+        id: q_network
         Q_network { }
     }
 
     Component {
-        id: page2
+        id: q_video
         Q_video { }
     }
 
     Component {
-        id: page3
+        id: q_audio
         Q_audio { }
     }
 
     Component {
-        id: page4
+        id: q_telemetry
         Q_telemetry { }
     }
 }
