@@ -75,6 +75,9 @@ int main(int argc, char *argv[]) {
     gst_object_unref(deviceMonitor);
 
     Json::StreamWriterBuilder writer;
+    writer["emitUTF8"] = true;
+    writer["indentation"] = "  ";
+
     std::string output = Json::writeString(writer, devicesArray);
     std::cout << output << std::endl;
 
