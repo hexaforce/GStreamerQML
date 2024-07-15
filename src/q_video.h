@@ -1,15 +1,15 @@
-#ifndef VIDEOSTREAMINFO_H
-#define VIDEOSTREAMINFO_H
+#ifndef Q_VIDEO_H
+#define Q_VIDEO_H
 
 #include <QObject>
 #include <QString>
 #include <QStringList>
 
-class VideoStreamInfo : public QObject
+class Q_Video : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoStreamInfo(QObject *parent = nullptr);
+    explicit Q_Video(QObject *parent = nullptr);
 
 public slots:
     QString getVideoStreamOutput();
@@ -21,4 +21,4 @@ private:
     QStringList parseVideoOutput(const QString &output);
 };
 
-#endif // VIDEOSTREAMINFO_H
+#endif // Q_VIDEO_H

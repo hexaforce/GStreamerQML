@@ -1,10 +1,10 @@
-#include "VideoStreamInfo.h"
+#include "q_video.h"
 #include <QProcess>
 #include <QDebug>
 
-VideoStreamInfo::VideoStreamInfo(QObject *parent) : QObject(parent) {}
+Q_Video::Q_Video(QObject *parent) : QObject(parent) {}
 
-QString VideoStreamInfo::getVideoStreamOutput() {
+QString Q_Video::getVideoStreamOutput() {
     QProcess process;
     process.start("v4l2-ctl", QStringList() << "--list-devices");
 
@@ -18,12 +18,12 @@ QString VideoStreamInfo::getVideoStreamOutput() {
     return result;
 }
 
-QStringList VideoStreamInfo::getVideoDevices() {
+QStringList Q_Video::getVideoDevices() {
     QString output = getVideoStreamOutput();
     return parseVideoOutput(output);
 }
 
-QStringList VideoStreamInfo::parseVideoOutput(const QString &output) {
+QStringList Q_Video::parseVideoOutput(const QString &output) {
     QStringList videos;
     QStringList lines = output.split('\n');
 
@@ -39,7 +39,7 @@ QStringList VideoStreamInfo::parseVideoOutput(const QString &output) {
     return videos;
 }
 
-QString VideoStreamInfo::getVideoFormats(const QString &device) {
+QString Q_Video::getVideoFormats(const QString &device) {
     QProcess process;
     process.start("v4l2-ctl", QStringList() << "--list-formats-ext" << "-d" << device);
 
@@ -52,7 +52,7 @@ QString VideoStreamInfo::getVideoFormats(const QString &device) {
     return result;
 }
 
-QString VideoStreamInfo::getVideoDeviceDetails(const QString &device) {
+QString Q_Video::getVideoDeviceDetails(const QString &device) {
     QProcess process;
     process.start("v4l2-ctl", QStringList() << "-d" << device << "--all");
 
