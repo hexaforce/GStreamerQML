@@ -86,4 +86,14 @@ ApplicationWindow {
         id: page2
         Q_video { }
     }
+
+    Component {
+        id: page3
+        Q_audio { }
+    }
+
+    Component {
+        id: page4
+        Q_telemetry { }
+    }
 }
