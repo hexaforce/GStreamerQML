@@ -1,25 +1,30 @@
 #include "device_monitor.h"
-#include <json/json.h>
-#include <iostream>
-#include <string>
 
-Json::Value capsToJson(GstCaps *caps) {
-    Json::Value capsArray(Json::arrayValue);
+#include <QJsonDocument>
+#include <QJsonObject>
+
+DeviceMonitor::DeviceMonitor(QObject *parent) : QObject(parent) {
+    gst_init(nullptr, nullptr);
+}
+
+QJsonArray DeviceMonitor::capsToJson(GstCaps *caps) {
+    QJsonArray capsArray;
 
     for (guint i = 0; i < gst_caps_get_size(caps); ++i) {
         GstStructure *structure = gst_caps_get_structure(caps, i);
         gchar *capsString = gst_structure_to_string(structure);
-        capsArray.append(capsString);
+        capsArray.append(QString(capsString));
         g_free(capsString);
     }
 
     return capsArray;
 }
 
-Json::Value deviceToJson(GstElementFactory *factory) {
-    Json::Value deviceJson;
+QJsonArray DeviceMonitor::deviceToJson(GstElementFactory *factory) {
+    QJsonArray devicesArray;
+    QJsonObject deviceJson;
     const gchar *deviceName = gst_plugin_feature_get_name(GST_PLUGIN_FEATURE(factory));
-    deviceJson["Device"] = deviceName;
+    deviceJson["Device"] = QString(deviceName);
 
     const GList *padTemplates = gst_element_factory_get_static_pad_templates(factory);
 
@@ -34,31 +39,27 @@ Json::Value deviceToJson(GstElementFactory *factory) {
         }
     }
 
-    return deviceJson;
+    devicesArray.append(deviceJson);
+
+    return devicesArray;
 }
 
-std::string listDevices(const std::string &deviceType) {
-    gst_init(nullptr, nullptr);
-
+QString DeviceMonitor::listDevices(const QString &deviceType) {
     GstRegistry *registry = gst_registry_get();
     GList *features = gst_registry_get_feature_list(registry, GST_TYPE_ELEMENT_FACTORY);
 
-    Json::Value devicesArray(Json::arrayValue);
+    QJsonArray devicesArray;
 
     for (GList *l = features; l != nullptr; l = l->next) {
         GstElementFactory *factory = GST_ELEMENT_FACTORY(l->data);
 
-        if (g_strrstr(gst_element_factory_get_klass(factory), ("Source/" + deviceType).c_str())) {
+        if (g_strrstr(gst_element_factory_get_klass(factory), ("Source/" + deviceType.toStdString()).c_str())) {
             devicesArray.append(deviceToJson(factory));
         }
     }
 
     g_list_free(features);
 
-    Json::StreamWriterBuilder writer;
-    std::string output = Json::writeString(writer, devicesArray);
-std::cout << output << std::endl;
-
-    gst_deinit();
-    return output;
+    QJsonDocument doc(devicesArray);
+    return QString(doc.toJson(QJsonDocument::Compact));
 }

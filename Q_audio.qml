@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 import jp.fpv.Q_Audio 1.0 
+import DeviceMonitor 1.0
 
 Item {
     focus: true
@@ -15,7 +16,9 @@ Item {
     Q_Audio {
         id: q_Audio
     }
-
+    DeviceMonitor {
+        id: deviceMonitor
+    }
     Row {
         Column {
             Text {
@@ -52,6 +55,18 @@ Item {
             }
         }
         Column {
+            Button {
+                text: "List Audio Devices"
+                onClicked: {
+                    console.log(deviceMonitor.listDevices("Audio"))
+                }
+            }
+            Button {
+                text: "List Video Devices"
+                onClicked: {
+                    console.log(deviceMonitor.listDevices("Video"))
+                }
+            }
             Rectangle {
                 width: 400
                 height: 300
