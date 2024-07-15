@@ -1,92 +1,82 @@
 #include <gst/gst.h>
-#include <gst/gstdevice.h>
 #include <json/json.h>
 #include <iostream>
+#include <string>
 
-std::string capsToString(GstCaps *caps) {
-    std::vector<std::string> capsList;
+Json::Value capsToJson(GstCaps *caps) {
+    Json::Value capsArray(Json::arrayValue);
+
     for (guint i = 0; i < gst_caps_get_size(caps); ++i) {
         GstStructure *structure = gst_caps_get_structure(caps, i);
-        gchar *structureStr = gst_structure_to_string(structure);
-        capsList.push_back(structureStr);
-        g_free(structureStr);
+        gchar *capsString = gst_structure_to_string(structure);
+        capsArray.append(capsString);
+        g_free(capsString);
     }
-    Json::Value jsonCaps(Json::arrayValue);
-    for (const auto &cap : capsList) {
-        jsonCaps.append(cap);
-    }
-    Json::StreamWriterBuilder writer;
-    return Json::writeString(writer, jsonCaps);
+
+    return capsArray;
 }
 
 Json::Value deviceToJson(GstDevice *device) {
-    Json::Value deviceInfo;
-    deviceInfo["Device"] = gst_device_get_display_name(device);
+    Json::Value deviceJson;
+    const gchar *deviceName = gst_device_get_display_name(device);
+    deviceJson["Device"] = deviceName;
 
-    // Get properties
-    GObject *obj = G_OBJECT(device);
-    GParamSpec **props;
-    guint nProps;
-    props = g_object_class_list_properties(G_OBJECT_GET_CLASS(obj), &nProps);
+    GstStructure *properties = gst_device_get_properties(device);
+    if (properties) {
+        const gchar *name;
+        const GValue *value;
 
-    Json::Value properties(Json::objectValue);
-    for (guint i = 0; i < nProps; ++i) {
-        GParamSpec *prop = props[i];
-        GValue value = G_VALUE_INIT;
-        g_value_init(&value, prop->value_type);
-        g_object_get_property(obj, prop->name, &value);
-        if (G_VALUE_HOLDS_STRING(&value)) {
-            properties[prop->name] = g_value_get_string(&value);
-        } else if (G_VALUE_HOLDS_INT(&value)) {
-            properties[prop->name] = g_value_get_int(&value);
-        } else if (G_VALUE_HOLDS_FLOAT(&value)) {
-            properties[prop->name] = g_value_get_float(&value);
-        } else if (G_VALUE_HOLDS_BOOLEAN(&value)) {
-            properties[prop->name] = g_value_get_boolean(&value);
-        } else {
-            gchar *valueStr = g_strdup_value_contents(&value);
-            properties[prop->name] = valueStr;
-            g_free(valueStr);
+        for (guint i = 0; i < gst_structure_n_fields(properties); ++i) {
+            name = gst_structure_nth_field_name(properties, i);
+            value = gst_structure_get_value(properties, name);
+
+            if (G_VALUE_HOLDS_STRING(value)) {
+                deviceJson[name] = g_value_get_string(value);
+            } else if (G_VALUE_HOLDS_INT(value)) {
+                deviceJson[name] = g_value_get_int(value);
+            } else if (G_VALUE_HOLDS_BOOLEAN(value)) {
+                deviceJson[name] = g_value_get_boolean(value);
+            } else if (G_VALUE_HOLDS_FLOAT(value)) {
+                deviceJson[name] = g_value_get_float(value);
+            } else {
+                deviceJson[name] = "Unsupported value type";
+            }
         }
-        g_value_unset(&value);
-    }
-    g_free(props);
-    deviceInfo["properties"] = properties;
 
-    // Get caps information
+        gst_structure_free(properties);
+    }
+
     GstCaps *caps = gst_device_get_caps(device);
     if (caps) {
-        deviceInfo["caps"] = capsToString(caps);
+        deviceJson["caps"] = capsToJson(caps);
         gst_caps_unref(caps);
     }
 
-    return deviceInfo;
-}
-
-void free_device_list(GList *deviceList) {
-    g_list_free_full(deviceList, (GDestroyNotify) gst_object_unref);
+    return deviceJson;
 }
 
 int main(int argc, char *argv[]) {
     gst_init(&argc, &argv);
 
     GstDeviceMonitor *deviceMonitor = gst_device_monitor_new();
-    gst_device_monitor_add_filter(deviceMonitor, "Audio/Source", NULL);
+    gst_device_monitor_add_filter(deviceMonitor, "Audio/Source", nullptr);
 
-    GList *deviceList = gst_device_monitor_get_devices(deviceMonitor);
-    Json::Value devices(Json::arrayValue);
-    for (GList *l = deviceList; l != NULL; l = l->next) {
+    gst_device_monitor_start(deviceMonitor);
+    GList *devices = gst_device_monitor_get_devices(deviceMonitor);
+    Json::Value devicesArray(Json::arrayValue);
+
+    for (GList *l = devices; l != nullptr; l = l->next) {
         GstDevice *device = GST_DEVICE(l->data);
-        devices.append(deviceToJson(device));
+        devicesArray.append(deviceToJson(device));
+        gst_object_unref(device);
     }
-    free_device_list(deviceList);
+
+    g_list_free(devices);
+    gst_object_unref(deviceMonitor);
 
     Json::StreamWriterBuilder writer;
-    writer["indentation"] = "  "; // インデントを設定
-    std::cout << Json::writeString(writer, devices) << std::endl;
-
-    gst_object_unref(deviceMonitor);
-    gst_deinit();
+    std::string output = Json::writeString(writer, devicesArray);
+    std::cout << output << std::endl;
 
     return 0;
 }
