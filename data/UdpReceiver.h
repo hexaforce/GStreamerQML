@@ -1,17 +1,21 @@
-#ifndef UDP_RECEIVER_H
-#define UDP_RECEIVER_H
+// UdpReceiver.h
+#ifndef UDPRECEIVER_H
+#define UDPRECEIVER_H
 
-class UdpReceiver {
+#include <string>
+
+class UdpReceiver
+{
 public:
-    UdpReceiver(unsigned short udpPort);
+    UdpReceiver(const std::string &ip, unsigned short port);
     ~UdpReceiver();
-    void startReceiving();
+
+    void startListening();
 
 private:
     int udp_socket;
+    std::string udp_ip;
     unsigned short udp_port;
-
-    void setupUdpSocket();
 };
 
-#endif // UDP_RECEIVER_H
+#endif // UDPRECEIVER_H

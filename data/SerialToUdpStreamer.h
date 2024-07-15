@@ -3,9 +3,10 @@
 
 #include <string>
 
-class SerialToUdpStreamer {
+class SerialToUdpStreamer
+{
 public:
-    SerialToUdpStreamer(const std::string& serialPort, unsigned int baudRate, const std::string& udpIp, unsigned short udpPort);
+    SerialToUdpStreamer(const std::string &serialPort, unsigned int baudRate, const std::string &udpIp, unsigned short udpPort);
     ~SerialToUdpStreamer();
     void startStreaming();
 
