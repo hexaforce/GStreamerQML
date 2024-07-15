@@ -37,30 +37,15 @@ ApplicationWindow {
         udpReceiver.startListening(5009)
     }
 
-    Image {
-        layer.enabled: true
-        x:10
-        y:10
-        source: "icons/online-streaming-icon.svg"
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                // stack.push(receiverWifi)
-                processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                console.log(processRunner.result)
-            }
-        }
+    StackView {
+        id: stack
+        initialItem: mainView
+        anchors.fill: parent
     }
 
     Item {
+        id: mainView
         anchors.fill: parent
-        // Button {
-        //     text: "List Devices"
-        //     onClicked: {
-        //         processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-        //         console.log(processRunner.result)
-        //     }
-        // }
         GstGLVideoItem {
             id: video
             objectName: "videoItem"
@@ -68,39 +53,103 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
         }
-
-        // Rectangle {
-        //     color: Qt.rgba(1, 1, 1, 0.7)
-        //     border.width: 1
-        //     border.color: "white"
-        //     anchors.bottom: video.bottom
-        //     anchors.bottomMargin: 15
-        //     anchors.horizontalCenter: parent.horizontalCenter
-        //     width : parent.width - 30
-        //     height: parent.height - 30
-        //     radius: 8
-
-        //     MouseArea {
-        //         id: mousearea
-        //         anchors.fill: parent
-        //         hoverEnabled: true
-        //         onEntered: {
-        //             // parent.opacity = 1.0
-        //             processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-        //             console.log(processRunner.result)
-        //             // hidetimer.start()
-        //         }
-        //     }
-
-        //     // Timer {
-        //     //     id: hidetimer
-        //     //     interval: 5000
-        //     //     onTriggered: {
-        //     //         parent.opacity = 0.0
-        //     //         stop()
-        //     //     }
-        //     // }
-        // }
+        Image {
+            layer.enabled: true
+            x:10
+            y:10
+            source: "icons/online-streaming-icon.svg"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                    console.log(processRunner.result)
+                    stack.push(page1)
+                }
+            }
+        }
     }
 
+    Component {
+        id: page1
+        Item {
+            focus: true
+            width: 640
+            height: 480
+            Row{
+                Column {
+                    Text {
+                        text: "This is page1"
+                    }
+                    Button {
+                        text: "Go Back"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.pop(stack.find(function(item) {
+                            return item.name === "page1"
+                        }))
+                    }
+                    Button {
+                        text: "Go page1"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.push(page1)
+                        enabled: false
+                        opacity: enabled ? 1.0 : 0.75
+                    }
+                    Button {
+                        text: "Go page2"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.push(page2)
+                    }
+                }
+                Column {
+                    Rectangle {
+                        width: 400
+                        height: 300
+                        color: "red"
+                    }
+                }
+            }
+        }
+    }
+    Component {
+        id: page2
+        Item {
+            focus: true
+            width: 640
+            height: 480
+            Row{
+                Column {
+                    Text {
+                        text: "This is page2"
+                    }
+                    Button {
+                        text: "Go Back"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.pop(stack.find(function(item) {
+                            return item.name === "page2"
+                        }))
+                    }
+                    Button {
+                        text: "Go page1"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.push(page1)
+                    }
+                    Button {
+                        text: "Go page2"
+                        Material.foreground: Material.Primary
+                        onClicked: stack.push(page2)
+                        enabled: false
+                        opacity: enabled ? 1.0 : 0.75
+                    }
+                }
+                Column {
+                    Rectangle {
+                        width: 400
+                        height: 300
+                        color: "blue"
+                    }
+
+                }
+            }
+        }
+    }
 }
