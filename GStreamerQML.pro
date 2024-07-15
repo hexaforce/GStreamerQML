@@ -15,15 +15,10 @@ INCLUDEPATH += ../lib
 INCLUDEPATH += message
 
 HEADERS += set_playing.h \
-           process_runner.h \
-           protobuf_handler.h \
-           message/message.pb.h
+           process_runner.h 
 
 SOURCES += main.cpp \
-           process_runner.cpp \
-           protobuf_handler.cpp \
-           set_playing.cpp \
-           message/message.pb.cc
+           process_runner.cpp 
 
 RESOURCES += qml.qrc
 

@@ -148,7 +148,8 @@ int main(int argc, char *argv[])
     setupH26xReceivePipeline_SoftwareDecoding(pipeline, sink, port, CodecType::H264, VendorType::Libav);
     // setupH265ReceivePipeline(pipeline, sink, port);
     // setupJpegReceivePipeline(pipeline, sink, port);
-    qmlRegisterType<ProtobufHandler>("com.example", 1, 0, "ProtobufHandler");
+
+    // qmlRegisterType<ProtobufHandler>("com.example", 1, 0, "ProtobufHandler");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

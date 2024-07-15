@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
-import com.example 1.0
+
 
 ApplicationWindow {
     id: window
@@ -15,9 +15,7 @@ ApplicationWindow {
     x: 30
     y: 30
     color: "black"
-    ProtobufHandler {
-        id: protobufHandler // QML内で使う場合はインスタンスを生成する
-    }
+
     Item {
         anchors.fill: parent
 
@@ -61,24 +59,4 @@ ApplicationWindow {
         }
     }
 
-    Item {
-        Text {
-            id: receivedMessage
-            text: "Waiting for message..."
-            anchors.centerIn: parent
-        }
-
-        Connections {
-            target: protobufHandler
-            function onMessageReceived() {
-                receivedMessage.text = "Received Message: " + protobufHandler.receivedMessage
-            }
-        }
-
-        Component.onCompleted: {
-            // Simulate receiving protobuf data
-            var base64Data = "CgwDaGVsbG8Hd29ybGQ="; // base64-encoded protobuf data
-            protobufHandler.receiveData(base64Data);
-        }
-    }
 }
