@@ -5,10 +5,17 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
+import jp.fpv.Q_Audio 1.0 
+
 Item {
     focus: true
     width: 960
     height: 540
+
+    Q_Audio {
+        id: q_Audio
+    }
+
     Row {
         Column {
             Text {

@@ -12,7 +12,6 @@ Item {
     width: 960
     height: 540
 
-
     Q_Network {
         id: q_Network
     }

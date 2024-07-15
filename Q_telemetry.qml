@@ -5,10 +5,17 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
+import jp.fpv.Q_Velemetry 1.0 
+
 Item {
     focus: true
     width: 960
     height: 540
+
+    Q_Velemetry {
+        id: q_Velemetry
+    }
+
     Row {
         Column {
             Text {
