@@ -1,5 +1,4 @@
 #include "set_playing.h"
-#include "protobuf_handler.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
