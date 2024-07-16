@@ -1,43 +1,70 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 Item {
+    default property var contentItem: null
+    property string title: "panel"
     id: root
-    width: parent.width
+    Layout.fillWidth: true
+    height: 30
+    Layout.fillHeight: current
+    property bool current: false
 
-    property alias title: sectionTitle.text
-    default property alias contentData: sectionContent.data
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 0
+        Rectangle {
+            id: bar
+            Layout.fillWidth: true
+            height: 30
+            color:  root.current ? "#81BEF7" : "#CEECF5"
+            Text {
+                anchors.fill: parent
+                anchors.margins: 10
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                text: root.title
+            }
 
-    signal toggled(bool expanded)
+            Text {
+                anchors{
+                    right: parent.right
+                    top: parent.top
+                    bottom: parent.bottom
+                    margins: 10
+                }
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+                text: "^"
+                rotation: root.current ? "180" : 0
+            }
 
-    Rectangle {
-        id: header
-        width: parent.width
-        height: 40
-        color: "lightgray"
-        border.color: "gray"
-        MouseArea {
-            id: headerMouseArea
-            anchors.fill: parent
-            onClicked: sectionContent.visible = !sectionContent.visible
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    root.current = !root.current;
+                    if(root.parent.currentItem !== null)
+                        root.parent.currentItem.current = false;
+
+                    root.parent.currentItem = root;
+                }
+            }
         }
 
-        Text {
-            id: sectionTitle
-            anchors.centerIn: parent
+        Rectangle {
+            id: container
+            Layout.fillWidth: true
+            implicitHeight: root.height - bar.height
+            clip: true
+            Behavior on implicitHeight {
+                PropertyAnimation { duration: 100 }
+            }
         }
-    }
 
-    Column {
-        id: sectionContent
-        width: parent.width
-        visible: false
-
-        anchors.top: header.bottom
+        Component.onCompleted: {
+            if(root.contentItem !== null)
+                root.contentItem.parent = container;
+        }
+        
     }
-
-    onToggled: {
-        sectionContent.visible = expanded
-    }
-    
 }

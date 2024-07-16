@@ -2,9 +2,7 @@
     <qresource prefix="/">
         <file>icons/online-streaming-icon.svg</file>
         <file>main.qml</file>
-        <file>PanelItem.qml</file>
         <file>AccordionSection.qml</file>
-        <file>AccItem.qml</file>
         <file>Q_network.qml</file>
         <file>Q_video.qml</file>
         <file>Q_audio.qml</file>

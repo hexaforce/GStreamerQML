@@ -58,74 +58,47 @@ Item {
         //         color: "yellow"
         //     }
         // }
-
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 1
-            property var currentItem: null
-            PanelItem {
-                title: "Panel 1"
-                Rectangle {
-                    color: "orange"
-                    anchors.fill: parent
+        Item {
+            visible: true
+            width: 460
+            height: 340
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 1
+                property var currentItem: null
+                AccordionSection {
+                    title: "Panel 1"
+                    Rectangle {
+                        color: "orange"
+                        anchors.fill: parent
+                    }
                 }
-            }
-            PanelItem {
-                title: "Panel 2"
-                Rectangle {
-                    color: "lightgreen"
-                    anchors.fill: parent
+                AccordionSection {
+                    title: "Panel 2"
+                    Rectangle {
+                        color: "lightgreen"
+                        anchors.fill: parent
+                    }
                 }
-            }
-            PanelItem {
-                title: "Panel 3"
-                Rectangle {
-                    color: "lightblue"
-                    anchors.fill: parent
+                AccordionSection {
+                    title: "Panel 3"
+                    Rectangle {
+                        color: "lightblue"
+                        anchors.fill: parent
+                    }
                 }
-            }
-            PanelItem {
-                title: "Panel 4"
-                Rectangle {
-                    color: "yellow"
-                    anchors.fill: parent
+                AccordionSection {
+                    title: "Panel 4"
+                    Rectangle {
+                        color: "yellow"
+                        anchors.fill: parent
+                    }
                 }
-            }
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
             }
         }
-
-        // Column {
-        //     spacing: 5
-        //     AccItem {
-        //         Rectangle {
-        //             width: 50
-        //             height: 50
-        //             radius: 50
-        //             color: "blue"
-        //             anchors.centerIn: parent
-        //         }
-        //     }
-        //     AccItem {
-        //         Rectangle {
-        //             width: 100
-        //             height: 100
-        //             radius: 50
-        //             color: "yellow"
-        //             anchors.centerIn: parent
-        //         }
-        //     }
-        //     AccItem {
-        //         Rectangle {
-        //             width: 75
-        //             height: 75
-        //             radius: 50
-        //             color: "cyan"
-        //             anchors.centerIn: parent
-        //         }
-        //     }
-        // }
     }
 }
