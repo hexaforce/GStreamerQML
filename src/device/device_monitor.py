@@ -48,7 +48,8 @@ def main():
     Gst.init(None)
 
     device_monitor = Gst.DeviceMonitor.new()
-    device_monitor.add_filter("Audio/Source", None)
+    device_monitor.add_filter("Video/Source", None)
+    # device_monitor.add_filter("Audio/Source", None)
 
     device_list = device_monitor.get_devices()
 
