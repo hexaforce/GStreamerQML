@@ -25,12 +25,7 @@ Item {
             visible: true
             width: 600
             height: 500
-            Button {
-                text: "List Video Devices"
-                onClicked: {
-                    console.log(deviceMonitor.listDevices("Video"))
-                }
-            }
+
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1

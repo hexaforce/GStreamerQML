@@ -25,7 +25,6 @@ Item {
             width: 600
             height: 500
 
-
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1
