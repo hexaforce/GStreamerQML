@@ -5,7 +5,19 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QProcessEnvironment>
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QProcessEnvironment>
 class Q_Network : public QObject
 {
     Q_OBJECT
@@ -13,6 +25,7 @@ public:
     explicit Q_Network(QObject *parent = nullptr);
 
 public slots:
+    QString getNetworkInfoAsJson();
     QString getIwconfigOutput();
     QStringList getWifiDevices();
     QString getDeviceStatus(const QString &device);

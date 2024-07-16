@@ -7,7 +7,7 @@ gst-device-monitor-1.0 Audio/Sink
 gst-inspect-1.0
 gst-launch-1.0
 
-
+░░░░░░
 gst-launch-1.0 audiotestsrc ! audioconvert ! audioresample ! autoaudiosink
 gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
 

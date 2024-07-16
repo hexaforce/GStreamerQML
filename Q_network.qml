@@ -14,26 +14,63 @@ Item {
         id: q_Network
     }
 
+    Component.onCompleted: {
+        console.log(q_Network.getNetworkInfoAsJson())
+    }
+
     Row {
         
         SideMenu {
             current: "q_network"
         }
 
-        Column {
-            ComboBox {
-                id: deviceComboBox
-                width: 240
-                model: q_Network.getWifiDevices()
-                onCurrentIndexChanged: {
+        Item {
+            visible: true
+            width: 600
+            height: 500
 
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 1
+                property var currentItem: null
+                Repeater {
+                    model: [
+                        { title: "Panel 1", color: "orange" },
+                        { title: "Panel 2", color: "lightgreen" },
+                        { title: "Panel 3", color: "lightblue" },
+                        { title: "Panel 4", color: "yellow" }
+                    ]
+                    delegate: AccordionSection {
+                        required property var modelData
+                        title: modelData.title
+                        contentItem: Rectangle {
+                            color: modelData.color
+                            anchors.fill: parent
+                        }
+                    }
+                }
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
-            Rectangle {
-                width: 400
-                height: 300
-                color: "red"
-            }
+
         }
+
+        // Column {
+        //     ComboBox {
+        //         id: deviceComboBox
+        //         width: 240
+        //         model: q_Network.getNetworkInfoAsJson()
+        //         onCurrentIndexChanged: {
+
+        //         }
+        //     }
+        //     Rectangle {
+        //         width: 400
+        //         height: 300
+        //         color: "red"
+        //     }
+        // }
     }
 }
