@@ -101,4 +101,5 @@ ApplicationWindow {
         id: q_telemetry
         Q_telemetry {  }
     }
+
 }
