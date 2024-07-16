@@ -5,8 +5,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Audio 1.0 
-import DeviceMonitor 1.0
+import jp.fpv.Q_Audio 1.0
 
 Item {
     focus: true
@@ -14,9 +13,7 @@ Item {
     Q_Audio {
         id: q_Audio
     }
-    DeviceMonitor {
-        id: deviceMonitor
-    }
+
     Row {
 
         SideMenu {

@@ -22,14 +22,14 @@ Item {
         }
 
         Column {
-            ComboBox {
-                id: cameraComboBox
-                width: 240
-                // model: q_Video.getVideoDevices()
-                onCurrentIndexChanged: {
+            // ComboBox {
+            //     id: cameraComboBox
+            //     width: 240
+            //     // model: q_Video.getVideoDevices()
+            //     onCurrentIndexChanged: {
 
-                }
-            }
+            //     }
+            // }
             Rectangle {
                 width: 400
                 height: 300

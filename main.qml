@@ -7,6 +7,7 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
+import jp.fpv.DeviceMonitor 1.0
 import jp.fpv.processrunner 1.0
 import jp.fpv.UdpReceiver 1.0 
 
@@ -21,6 +22,10 @@ ApplicationWindow {
     y: (Screen.height - height) / 2
 
     Material.theme: Material.Dark
+
+    DeviceMonitor {
+        id: deviceMonitor
+    }
 
     ProcessRunner {
         id: processRunner
