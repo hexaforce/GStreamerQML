@@ -1,6 +1,6 @@
 # GStreamerQML
 ```bash
-g++ -o video_streamer src/media_transmitter/video_streamer.cpp `pkg-config --cflags --libs gstreamer-1.0`
+g++ -o video_streamer src/video_streamer.cpp src/transmit_pipelines.cpp `pkg-config --cflags --libs gstreamer-1.0`
 ./video_streamer
 
 g++ -o audio_streamer src/media_transmitter/audio_streamer.cpp `pkg-config --cflags --libs gstreamer-1.0`
