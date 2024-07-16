@@ -41,8 +41,39 @@ Item {
                         required property var modelData
                         title: modelData.Device
                         contentItem: Rectangle {
-                            color: "lightgreen"
                             anchors.fill: parent
+                            Column{
+
+                                ComboBox {
+                                    id: mediaComboBox
+                                    currentIndex: 0
+                                    model: Array.from(new Set(modelData.caps.map(cap => cap.media)))
+                                    onCurrentIndexChanged: {
+                                        let media = mediaComboBox.model[currentIndex]
+                                        resolutionComboBox.model = modelData.caps.filter(cap => cap.media === media).map(cap => cap.width+"x"+cap.height).reverse()
+                                    }
+                                }
+
+                                ComboBox {
+                                    id: resolutionComboBox
+                                    currentIndex: 0
+                                    model:[]
+                                    onCurrentIndexChanged: {
+                                        let media = mediaComboBox.currentText
+                                        let resolution = resolutionComboBox.model[currentIndex].split("x")
+                                        let width = Number(resolution[0])
+                                        let height = Number(resolution[1])
+                                        framerateComboBox.model = modelData.caps.filter(cap => cap.media === media && cap.width === width)[0].framerate
+                                    }
+                                }
+
+                                ComboBox {
+                                    id: framerateComboBox
+                                    currentIndex: 0
+                                    model:[]
+                                }
+
+                            }
                         }
                     }
                 }
