@@ -78,8 +78,8 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                        console.log(processRunner.result)
+                        // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                        // console.log(processRunner.result)
                         stack.push(q_network)
                     }
                 }

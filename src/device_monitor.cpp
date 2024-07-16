@@ -16,9 +16,61 @@ QJsonArray DeviceMonitor::capsToJson(GstCaps *caps)
     for (guint i = 0; i < gst_caps_get_size(caps); ++i)
     {
         GstStructure *structure = gst_caps_get_structure(caps, i);
-        gchar *capsString = gst_structure_to_string(structure);
-        capsArray.append(QString::fromUtf8(capsString));
-        g_free(capsString);
+        QJsonObject capsObject;
+        const gchar *mediaType = gst_structure_get_name(structure);
+        capsObject["media"] = QString::fromUtf8(mediaType);
+
+        const gchar *fieldName;
+        const GValue *value;
+        for (guint j = 0; j < gst_structure_n_fields(structure); ++j)
+        {
+            fieldName = gst_structure_nth_field_name(structure, j);
+            value = gst_structure_get_value(structure, fieldName);
+
+            if (G_VALUE_HOLDS_STRING(value))
+            {
+                capsObject[QString::fromUtf8(fieldName)] = QString::fromUtf8(g_value_get_string(value));
+            }
+            else if (G_VALUE_HOLDS_INT(value))
+            {
+                capsObject[QString::fromUtf8(fieldName)] = g_value_get_int(value);
+            }
+            else if (G_VALUE_HOLDS_BOOLEAN(value))
+            {
+                capsObject[QString::fromUtf8(fieldName)] = g_value_get_boolean(value);
+            }
+            else if (G_VALUE_HOLDS_FLOAT(value))
+            {
+                capsObject[QString::fromUtf8(fieldName)] = g_value_get_float(value);
+            }
+            else if (GST_VALUE_HOLDS_FRACTION(value))
+            {
+                int numerator = gst_value_get_fraction_numerator(value);
+                int denominator = gst_value_get_fraction_denominator(value);
+                capsObject[QString::fromUtf8(fieldName)] = QString("%1/%2").arg(numerator).arg(denominator);
+            }
+            else if (GST_VALUE_HOLDS_LIST(value))
+            {
+                QJsonArray listArray;
+                for (guint k = 0; k < gst_value_list_get_size(value); ++k)
+                {
+                    const GValue *listValue = gst_value_list_get_value(value, k);
+                    if (GST_VALUE_HOLDS_FRACTION(listValue))
+                    {
+                        int numerator = gst_value_get_fraction_numerator(listValue);
+                        int denominator = gst_value_get_fraction_denominator(listValue);
+                        listArray.append(QString("%1/%2").arg(numerator).arg(denominator));
+                    }
+                    else if (G_VALUE_HOLDS_STRING(listValue))
+                    {
+                        listArray.append(QString::fromUtf8(g_value_get_string(listValue)));
+                    }
+                }
+                capsObject[QString::fromUtf8(fieldName)] = listArray;
+            }
+        }
+
+        capsArray.append(capsObject);
     }
 
     return capsArray;

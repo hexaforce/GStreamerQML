@@ -20,20 +20,51 @@ Item {
         SideMenu {
             current: "q_video"
         }
+// console.log(deviceMonitor.listDevices("Video"))
+        // Column {
+        //     // ComboBox {
+        //     //     id: cameraComboBox
+        //     //     width: 240
+        //     //     // model: q_Video.getVideoDevices()
+        //     //     onCurrentIndexChanged: {
 
-        Column {
-            // ComboBox {
-            //     id: cameraComboBox
-            //     width: 240
-            //     // model: q_Video.getVideoDevices()
-            //     onCurrentIndexChanged: {
-
-            //     }
-            // }
-            Rectangle {
-                width: 400
-                height: 300
-                color: "blue"
+        //     //     }
+        //     // }
+        //     Rectangle {
+        //         width: 400
+        //         height: 300
+        //         color: "blue"
+        //     }
+        // }
+        Item {
+            visible: true
+            width: 600
+            height: 500
+            Button {
+                text: "List Video Devices"
+                onClicked: {
+                    console.log(deviceMonitor.listDevices("Video"))
+                }
+            }
+            ColumnLayout {
+                anchors.fill: parent
+                spacing: 1
+                property var currentItem: null
+                Repeater {
+                    model: JSON.parse(deviceMonitor.listDevices("Video"))
+                    delegate: AccordionSection {
+                        required property var modelData
+                        title: modelData.Device
+                        contentItem: Rectangle {
+                            color: "lightgreen"
+                            anchors.fill: parent
+                        }
+                    }
+                }
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
             }
         }
     }

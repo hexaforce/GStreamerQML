@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QJsonArray>
+#include <QJsonObject>
 #include <gst/gst.h>
 
 class DeviceMonitor : public QObject
