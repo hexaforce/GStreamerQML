@@ -51,13 +51,6 @@ Item {
                 opacity: enabled ? 1.0 : 0.75
             }
         }
-        // Column {
-        //     Rectangle {
-        //         width: 400
-        //         height: 300
-        //         color: "yellow"
-        //     }
-        // }
         Item {
             visible: true
             width: 460
@@ -66,32 +59,20 @@ Item {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
-                AccordionSection {
-                    title: "Panel 1"
-                    Rectangle {
-                        color: "orange"
-                        anchors.fill: parent
-                    }
-                }
-                AccordionSection {
-                    title: "Panel 2"
-                    Rectangle {
-                        color: "lightgreen"
-                        anchors.fill: parent
-                    }
-                }
-                AccordionSection {
-                    title: "Panel 3"
-                    Rectangle {
-                        color: "lightblue"
-                        anchors.fill: parent
-                    }
-                }
-                AccordionSection {
-                    title: "Panel 4"
-                    Rectangle {
-                        color: "yellow"
-                        anchors.fill: parent
+                Repeater {
+                    model: [
+                        { title: "Panel 1", color: "orange" },
+                        { title: "Panel 2", color: "lightgreen" },
+                        { title: "Panel 3", color: "lightblue" },
+                        { title: "Panel 4", color: "yellow" }
+                    ]
+                    delegate: AccordionSection {
+                        required property var modelData
+                        title: modelData.title
+                        contentItem: Rectangle {
+                            color: modelData.color
+                            anchors.fill: parent
+                        }
                     }
                 }
                 Item {
