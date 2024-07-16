@@ -94,6 +94,8 @@ QString DeviceMonitor::listDevices(const QString &deviceType)
     }
 
     g_list_free(devices);
+
+    gst_device_monitor_stop(deviceMonitor);
     gst_object_unref(deviceMonitor);
 
     QJsonDocument doc(devicesArray);
