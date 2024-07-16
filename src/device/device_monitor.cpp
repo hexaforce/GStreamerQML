@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
 
     GstDeviceMonitor *deviceMonitor = gst_device_monitor_new();
     gst_device_monitor_add_filter(deviceMonitor, "Video/Source", nullptr);
+    // gst_device_monitor_add_filter(deviceMonitor, "Audio/Source", nullptr);
 
     gst_device_monitor_start(deviceMonitor);
     GList *devices = gst_device_monitor_get_devices(deviceMonitor);
