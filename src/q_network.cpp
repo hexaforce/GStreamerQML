@@ -30,9 +30,30 @@ QString Q_Network::getNetworkInfoAsJson()
 
     QStringList lines = result.split("\n");
     QJsonObject interfaceObject;
+    QString logicalName;
+
     for (const QString &line : lines) {
         if (line.startsWith("  *-network")) {
             if (!interfaceObject.isEmpty()) {
+                if (!logicalName.isEmpty()) {
+                    // Add nmcli info
+                    QProcess nmcliProcess;
+                    nmcliProcess.setProcessEnvironment(env);
+                    nmcliProcess.start("nmcli", QStringList() << "device" << "show" << logicalName);
+                    nmcliProcess.waitForFinished(-1);
+                    QByteArray nmcliOutput = nmcliProcess.readAllStandardOutput();
+                    QString nmcliResult = QString::fromLocal8Bit(nmcliOutput);
+                    QStringList nmcliLines = nmcliResult.split("\n");
+                    QJsonObject nmcliObject;
+                    for (const QString &nmcliLine : nmcliLines) {
+                        QStringList nmcliParts = nmcliLine.split(':', Qt::SkipEmptyParts);
+                        if (nmcliParts.size() < 2) continue;
+                        QString nmcliKey = nmcliParts[0].trimmed();
+                        QString nmcliValue = nmcliParts[1].trimmed();
+                        nmcliObject[nmcliKey] = nmcliValue;
+                    }
+                    interfaceObject["nmcli_info"] = nmcliObject;
+                }
                 networkInterfaces.append(interfaceObject);
             }
             interfaceObject = QJsonObject();
@@ -43,6 +64,10 @@ QString Q_Network::getNetworkInfoAsJson()
 
         QString key = parts[0].trimmed();
         QString value = parts[1].trimmed();
+
+        if (key == "logical name") {
+            logicalName = value;
+        }
 
         if (key == "capabilities" || key == "configuration") {
             QJsonObject subObject;
@@ -61,18 +86,34 @@ QString Q_Network::getNetworkInfoAsJson()
         }
     }
     if (!interfaceObject.isEmpty()) {
+        if (!logicalName.isEmpty()) {
+            // Add nmcli info
+            QProcess nmcliProcess;
+            nmcliProcess.start("nmcli", QStringList() << "device" << "show" << logicalName);
+            nmcliProcess.waitForFinished(-1);
+            QByteArray nmcliOutput = nmcliProcess.readAllStandardOutput();
+            QString nmcliResult = QString::fromLocal8Bit(nmcliOutput);
+            QStringList nmcliLines = nmcliResult.split("\n");
+            QJsonObject nmcliObject;
+            for (const QString &nmcliLine : nmcliLines) {
+                QStringList nmcliParts = nmcliLine.split(':', Qt::SkipEmptyParts);
+                if (nmcliParts.size() < 2) continue;
+                QString nmcliKey = nmcliParts[0].trimmed();
+                QString nmcliValue = nmcliParts[1].trimmed();
+                nmcliObject[nmcliKey] = nmcliValue;
+            }
+            interfaceObject["nmcli_info"] = nmcliObject;
+        }
         networkInterfaces.append(interfaceObject);
     }
 
     QJsonObject jsonResult;
     jsonResult["network_interfaces"] = networkInterfaces;
 
-
     // Convert JSON object to a string with indented formatting
     QJsonDocument doc(jsonResult);
     return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
-
 
 QString Q_Network::getIwconfigOutput()
 {
