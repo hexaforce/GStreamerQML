@@ -10,8 +10,6 @@ import jp.fpv.Q_Video 1.0
 
 Item {
     focus: true
-    width: 960
-    height: 540
 
     Q_Video {
         id: q_Video

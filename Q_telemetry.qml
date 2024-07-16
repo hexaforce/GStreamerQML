@@ -9,8 +9,6 @@ import jp.fpv.Q_Telemetry 1.0
 
 Item {
     focus: true
-    width: 960
-    height: 540
 
     Q_Telemetry {
         id: q_Telemetry
@@ -24,8 +22,9 @@ Item {
 
         Item {
             visible: true
-            width: 460
-            height: 340
+            width: 600
+            height: 500
+
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1

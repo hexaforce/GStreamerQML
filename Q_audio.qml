@@ -10,8 +10,6 @@ import DeviceMonitor 1.0
 
 Item {
     focus: true
-    width: 960
-    height: 540
 
     Q_Audio {
         id: q_Audio

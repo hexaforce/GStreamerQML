@@ -9,8 +9,6 @@ import jp.fpv.Q_Network 1.0
 
 Item {
     focus: true
-    width: 960
-    height: 540
 
     Q_Network {
         id: q_Network
