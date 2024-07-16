@@ -44,14 +44,12 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
+                // cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    
-                    root.current = !root.current;
-                    if(root.parent.currentItem !== null)
-                        root.parent.currentItem.current = false;
-
-                    root.parent.currentItem = root;
+                    root.current = !root.current
+                    if(root.parent.currentItem !== null && root.title !== root.parent.currentItem.title)
+                        root.parent.currentItem.current = false
+                    root.parent.currentItem = root
                 }
             }
         }
@@ -63,13 +61,16 @@ Item {
             implicitHeight: root.height - bar.height
             clip: true
             Behavior on implicitHeight {
-                PropertyAnimation { duration: 100 }
+                SequentialAnimation {
+                    NumberAnimation { duration: 150 }
+                    PropertyAction { property: "opacity"; value: root.current ? 1 : 0 }
+                }
             }
         }
 
         Component.onCompleted: {
             if(root.contentItem !== null)
-                root.contentItem.parent = container;
+                root.contentItem.parent = container
         }
 
     }
