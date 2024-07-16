@@ -19,16 +19,7 @@ Item {
         SideMenu {
             current: "q_audio"
         }
-        Column {
-            width: 300
-            height: 100
-            Button {
-                text: "List Audio Devices"
-                onClicked: {
-                    console.log(deviceMonitor.listDevices("Audio"))
-                }
-            }
-        }
+
         Item {
             visible: true
             width: 600
