@@ -20,40 +20,11 @@ Item {
         id: deviceMonitor
     }
     Row {
-        Column {
-            Text {
-                text: "This is Audio"
-            }
-            Button {
-                text: "Go Back"
-                Material.foreground: Material.Primary
-                onClicked: stack.pop(stack.find(function(item) {
-                    return item.name === "q_audio"
-                }))
-            }
-            Button {
-                text: "Go Network"
-                Material.foreground: Material.Primary
-                onClicked: stack.push(q_network)
-            }
-            Button {
-                text: "Go Video"
-                Material.foreground: Material.Primary
-                onClicked: stack.push(q_video)
-            }
-            Button {
-                text: "Go Audio"
-                Material.foreground: Material.Primary
-                onClicked: stack.push(q_audio)
-                enabled: false
-                opacity: enabled ? 1.0 : 0.75
-            }
-            Button {
-                text: "Go Telemetry"
-                Material.foreground: Material.Primary
-                onClicked: stack.push(q_telemetry)
-            }
+
+        SideMenu {
+            current: "q_audio"
         }
+
         Column {
             Button {
                 text: "List Audio Devices"
