@@ -19,37 +19,22 @@ Item {
         SideMenu {
             current: "q_audio"
         }
-
-        // Column {
-        //     Button {
-        //         text: "List Audio Devices"
-        //         onClicked: {
-        //             console.log(deviceMonitor.listDevices("Audio"))
-        //         }
-        //     }
-        //     Button {
-        //         text: "List Video Devices"
-        //         onClicked: {
-        //             console.log(deviceMonitor.listDevices("Video"))
-        //         }
-        //     }
-        //     Rectangle {
-        //         width: 400
-        //         height: 300
-        //         color: "green"
-        //     }
-        // }
-
-        Item {
-            visible: true
-            width: 600
-            height: 500
+        Column {
+            width: 300
+            height: 100
             Button {
                 text: "List Audio Devices"
                 onClicked: {
                     console.log(deviceMonitor.listDevices("Audio"))
                 }
             }
+        }
+        Item {
+            visible: true
+            width: 600
+            height: 500
+
+
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1
