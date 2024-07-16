@@ -53,6 +53,26 @@ QString Q_Network::getNetworkInfoAsJson()
                         nmcliObject[nmcliKey] = nmcliValue;
                     }
                     interfaceObject["nmcli_info"] = nmcliObject;
+
+                    // Add udevadm info
+                    QProcess udevadmProcess;
+                    udevadmProcess.start("udevadm", QStringList() << "info" << "--query=all" << "--path=/sys/class/net/" + logicalName);
+                    udevadmProcess.waitForFinished(-1);
+                    QByteArray udevadmOutput = udevadmProcess.readAllStandardOutput();
+                    QString udevadmResult = QString::fromLocal8Bit(udevadmOutput);
+                    QStringList udevadmLines = udevadmResult.split("\n");
+                    QJsonObject udevadmObject;
+                    for (const QString &udevadmLine : udevadmLines) {
+                        if (udevadmLine.startsWith("E: ")) {
+                            QStringList udevadmParts = udevadmLine.mid(3).split('=');
+                            if (udevadmParts.size() == 2) {
+                                QString udevadmKey = udevadmParts[0].trimmed();
+                                QString udevadmValue = udevadmParts[1].trimmed();
+                                udevadmObject[udevadmKey] = udevadmValue;
+                            }
+                        }
+                    }
+                    interfaceObject["udevadm_info"] = udevadmObject;
                 }
                 networkInterfaces.append(interfaceObject);
             }
@@ -103,6 +123,26 @@ QString Q_Network::getNetworkInfoAsJson()
                 nmcliObject[nmcliKey] = nmcliValue;
             }
             interfaceObject["nmcli_info"] = nmcliObject;
+
+            // Add udevadm info
+            QProcess udevadmProcess;
+            udevadmProcess.start("udevadm", QStringList() << "info" << "--query=all" << "--path=/sys/class/net/" + logicalName);
+            udevadmProcess.waitForFinished(-1);
+            QByteArray udevadmOutput = udevadmProcess.readAllStandardOutput();
+            QString udevadmResult = QString::fromLocal8Bit(udevadmOutput);
+            QStringList udevadmLines = udevadmResult.split("\n");
+            QJsonObject udevadmObject;
+            for (const QString &udevadmLine : udevadmLines) {
+                if (udevadmLine.startsWith("E: ")) {
+                    QStringList udevadmParts = udevadmLine.mid(3).split('=');
+                    if (udevadmParts.size() == 2) {
+                        QString udevadmKey = udevadmParts[0].trimmed();
+                        QString udevadmValue = udevadmParts[1].trimmed();
+                        udevadmObject[udevadmKey] = udevadmValue;
+                    }
+                }
+            }
+            interfaceObject["udevadm_info"] = udevadmObject;
         }
         networkInterfaces.append(interfaceObject);
     }
