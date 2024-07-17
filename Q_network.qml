@@ -26,8 +26,7 @@ Item {
 
         Item {
             visible: true
-            width: 600
-            height: 500
+            width: 600; height: 500
 
             ColumnLayout {
                 anchors.fill: parent
@@ -40,37 +39,40 @@ Item {
                         title: "[" +modelData.nmcli_info["GENERAL.TYPE"]+"] " +modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]
                         contentItem: Rectangle {
                             anchors.fill: parent
-                            Column{
+                            ListView {
+                                width: 180; height: 200
 
-                                // ComboBox {
-                                //     id: mediaComboBox
-                                //     currentIndex: 0
-                                //     model: Array.from(new Set(modelData.caps.map(cap => cap.media)))
-                                //     onCurrentIndexChanged: {
-                                //         let media = mediaComboBox.model[currentIndex]
-                                //         resolutionComboBox.model = modelData.caps.filter(cap => cap.media === media).map(cap => cap.width+"x"+cap.height).reverse()
-                                //     }
-                                // }
+                                model: ListModel {
+                                    ListElement {
+                                        key: "key1"
+                                        value: "value1"
+                                    }
+                                    ListElement {
+                                        key: "key22222222222"
+                                        value: "value2"
+                                    }
+                                    ListElement {
+                                        key: "key3"
+                                        value: "value3"
+                                    }
+                                }
 
-                                // ComboBox {
-                                //     id: resolutionComboBox
-                                //     currentIndex: 0
-                                //     model:[]
-                                //     onCurrentIndexChanged: {
-                                //         let media = mediaComboBox.currentText
-                                //         let resolution = resolutionComboBox.model[currentIndex].split("x")
-                                //         let width = Number(resolution[0])
-                                //         let height = Number(resolution[1])
-                                //         framerateComboBox.model = modelData.caps.filter(cap => cap.media === media && cap.width === width)[0].framerate
-                                //     }
-                                // }
-
-                                // ComboBox {
-                                //     id: framerateComboBox
-                                //     currentIndex: 0
-                                //     model:[]
-                                // }
-
+                                delegate: Item {
+                                    width: 180
+                                    height: 40
+                                    RowLayout {
+                                        anchors.fill: parent
+                                        Text {
+                                            text: key
+                                            Layout.alignment: Qt.AlignLeft
+                                            Layout.fillWidth: true
+                                        }
+                                        Text {
+                                            text: value
+                                            Layout.alignment: Qt.AlignRight
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -81,23 +83,5 @@ Item {
                 }
             }
         }
-
-
-
-        // Column {
-        //     ComboBox {
-        //         id: deviceComboBox
-        //         width: 240
-        //         model: q_Network.getNetworkInfoAsJson()
-        //         onCurrentIndexChanged: {
-
-        //         }
-        //     }
-        //     Rectangle {
-        //         width: 400
-        //         height: 300
-        //         color: "red"
-        //     }
-        // }
     }
 }
