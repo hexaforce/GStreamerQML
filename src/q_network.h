@@ -25,6 +25,8 @@ public:
     explicit Q_Network(QObject *parent = nullptr);
 
 public slots:
+    QString getHostapdStatus();
+    QString getDnsmasqStatus();
     QString getNetworkInfoAsJson();
     QString getIwconfigOutput();
     QStringList getWifiDevices();
@@ -33,6 +35,7 @@ public slots:
 
 private:
     QStringList parseIwconfigOutput(const QString &output);
+    QString getSystemctlStatus(const QString &serviceName);
 };
 
 #endif // Q_NETWORK_H

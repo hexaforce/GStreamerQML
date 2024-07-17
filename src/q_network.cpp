@@ -17,6 +17,52 @@
 
 Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
+
+QString Q_Network::getSystemctlStatus(const QString &serviceName)
+{
+    QProcess process;
+    process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
+
+    QProcessEnvironment env = process.processEnvironment();
+    env.insert("LANG", "C");
+    process.setProcessEnvironment(env);
+
+    process.start("sudo", QStringList() << "systemctl" << "status" << serviceName);
+    process.waitForFinished(-1);
+
+    QByteArray output = process.readAllStandardOutput();
+    QString result = QString::fromLocal8Bit(output);
+
+    QJsonObject jsonObject;
+    QStringList lines = result.split("\n");
+    for (const QString &line : lines) {
+        QString trimmedLine = line.trimmed();
+        if (trimmedLine.isEmpty()) continue;
+
+        int colonIndex = trimmedLine.indexOf(':');
+        if (colonIndex != -1) {
+            QString key = trimmedLine.left(colonIndex).trimmed();
+            QString value = trimmedLine.mid(colonIndex + 1).trimmed();
+            jsonObject[key] = value;
+        } else {
+            jsonObject[trimmedLine] = QString();
+        }
+    }
+
+    QJsonDocument doc(jsonObject);
+    return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
+}
+
+QString Q_Network::getHostapdStatus()
+{
+    return getSystemctlStatus("hostapd");
+}
+
+QString Q_Network::getDnsmasqStatus()
+{
+    return getSystemctlStatus("dnsmasq");
+}
+
 QString Q_Network::getNetworkInfoAsJson()
 {
     QProcess process;
