@@ -17,22 +17,13 @@
 
 Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
-
-QString Q_Network::getSystemctlStatus(const QString &serviceName)
-{
+QString Q_Network::getSystemctlStatus(const QString &serviceName) {
     QProcess process;
     process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
-
-    QProcessEnvironment env = process.processEnvironment();
-    env.insert("LANG", "C");
-    process.setProcessEnvironment(env);
-
     process.start("sudo", QStringList() << "systemctl" << "status" << serviceName);
     process.waitForFinished(-1);
 
-    QByteArray output = process.readAllStandardOutput();
-    QString result = QString::fromLocal8Bit(output);
-
+    QString result = QString::fromLocal8Bit(process.readAllStandardOutput());
     QJsonObject jsonObject;
     QStringList lines = result.split("\n");
     for (const QString &line : lines) {
@@ -48,19 +39,94 @@ QString Q_Network::getSystemctlStatus(const QString &serviceName)
             jsonObject[trimmedLine] = QString();
         }
     }
-
-    QJsonDocument doc(jsonObject);
-    return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
+    return QString::fromUtf8(QJsonDocument(jsonObject).toJson(QJsonDocument::Indented));
 }
 
-QString Q_Network::getHostapdStatus()
-{
+QString Q_Network::getHostapdStatus() {
     return getSystemctlStatus("hostapd");
 }
 
-QString Q_Network::getDnsmasqStatus()
-{
+QString Q_Network::getDnsmasqStatus() {
     return getSystemctlStatus("dnsmasq");
+}
+
+QJsonArray Q_Network::parseIptablesChain(const QString &chainName, const QStringList &lines) {
+    QJsonArray chainArray;
+    QRegularExpression re(R"(\s*(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+))");
+
+    for (const QString &line : lines) {
+        QRegularExpressionMatch match = re.match(line);
+        if (match.hasMatch()) {
+            QJsonObject rule;
+            rule["num"] = match.captured(1);
+            rule["pkts"] = match.captured(2);
+            rule["bytes"] = match.captured(3);
+            rule["target"] = match.captured(4);
+            rule["prot"] = match.captured(5);
+            rule["opt"] = match.captured(6);
+            rule["in"] = match.captured(7);
+            rule["out"] = match.captured(8);
+            rule["source"] = match.captured(9);
+            rule["destination"] = match.captured(10);
+            chainArray.append(rule);
+        }
+    }
+
+    return chainArray;
+}
+
+QJsonObject Q_Network::getIptablesStatus() {
+    QProcess process;
+    process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
+    process.start("sudo", QStringList() << "iptables" << "-L" << "-n" << "-v" << "--line-numbers");
+    process.waitForFinished(-1);
+
+    QString result = QString::fromLocal8Bit(process.readAllStandardOutput());
+    QStringList lines = result.split("\n");
+
+    QJsonObject iptablesJson;
+    QJsonArray inputChain, forwardChain, outputChain;
+    QString currentChain;
+
+    for (const QString &line : lines) {
+        if (line.startsWith("Chain INPUT")) {
+            currentChain = "INPUT";
+            continue;
+        } else if (line.startsWith("Chain FORWARD")) {
+            currentChain = "FORWARD";
+            continue;
+        } else if (line.startsWith("Chain OUTPUT")) {
+            currentChain = "OUTPUT";
+            continue;
+        } else if (line.startsWith("Chain DOCKER")) {
+            currentChain.clear();
+            continue;
+        }
+
+        if (currentChain == "INPUT") {
+            inputChain.append(parseIptablesChain(currentChain, { line }));
+        } else if (currentChain == "FORWARD") {
+            forwardChain.append(parseIptablesChain(currentChain, { line }));
+        } else if (currentChain == "OUTPUT") {
+            outputChain.append(parseIptablesChain(currentChain, { line }));
+        }
+    }
+
+    iptablesJson["INPUT"] = inputChain;
+    iptablesJson["FORWARD"] = forwardChain;
+    iptablesJson["OUTPUT"] = outputChain;
+
+    return iptablesJson;
+}
+
+QString Q_Network::getCombinedStatus() {
+    QJsonObject combinedJson;
+    combinedJson["hostapd_status"] = QJsonDocument::fromJson(getHostapdStatus().toUtf8()).object();
+    combinedJson["dnsmasq_status"] = QJsonDocument::fromJson(getDnsmasqStatus().toUtf8()).object();
+    combinedJson["iptables_status"] = getIptablesStatus();
+
+    QJsonDocument doc(combinedJson);
+    return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
 
 QString Q_Network::getNetworkInfoAsJson()

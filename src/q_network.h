@@ -27,7 +27,12 @@ public:
 public slots:
     QString getHostapdStatus();
     QString getDnsmasqStatus();
+    QJsonArray parseIptablesChain(const QString &chainName, const QStringList &lines);
+    QJsonObject getIptablesStatus();
+    QString getCombinedStatus();
+
     QString getNetworkInfoAsJson();
+
     QString getIwconfigOutput();
     QStringList getWifiDevices();
     QString getDeviceStatus(const QString &device);

@@ -19,6 +19,9 @@ Item {
         SideMenu {
             current: "q_network"
         }
+Component.onCompleted: {
+    console.log(q_Network.getCombinedStatus())
+}
 
         Item {
             visible: true
@@ -28,7 +31,14 @@ Item {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
-
+                Rectangle {
+                    width: 260
+                    height: 130
+                    Text {
+                        text: "aaa"
+                        anchors.centerIn: parent
+                    }
+                }
                 Repeater {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {
@@ -64,7 +74,8 @@ Item {
                                 udevadm_info_append("ID_MODEL_FROM_DATABASE")
                                 udevadm_info_append("ID_VENDOR_FROM_DATABASE")
                                 udevadm_info_append("ID_OUI_FROM_DATABASE")
-                                console.log(JSON.stringify(modelData, null, 2));
+
+                                // console.log(JSON.stringify(modelData, null, 2));
                             }
                             anchors.fill: parent
 
