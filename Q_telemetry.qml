@@ -13,17 +13,14 @@ Item {
     Q_Telemetry {
         id: q_Telemetry
     }
-
     Row {
-
         SideMenu {
+            id: sideMenu
             current: "q_telemetry"
         }
-
         Item {
             visible: true
-            width: 600
-            height: 500
+            width: window.width - sideMenu.width ; height: window.height
 
             ColumnLayout {
                 anchors.fill: parent

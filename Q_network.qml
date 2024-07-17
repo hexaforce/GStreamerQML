@@ -14,42 +14,48 @@ Item {
         id: q_Network
     }
 
+    property var combinedStatus: null
+    // Component.onCompleted: {
+    //     combinedStatus = JSON.parse(q_Network.getCombinedStatus())
+    //     console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));
+    //     console.log(combinedStatus.hostapd_conf);
+    //     console.log(JSON.stringify(combinedStatus.dnsmasq_status, null, 2));
+    //     console.log(combinedStatus.dnsmasq_conf);
+    //     console.log(JSON.stringify(combinedStatus.iptables_status, null, 2));
+    // }
+    // Rectangle {
+    //     width: parent.width
+    //     height: 30
+    //     Text {
+    //         text: combinedStatus.hostapd_status.Active
+    //         anchors.centerIn: parent
+    //     }
+    // }
+
     Row {
-        
         SideMenu {
+            id: sideMenu
             current: "q_network"
         }
-Component.onCompleted: {
-    console.log(q_Network.getCombinedStatus())
-}
-
         Item {
             visible: true
-            width: 700; height: 500
+            width: window.width - sideMenu.width ; height: window.height
 
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
-                Rectangle {
-                    width: 260
-                    height: 130
-                    Text {
-                        text: "aaa"
-                        anchors.centerIn: parent
-                    }
-                }
+
                 Repeater {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {
                         required property var modelData
                         title: "[" + modelData.nmcli_info["GENERAL.TYPE"]+"] " + modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]
                         contentItem: Rectangle {
-
                             Component.onCompleted: {
                                 function nmcli_info_append(name){
                                     if (name in modelData.nmcli_info)
-                                    networkInfoModel.append({name: name, value: modelData.nmcli_info[name]})
+                                        networkInfoModel.append({name: name, value: modelData.nmcli_info[name]})
                                 }
                                 nmcli_info_append("GENERAL.DEVICE")
                                 nmcli_info_append("GENERAL.STATE")
@@ -59,7 +65,7 @@ Component.onCompleted: {
                                 nmcli_info_append("IP4.GATEWAY")
                                 function iw_info_append(name){
                                     if (modelData.iw_info && name in modelData.iw_info)
-                                    networkInfoModel.append({name: name, value: modelData.iw_info[name]})
+                                        networkInfoModel.append({name: name, value: modelData.iw_info[name]})
                                 }
                                 iw_info_append("type")
                                 iw_info_append("ssid")
@@ -68,7 +74,7 @@ Component.onCompleted: {
 
                                 function udevadm_info_append(name){
                                     if (name in modelData.udevadm_info)
-                                    networkInfoModel.append({name: name, value: modelData.udevadm_info[name]})
+                                        networkInfoModel.append({name: name, value: modelData.udevadm_info[name]})
                                 }
                                 udevadm_info_append("ID_BUS")
                                 udevadm_info_append("ID_MODEL_FROM_DATABASE")

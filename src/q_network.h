@@ -39,6 +39,7 @@ public slots:
     QString getDeviceSupport(const QString &device);
 
 private:
+QString readConfFile(const QString &filePath);
     QStringList parseIwconfigOutput(const QString &output);
     QString getSystemctlStatus(const QString &serviceName);
 };

@@ -13,17 +13,14 @@ Item {
     Q_Audio {
         id: q_Audio
     }
-
     Row {
-
         SideMenu {
+            id: sideMenu
             current: "q_audio"
         }
-
         Item {
             visible: true
-            width: 600
-            height: 500
+            width: window.width - sideMenu.width ; height: window.height
 
             ColumnLayout {
                 anchors.fill: parent

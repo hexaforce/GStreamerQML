@@ -14,17 +14,14 @@ Item {
     Q_Video {
         id: q_Video
     }
-
     Row {
-
         SideMenu {
+            id: sideMenu
             current: "q_video"
         }
-
         Item {
             visible: true
-            width: 600
-            height: 500
+            width: window.width - sideMenu.width ; height: window.height
 
             ColumnLayout {
                 anchors.fill: parent

@@ -2,18 +2,23 @@
 #include "q_network.h"
 #include <QProcess>
 #include <QRegularExpression>
-
 #include <QProcess>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QProcessEnvironment>
-
 #include <QProcess>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QProcessEnvironment>
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QStringList>
+#include <QFile>
+#include <QTextStream>
 
 Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
@@ -122,12 +127,28 @@ QJsonObject Q_Network::getIptablesStatus() {
 QString Q_Network::getCombinedStatus() {
     QJsonObject combinedJson;
     combinedJson["hostapd_status"] = QJsonDocument::fromJson(getHostapdStatus().toUtf8()).object();
+    combinedJson["hostapd_conf"] = readConfFile("/etc/hostapd/hostapd.conf");
     combinedJson["dnsmasq_status"] = QJsonDocument::fromJson(getDnsmasqStatus().toUtf8()).object();
+    combinedJson["dnsmasq_conf"] = readConfFile("/etc/dnsmasq.conf");
     combinedJson["iptables_status"] = getIptablesStatus();
 
     QJsonDocument doc(combinedJson);
     return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
+
+    QString Q_Network::readConfFile(const QString &filePath) {
+        QFile file(filePath);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qDebug() << "Failed to open file:" << filePath;
+            return QString();
+        }
+
+        QTextStream in(&file);
+        QString content = in.readAll();
+        file.close();
+
+        return content;
+    }
 
 QString Q_Network::getNetworkInfoAsJson()
 {
