@@ -42,6 +42,7 @@ sudo ip addr flush dev $INTERFACE
 
 # ネットワークインターフェースの設定
 sudo ip link set $INTERFACE down
+sudo ifconfig $INTERFACE 192.168.4.10 netmask 255.255.255.0 up
 sudo iw dev $INTERFACE set type __ap
 sudo iw dev $INTERFACE set channel 48
 sudo ip addr add $GATEWAY_IP/24 dev $INTERFACE
@@ -129,6 +130,12 @@ echo "DHCP Range: $DHCP_RANGE_START - $DHCP_RANGE_END"
 
 # sudo iptables -D FORWARD 10
 # sudo iptables -D FORWARD 9
+
+$ cat /etc/dnsmasq.conf
+interface=wlxe0e1a91d6625
+dhcp-range=192.168.4.10,192.168.4.20,255.255.255.0,24h
+
+sudo ifconfig wlxe0e1a91d6625 192.168.4.10 netmask 255.255.255.0 up
 
 sudo vim /etc/hostapd/hostapd.conf
 
