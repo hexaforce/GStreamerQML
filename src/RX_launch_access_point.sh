@@ -108,15 +108,15 @@ echo "Gateway IP: $GATEWAY_IP"
 echo "DHCP Range: $DHCP_RANGE_START - $DHCP_RANGE_END"
 
 # hostapdのステータスを表示
-echo " "
-echo "=== Hostapd Status ==="
-sudo systemctl status hostapd
+# echo " "
+# echo "=== Hostapd Status ==="
+# sudo systemctl status hostapd
 # sudo journalctl -u hostapd
 
 # dnsmasqのステータスを表示
-echo " "
-echo "=== Dnsmasq Status ==="
-sudo systemctl status dnsmasq
+# echo " "
+# echo "=== Dnsmasq Status ==="
+# sudo systemctl status dnsmasq
 # sudo journalctl -u dnsmasq
 
 # sudo iptables -L -n -v --line-numbers

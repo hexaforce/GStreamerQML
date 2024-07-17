@@ -57,11 +57,11 @@ Item {
                 property var currentItem: null
 
                 AccordionSection {
-                    title: "hostapd.service"
+                    title: "Access point and authentication server for Wi-Fi and Ethernet"
                     Rectangle {
                         Column {
                             Text {
-                                text: "Access point and authentication server for Wi-Fi and Ethernet"
+                                text: "hostapd.service"
                                 height: 30
                             }
                             Text {
@@ -69,15 +69,27 @@ Item {
                                 color: statusColor(combinedStatus.hostapd_status.Active)
                                 height: 30
                             }
+                            Text {
+                                text: "/etc/hostapd/hostapd.conf"
+                            }
+                            Rectangle {
+                                width: parent.width
+                                height: 1
+                                color: "lightgray"
+                            }
+                            Text {
+                                text: combinedStatus.hostapd_conf
+                                wrapMode: Text.Wrap
+                            }
                         }
                     }
                 }
                 AccordionSection {
-                    title: "dnsmasq.service"
+                    title: "A lightweight DHCP and caching DNS server"
                     Rectangle {
                         Column {
                             Text {
-                                text: "A lightweight DHCP and caching DNS server"
+                                text: "dnsmasq.service"
                                 height: 30
                             }
                             Text {
@@ -85,15 +97,27 @@ Item {
                                 color: statusColor(combinedStatus.dnsmasq_status.Active)
                                 height: 30
                             }
+                            Text {
+                                text: "/etc/dnsmasq.conf"
+                            }
+                            Rectangle {
+                                width: parent.width
+                                height: 1
+                                color: "lightgray"
+                            }
+                            Text {
+                                text: combinedStatus.dnsmasq_conf
+                                wrapMode: Text.Wrap
+                            }
                         }
                     }
                 }
                 AccordionSection {
-                    title: "ufw.service"
+                    title: "Uncomplicated firewall"
                     Rectangle {
                         Column {
                             Text {
-                                text: "Uncomplicated firewall"
+                                text: "ufw.service"
                                 height: 30
                             }
                             Text {
@@ -101,6 +125,7 @@ Item {
                                 color: statusColor(combinedStatus.ufw_status.Active)
                                 height: 30
                             }
+
                         }
                     }
                 }
