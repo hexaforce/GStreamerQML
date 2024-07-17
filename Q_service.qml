@@ -32,7 +32,15 @@ Item {
     //         anchors.centerIn: parent
     //     }
     // }
-
+    function statusColor(statusText){
+        if (statusText.includes("active (running)") || statusText.includes("active (exited)")) {
+            return "green";
+        } else if (statusText.includes("failed") || statusText.includes("activating (auto-restart)")) {
+            return "red";
+        } else {
+            return "gray";
+        }
+    }
     Row {
         SideMenu {
             id: sideMenu
@@ -47,34 +55,52 @@ Item {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
+
                 AccordionSection {
                     title: "hostapd.service"
                     Rectangle {
-                        anchors.fill: parent
+                        Column {
                             Text {
                                 text: "Access point and authentication server for Wi-Fi and Ethernet"
-                                anchors.centerIn: parent
+                                height: 30
                             }
+                            Text {
+                                text: combinedStatus.hostapd_status.Active
+                                color: statusColor(combinedStatus.hostapd_status.Active)
+                                height: 30
+                            }
+                        }
                     }
                 }
                 AccordionSection {
                     title: "dnsmasq.service"
                     Rectangle {
-                        anchors.fill: parent
-                        Text {
-                            text: "A lightweight DHCP and caching DNS server"
-                            anchors.centerIn: parent
+                        Column {
+                            Text {
+                                text: "A lightweight DHCP and caching DNS server"
+                                height: 30
+                            }
+                            Text {
+                                text: combinedStatus.dnsmasq_status.Active
+                                color: statusColor(combinedStatus.dnsmasq_status.Active)
+                                height: 30
+                            }
                         }
                     }
-
                 }
                 AccordionSection {
                     title: "ufw.service"
                     Rectangle {
-                        anchors.fill: parent
-                        Text {
-                            text: "Uncomplicated firewall"
-                            anchors.centerIn: parent
+                        Column {
+                            Text {
+                                text: "Uncomplicated firewall"
+                                height: 30
+                            }
+                            Text {
+                                text: combinedStatus.ufw_status.Active
+                                color: statusColor(combinedStatus.ufw_status.Active)
+                                height: 30
+                            }
                         }
                     }
                 }
