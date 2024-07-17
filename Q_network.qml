@@ -40,9 +40,9 @@ Item {
                                 function nmcli_info_append(name){
                                     networkInfoModel.append({name: name, value: modelData.nmcli_info[name]})
                                 }
-                                nmcli_info_append("GENERAL.CONNECTION")
                                 nmcli_info_append("GENERAL.DEVICE")
                                 nmcli_info_append("GENERAL.STATE")
+                                nmcli_info_append("GENERAL.CONNECTION")
                                 nmcli_info_append("IP4.ADDRESS[1]")
                                 nmcli_info_append("IP4.DNS[1]")
                                 nmcli_info_append("IP4.GATEWAY")
