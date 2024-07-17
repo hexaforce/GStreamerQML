@@ -88,6 +88,11 @@ ApplicationWindow {
     }
 
     Component {
+        id: q_service
+        Q_service {  }
+    }
+
+    Component {
         id: q_network
         Q_network {  }
     }
