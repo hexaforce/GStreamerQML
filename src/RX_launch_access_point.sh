@@ -35,11 +35,15 @@ GATEWAY_IP=$4
 DHCP_RANGE_START=$5
 DHCP_RANGE_END=$6
 
+sudo iw reg set US
+
 # ネットワークインターフェースの設定リセット
 sudo ip addr flush dev $INTERFACE
 
 # ネットワークインターフェースの設定
 sudo ip link set $INTERFACE down
+sudo iw dev $INTERFACE set type __ap
+sudo iw dev $INTERFACE set channel 48
 sudo ip addr add $GATEWAY_IP/24 dev $INTERFACE
 sudo ip link set $INTERFACE up
 
@@ -48,16 +52,15 @@ cat << EOF | sudo tee /etc/hostapd/hostapd.conf
 interface=$INTERFACE
 driver=nl80211
 ssid=$SSID
-hw_mode=g
-channel=6
-wmm_enabled=0
+hw_mode=a
+channel=50
+wmm_enabled=1
 macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
 wpa_passphrase=$PASSPHRASE
 wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 EOF
 
@@ -93,6 +96,9 @@ fi
 
 # IPフォワーディングの有効化
 sudo sysctl -w net.ipv4.ip_forward=1
+# sudo vim /etc/sysctl.conf
+# sudo sysctl net.ipv4.ip_forward
+
 
 # iptablesルールの設定
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -123,3 +129,60 @@ echo "DHCP Range: $DHCP_RANGE_START - $DHCP_RANGE_END"
 
 # sudo iptables -D FORWARD 10
 # sudo iptables -D FORWARD 9
+
+sudo vim /etc/hostapd/hostapd.conf
+
+
+interface=wlxe0e1a91d6625
+driver=nl80211
+ssid=YourSSID
+hw_mode=a
+channel=50
+wmm_enabled=1
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=YourPassphrase
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+
+
+sudo systemctl unmask hostapd
+sudo systemctl unmask dnsmasq
+
+sudo systemctl restart hostapd
+sudo systemctl restart dnsmasq
+
+sudo systemctl status hostapd
+sudo systemctl status dnsmasq
+
+sudo systemctl stop hostapd
+sudo systemctl stop dnsmasq
+
+sudo systemctl disable hostapd
+sudo systemctl disable dnsmasq
+
+sudo journalctl -u hostapd
+sudo journalctl -u dnsmasq
+
+
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth0 -o wlxe0e1a91d6625 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlxe0e1a91d6625 -o eth0 -j ACCEPT
+
+
+sudo ip link set wlxe0e1a91d6625 down
+sudo iw dev wlxe0e1a91d6625 set type __ap
+sudo iw dev wlxe0e1a91d6625 set channel 48
+sudo ip link set wlxe0e1a91d6625 up
+
+sudo systemctl stop systemd-journald.service
+sudo rm -rf /var/log/journal/*
+sudo systemctl start systemd-journald.service
+
+sudo journalctl
+
+
+
+

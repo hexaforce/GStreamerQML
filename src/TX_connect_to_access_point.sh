@@ -9,6 +9,11 @@ if [ $# -ne 3 ]; then
     exit 1
 fi
 
+sudo nmcli device wifi connect "YourSSID" password "YourPassphrase" ifname "wlan0"
+sudo nmcli device wifi connect YourSSID password YourPassphrase ifname wlan0
+
+
+
 # 引数の取得
 WLAN_INTERFACE=$1
 SSID=$2
@@ -40,3 +45,5 @@ else
     nmcli connection show
     exit 1
 fi
+
+nmcli connection show
