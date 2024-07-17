@@ -25,8 +25,10 @@ public:
     explicit Q_Network(QObject *parent = nullptr);
 
 public slots:
-    QString getHostapdStatus();
-    QString getDnsmasqStatus();
+    // QString getHostapdStatus();
+    // QString getDnsmasqStatus();
+    // QString getUfwStatus();
+    
     QJsonArray parseIptablesChain(const QString &chainName, const QStringList &lines);
     QJsonObject getIptablesStatus();
     QString getCombinedStatus();

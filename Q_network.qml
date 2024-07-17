@@ -14,7 +14,7 @@ Item {
         id: q_Network
     }
 
-    property var combinedStatus: null
+    // property var combinedStatus: null
     // Component.onCompleted: {
     //     combinedStatus = JSON.parse(q_Network.getCombinedStatus())
     //     console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));

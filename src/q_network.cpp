@@ -47,14 +47,6 @@ QString Q_Network::getSystemctlStatus(const QString &serviceName) {
     return QString::fromUtf8(QJsonDocument(jsonObject).toJson(QJsonDocument::Indented));
 }
 
-QString Q_Network::getHostapdStatus() {
-    return getSystemctlStatus("hostapd");
-}
-
-QString Q_Network::getDnsmasqStatus() {
-    return getSystemctlStatus("dnsmasq");
-}
-
 QJsonArray Q_Network::parseIptablesChain(const QString &chainName, const QStringList &lines) {
     QJsonArray chainArray;
     QRegularExpression re(R"(\s*(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+))");
@@ -126,10 +118,11 @@ QJsonObject Q_Network::getIptablesStatus() {
 
 QString Q_Network::getCombinedStatus() {
     QJsonObject combinedJson;
-    combinedJson["hostapd_status"] = QJsonDocument::fromJson(getHostapdStatus().toUtf8()).object();
+    combinedJson["hostapd_status"] = QJsonDocument::fromJson(getSystemctlStatus("hostapd").toUtf8()).object();
     combinedJson["hostapd_conf"] = readConfFile("/etc/hostapd/hostapd.conf");
-    combinedJson["dnsmasq_status"] = QJsonDocument::fromJson(getDnsmasqStatus().toUtf8()).object();
+    combinedJson["dnsmasq_status"] = QJsonDocument::fromJson(getSystemctlStatus("dnsmasq").toUtf8()).object();
     combinedJson["dnsmasq_conf"] = readConfFile("/etc/dnsmasq.conf");
+    combinedJson["ufw_status"] = QJsonDocument::fromJson(getSystemctlStatus("ufw").toUtf8()).object();
     combinedJson["iptables_status"] = getIptablesStatus();
 
     QJsonDocument doc(combinedJson);
