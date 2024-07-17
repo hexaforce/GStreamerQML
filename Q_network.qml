@@ -38,6 +38,7 @@ Item {
 
                             Component.onCompleted: {
                                 function nmcli_info_append(name){
+                                    if (name in modelData.nmcli_info)
                                     networkInfoModel.append({name: name, value: modelData.nmcli_info[name]})
                                 }
                                 nmcli_info_append("GENERAL.DEVICE")
@@ -46,7 +47,17 @@ Item {
                                 nmcli_info_append("IP4.ADDRESS[1]")
                                 nmcli_info_append("IP4.DNS[1]")
                                 nmcli_info_append("IP4.GATEWAY")
+                                function iw_info_append(name){
+                                    if (modelData.iw_info && name in modelData.iw_info)
+                                    networkInfoModel.append({name: name, value: modelData.iw_info[name]})
+                                }
+                                iw_info_append("type")
+                                iw_info_append("ssid")
+                                iw_info_append("channel")
+                                iw_info_append("txpower")
+
                                 function udevadm_info_append(name){
+                                    if (name in modelData.udevadm_info)
                                     networkInfoModel.append({name: name, value: modelData.udevadm_info[name]})
                                 }
                                 udevadm_info_append("ID_BUS")

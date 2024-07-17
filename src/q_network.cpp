@@ -3,12 +3,19 @@
 #include <QProcess>
 #include <QRegularExpression>
 
-Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 #include <QProcess>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QProcessEnvironment>
+
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QProcessEnvironment>
+
+Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
 
 QString Q_Network::getNetworkInfoAsJson()
 {
@@ -73,6 +80,30 @@ QString Q_Network::getNetworkInfoAsJson()
                         }
                     }
                     interfaceObject["udevadm_info"] = udevadmObject;
+
+                    // Add iw info if Wireless interface
+                    if (interfaceObject["description"].toString() == "Wireless interface") {
+                        QProcess iwProcess;
+                        iwProcess.start("iw", QStringList() << logicalName << "info");
+                        iwProcess.waitForFinished(-1);
+                        QByteArray iwOutput = iwProcess.readAllStandardOutput();
+                        QString iwResult = QString::fromLocal8Bit(iwOutput);
+                        QStringList iwLines = iwResult.split("\n");
+                        QJsonObject iwObject;
+                        for (const QString &iwLine : iwLines) {
+                            QString trimmedLine = iwLine.trimmed();
+                            if (trimmedLine.isEmpty()) continue;
+                            int firstSpaceIndex = trimmedLine.indexOf(' ');
+                            if (firstSpaceIndex != -1) {
+                                QString iwKey = trimmedLine.left(firstSpaceIndex).trimmed();
+                                QString iwValue = trimmedLine.mid(firstSpaceIndex + 1).trimmed();
+                                iwObject[iwKey] = iwValue;
+                            } else {
+                                iwObject[trimmedLine] = QString();
+                            }
+                        }
+                        interfaceObject["iw_info"] = iwObject;
+                    }
                 }
                 networkInterfaces.append(interfaceObject);
             }
@@ -143,6 +174,30 @@ QString Q_Network::getNetworkInfoAsJson()
                 }
             }
             interfaceObject["udevadm_info"] = udevadmObject;
+
+            // Add iw info if Wireless interface
+            if (interfaceObject["description"].toString() == "Wireless interface") {
+                QProcess iwProcess;
+                iwProcess.start("iw", QStringList() << logicalName << "info");
+                iwProcess.waitForFinished(-1);
+                QByteArray iwOutput = iwProcess.readAllStandardOutput();
+                QString iwResult = QString::fromLocal8Bit(iwOutput);
+                QStringList iwLines = iwResult.split("\n");
+                QJsonObject iwObject;
+                for (const QString &iwLine : iwLines) {
+                    QString trimmedLine = iwLine.trimmed();
+                    if (trimmedLine.isEmpty()) continue;
+                    int firstSpaceIndex = trimmedLine.indexOf(' ');
+                    if (firstSpaceIndex != -1) {
+                        QString iwKey = trimmedLine.left(firstSpaceIndex).trimmed();
+                        QString iwValue = trimmedLine.mid(firstSpaceIndex + 1).trimmed();
+                        iwObject[iwKey] = iwValue;
+                    } else {
+                        iwObject[trimmedLine] = QString();
+                    }
+                }
+                interfaceObject["iw_info"] = iwObject;
+            }
         }
         networkInterfaces.append(interfaceObject);
     }
