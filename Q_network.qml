@@ -14,9 +14,17 @@ Item {
         id: q_Network
     }
 
-    Component.onCompleted: {
-        console.log(q_Network.getNetworkInfoAsJson())
-    }
+    // ListModel {
+    //     id: networkInfoModel
+    // }
+
+    // Component.onCompleted: {
+    //     var json = q_Network.getNetworkInfoAsJson()
+    //     console.log(json)
+    //     // networkInfoModel = JSON.parse(json).network_interfaces
+
+    //     networkInfoModel.append(JSON.parse(json).network_interfaces[0])
+    // }
 
     Row {
         
@@ -26,54 +34,55 @@ Item {
 
         Item {
             visible: true
-            width: 600; height: 500
+            width: 700; height: 500
 
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
+
                 Repeater {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {
                         required property var modelData
-                        title: "[" +modelData.nmcli_info["GENERAL.TYPE"]+"] " +modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]
+                        title: "[" + modelData.nmcli_info["GENERAL.TYPE"]+"] " + modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]
                         contentItem: Rectangle {
-                            anchors.fill: parent
-                            ListView {
-                                width: 180; height: 200
 
-                                model: ListModel {
-                                    ListElement {
-                                        key: "key1"
-                                        value: "value1"
-                                    }
-                                    ListElement {
-                                        key: "key22222222222"
-                                        value: "value2"
-                                    }
-                                    ListElement {
-                                        key: "key3"
-                                        value: "value3"
-                                    }
+                            Component.onCompleted: {
+                                function udevadm_info_append(name){
+                                    networkInfoModel.append({name: name, value: modelData.udevadm_info[name]})
                                 }
+                                udevadm_info_append("ID_BUS")
+                                udevadm_info_append("ID_MODEL_FROM_DATABASE")
+                                udevadm_info_append("ID_VENDOR_FROM_DATABASE")
+                                udevadm_info_append("ID_OUI_FROM_DATABASE")
+                                console.log(JSON.stringify(modelData, null, 2));
+                            }
+                            anchors.fill: parent
 
-                                delegate: Item {
-                                    width: 180
-                                    height: 40
-                                    RowLayout {
-                                        anchors.fill: parent
-                                        Text {
-                                            text: key
-                                            Layout.alignment: Qt.AlignLeft
-                                            Layout.fillWidth: true
+                            ScrollView {
+                                width: parent.width
+                                height: parent.height
+                                ListView {
+                                    model: ListModel {
+                                        id: networkInfoModel
+                                    }
+                                    delegate: RowLayout {
+                                        Rectangle {
+                                            width: 260
+                                            height: 30
+                                            Text {
+                                                text: name
+                                                anchors.centerIn: parent
+                                            }
                                         }
                                         Text {
                                             text: value
-                                            Layout.alignment: Qt.AlignRight
                                         }
                                     }
                                 }
                             }
+
                         }
                     }
                 }
