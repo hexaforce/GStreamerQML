@@ -37,7 +37,7 @@ Item {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {
                         required property var modelData
-                        title: "[" +modelData.nmcli_info["GENERAL.TYPE"]+"] " +modelData.nmcli_info["GENERAL.DEVICE"]
+                        title: "[" +modelData.nmcli_info["GENERAL.TYPE"]+"] " +modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]
                         contentItem: Rectangle {
                             anchors.fill: parent
                             Column{
