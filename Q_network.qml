@@ -14,18 +14,6 @@ Item {
         id: q_Network
     }
 
-    // ListModel {
-    //     id: networkInfoModel
-    // }
-
-    // Component.onCompleted: {
-    //     var json = q_Network.getNetworkInfoAsJson()
-    //     console.log(json)
-    //     // networkInfoModel = JSON.parse(json).network_interfaces
-
-    //     networkInfoModel.append(JSON.parse(json).network_interfaces[0])
-    // }
-
     Row {
         
         SideMenu {
@@ -49,6 +37,15 @@ Item {
                         contentItem: Rectangle {
 
                             Component.onCompleted: {
+                                function nmcli_info_append(name){
+                                    networkInfoModel.append({name: name, value: modelData.nmcli_info[name]})
+                                }
+                                nmcli_info_append("GENERAL.CONNECTION")
+                                nmcli_info_append("GENERAL.DEVICE")
+                                nmcli_info_append("GENERAL.STATE")
+                                nmcli_info_append("IP4.ADDRESS[1]")
+                                nmcli_info_append("IP4.DNS[1]")
+                                nmcli_info_append("IP4.GATEWAY")
                                 function udevadm_info_append(name){
                                     networkInfoModel.append({name: name, value: modelData.udevadm_info[name]})
                                 }
