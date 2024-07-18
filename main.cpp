@@ -1,4 +1,4 @@
-#include "pipeline_thread.h"
+#include "pipeline_controller.h"
 #include "process_runner.h"
 #include "q_network.h"
 #include "udp_receiver.h"
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     videoItem = rootObject->findChild<QQuickItem *>("videoItem");
     g_object_set(sink, "widget", videoItem, NULL);
 
-    rootObject->scheduleRenderJob(new PipelineThread(pipeline), QQuickWindow::BeforeSynchronizingStage);
+    rootObject->scheduleRenderJob(new PipelineController(pipeline), QQuickWindow::BeforeSynchronizingStage);
 
     ret = app.exec();
 
