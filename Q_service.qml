@@ -88,17 +88,57 @@ Item {
                                 color: statusColor(combinedStatus.hostapd_status.Active)
                                 height: 30
                             }
+                            Row {
+                                spacing:5
+                                Button {
+                                    text: "start"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン1のクリック処理
+                                    }
+                                }
+                                Button {
+                                    text: "stop"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン2のクリック処理
+                                    }
+                                }
+                                Button {
+                                    text: "restart"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン3のクリック処理
+                                    }
+                                }
+                            }
+
                             Text {
+                                height: 30
                                 text: "/etc/hostapd/hostapd.conf"
+                                verticalAlignment: Text.AlignBottom
                             }
                             Rectangle {
                                 width: parent.width
                                 height: 1
                                 color: "lightgray"
                             }
-                            Text {
+                            TextArea {
+                                id: hostapd_conf
+                                wrapMode: TextArea.Wrap
                                 text: combinedStatus.hostapd_conf
-                                wrapMode: Text.Wrap
+                            }
+                            Button {
+                                text: "update"
+                                width: 100
+                                height: 30
+                                onClicked: {
+                                    // ボタン1のクリック処理
+                                    console.log("Current text:", hostapd_conf.text)
+                                }
                             }
                         }
                     }
@@ -116,17 +156,57 @@ Item {
                                 color: statusColor(combinedStatus.dnsmasq_status.Active)
                                 height: 30
                             }
+                            Row {
+                                spacing: 5
+                                Button {
+                                    text: "start"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン1のクリック処理
+                                    }
+                                }
+                                Button {
+                                    text: "stop"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン2のクリック処理
+                                    }
+                                }
+                                Button {
+                                    text: "restart"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン3のクリック処理
+                                    }
+                                }
+                            }
+
                             Text {
+                                height: 30
                                 text: "/etc/dnsmasq.conf"
+                                verticalAlignment: Text.AlignBottom
                             }
                             Rectangle {
                                 width: parent.width
                                 height: 1
                                 color: "lightgray"
                             }
-                            Text {
+                            TextArea {
+                                id: dnsmasq_conf
+                                wrapMode: TextArea.Wrap
                                 text: combinedStatus.dnsmasq_conf
-                                wrapMode: Text.Wrap
+                            }
+                            Button {
+                                text: "update"
+                                width: 100
+                                height: 30
+                                onClicked: {
+                                    // ボタン1のクリック処理
+                                    console.log("Current text:", dnsmasq_conf.text)
+                                }
                             }
                         }
                     }
