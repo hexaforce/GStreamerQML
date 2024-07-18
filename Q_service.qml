@@ -15,23 +15,41 @@ Item {
     }
 
     property var combinedStatus: null
+    property var forwardHead: null
+
+    ListModel {
+        id: forwardRule
+    }
+
+
     Component.onCompleted: {
         combinedStatus = JSON.parse(q_Network.getCombinedStatus())
-        console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));
-        console.log(combinedStatus.hostapd_conf);
-        console.log(JSON.stringify(combinedStatus.dnsmasq_status, null, 2));
-        console.log(combinedStatus.dnsmasq_conf);
-        console.log(JSON.stringify(combinedStatus.ufw_status, null, 2));
-        console.log(JSON.stringify(combinedStatus.iptables_status, null, 2));
+        // console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));
+        // console.log(combinedStatus.hostapd_conf);
+        // console.log(JSON.stringify(combinedStatus.dnsmasq_status, null, 2));
+        // console.log(combinedStatus.dnsmasq_conf);
+        // console.log(JSON.stringify(combinedStatus.ufw_status, null, 2));
+
+        var FORWARD = combinedStatus.iptables_status.FORWARD.filter(function(rule) { return rule.length !== 0; }).map(function(rule) { return rule[0]; })
+        forwardHead = Object.keys(FORWARD[0])
+        forwardRule.clear();
+        for (var i = 0; i < FORWARD.length; i++) {
+            forwardRule.append(FORWARD[i])
+        }
+        // console.log(forwardHead)
+
+        // var INPUT = combinedStatus.iptables_status.INPUT
+        // .filter(function(rule) { return rule.length !== 0; })
+        // .map(function(rule) { return rule[0]; })
+        // // console.log(JSON.stringify(INPUT, null, 2))
+
+        // var OUTPUT = combinedStatus.iptables_status.OUTPUT
+        // .filter(function(rule) { return rule.length !== 0; })
+        // .map(function(rule) { return rule[0]; })
+        // // console.log(JSON.stringify(OUTPUT, null, 2))
+
     }
-    // Rectangle {
-    //     width: parent.width
-    //     height: 30
-    //     Text {
-    //         text: combinedStatus.hostapd_status.Active
-    //         anchors.centerIn: parent
-    //     }
-    // }
+
     function statusColor(statusText){
         if (statusText.includes("active (running)") || statusText.includes("active (exited)")) {
             return "green";
@@ -41,6 +59,7 @@ Item {
             return "gray";
         }
     }
+
     Row {
         SideMenu {
             id: sideMenu
@@ -113,6 +132,7 @@ Item {
                     }
                 }
                 AccordionSection {
+                    id: firewall
                     title: "Uncomplicated firewall"
                     Rectangle {
                         Column {
@@ -125,7 +145,28 @@ Item {
                                 color: statusColor(combinedStatus.ufw_status.Active)
                                 height: 30
                             }
-
+                            Item{
+                                width: firewall.width ; height: firewall.height
+                                Column {
+                                    Row {
+                                        Repeater {
+                                            model: forwardHead
+                                            delegate: Text { text: modelData; font.bold: true; width: 100 }
+                                        }
+                                    }
+                                    ListView {
+                                        width: firewall.width ; height: firewall.height
+                                        model: forwardRule
+                                        delegate: Row {
+                                            property var rule: model
+                                            Repeater {
+                                                model: forwardHead
+                                                delegate: Text { text: rule[modelData];  width: 100 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
