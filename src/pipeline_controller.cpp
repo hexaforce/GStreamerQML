@@ -11,3 +11,14 @@ void PipelineController::run() {
   if (this->m_pipeline)
     gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
 }
+
+
+void PipelineController::startPipeline(int port)
+{
+    g_print("startPipeline.\n");
+}
+
+void PipelineController::stopPipeline()
+{
+    g_print("stopPipeline.\n");
+}
