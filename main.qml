@@ -46,8 +46,11 @@ ApplicationWindow {
 
     Component.onCompleted: {
         udpReceiver.startListening(5009)
-        pipelineController.startPipeline(111111)
+        console.log( pipelineController.get_pipeline_state())
+        console.log(  pipelineController.get_pipeline_parameters())
+       
     }
+
 
     Item {
         anchors.fill: parent
