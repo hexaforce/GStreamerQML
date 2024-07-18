@@ -44,6 +44,8 @@ int main(int argc, char *argv[])
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
+    // QObject *deviceMonitor = rootObject->findChild<QObject *>("deviceMonitor");
+
     g_object_set(sink, "widget", videoItem, NULL);
     PipelineManager *pipelineManager = new PipelineManager(pipeline);
     rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);

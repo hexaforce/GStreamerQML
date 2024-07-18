@@ -17,22 +17,22 @@ void PipelineManager::run()
         gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
 }
 
-// void PipelineManager::startPipeline(int port)
-// {
-//     g_print("startPipeline.\n");
-// }
+void PipelineManager::startPipeline(int port)
+{
+    g_print("startPipeline.\n");
+}
 
-// void PipelineManager::stopPipeline()
-// {
-//     g_print("stopPipeline.\n");
-// }
+void PipelineManager::stopPipeline()
+{
+    g_print("stopPipeline.\n");
+}
 
-// GstElement *PipelineManager::pipeline() const
-// {
-//     return m_pipeline;
-// }
+GstElement *PipelineManager::pipeline() const
+{
+    return m_pipeline;
+}
 
-// void PipelineManager::setPipeline(GstElement *pipeline)
-// {
-//     m_pipeline = pipeline;
-// }
+void PipelineManager::setPipeline(GstElement *pipeline)
+{
+    m_pipeline = pipeline;
+}

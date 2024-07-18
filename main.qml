@@ -25,6 +25,7 @@ ApplicationWindow {
 
     DeviceMonitor {
         id: deviceMonitor
+            objectName: "deviceMonitor"
     }
 
     ProcessRunner {
