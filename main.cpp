@@ -12,6 +12,7 @@
 #include "q_telemetry.h"
 #include "device_monitor.h"
 
+// gst-launch-1.0 -e v4l2src device=/dev/video0 ! 'video/x-h264,width=960,height=540,framerate=30/1' ! h264parse ! rtph264pay ! udpsink host=127.0.0.1 port=5000
 int main(int argc, char *argv[])
 {
   int ret;
@@ -36,7 +37,6 @@ int main(int argc, char *argv[])
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
-    // QObject *deviceMonitor = rootObject->findChild<QObject *>("deviceMonitor");
 
     g_object_set(pipelineManager->sink(), "widget", videoItem, NULL);
     rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);
