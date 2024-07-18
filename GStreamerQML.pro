@@ -20,6 +20,7 @@ HEADERS += src/pipeline_manager.h \
            src/udp_receiver.h \
            src/device_monitor.h \
            src/receive_pipelines.h \
+           src/pipeline_controller.h \
            src/q_network.h \
            src/q_video.h \
            src/q_audio.h \
@@ -31,6 +32,7 @@ SOURCES += main.cpp \
            src/udp_receiver.cpp \
            src/device_monitor.cpp \
            src/receive_pipelines.cpp \
+           src/pipeline_controller.cpp \
            src/q_network.cpp \
            src/q_video.cpp \
            src/q_audio.cpp \

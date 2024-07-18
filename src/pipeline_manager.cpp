@@ -36,6 +36,8 @@ void PipelineManager::run()
 void PipelineManager::startPipeline(int port)
 {
     // パイプラインの開始処理
+    g_print("PipelineManager::startPipeline\n");
+    // g_print(this->m_pipeline);
 }
 
 void PipelineManager::stopPipeline()

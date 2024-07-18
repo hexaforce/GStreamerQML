@@ -9,7 +9,8 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 import jp.fpv.DeviceMonitor 1.0
 import jp.fpv.processrunner 1.0
-import jp.fpv.UdpReceiver 1.0 
+import jp.fpv.UdpReceiver 1.0
+import jp.fpv.PipelineController 1.0
 
 ApplicationWindow {
     id: window
@@ -25,7 +26,11 @@ ApplicationWindow {
 
     DeviceMonitor {
         id: deviceMonitor
-            objectName: "deviceMonitor"
+    }
+
+    PipelineController {
+        id: pipelineController
+        objectName: "pipelineController"
     }
 
     ProcessRunner {
@@ -41,6 +46,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         udpReceiver.startListening(5009)
+        pipelineController.startPipeline(111111)
     }
 
     Item {
