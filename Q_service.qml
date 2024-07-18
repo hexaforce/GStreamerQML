@@ -151,7 +151,18 @@ Item {
                                     Row {
                                         Repeater {
                                             model: forwardHead
-                                            delegate: Text { text: modelData; font.bold: true; width: 100 }
+                                            delegate: Rectangle {
+                                                width: modelData === "target" ? 150 : 75
+                                                height: 30
+                                                color: "lightgray"
+                                                border.color: "black"
+                                                border.width: .5
+                                                Text {
+                                                    anchors.centerIn: parent
+                                                    text: modelData;
+                                                    font.bold: true
+                                                }
+                                            }
                                         }
                                     }
                                     ListView {
@@ -161,7 +172,16 @@ Item {
                                             property var rule: model
                                             Repeater {
                                                 model: forwardHead
-                                                delegate: Text { text: rule[modelData];  width: 100 }
+                                                delegate: Rectangle {
+                                                    width: modelData === "target" ? 150 : 75
+                                                    height: 30
+                                                    border.color: "black"
+                                                    border.width: .5
+                                                    Text {
+                                                        anchors.centerIn: parent
+                                                        text: rule[modelData]
+                                                    }
+                                                }
                                             }
                                         }
                                     }
