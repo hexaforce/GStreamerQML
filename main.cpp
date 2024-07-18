@@ -41,9 +41,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<Q_Video>("jp.fpv.Q_Telemetry", 1, 0, "Q_Telemetry");
 
     QQmlApplicationEngine engine;
-    // PipelineController pipelineController ;
-    // engine.rootContext()->setContextProperty("pipelineController", &pipelineController);
-
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     QQuickItem *videoItem;
