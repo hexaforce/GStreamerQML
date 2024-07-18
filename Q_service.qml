@@ -225,6 +225,24 @@ Item {
                                 color: statusColor(combinedStatus.ufw_status.Active)
                                 height: 30
                             }
+                            Row {
+                                spacing: 5
+                                ComboBox {
+                                    id: networkComboBox
+                                    currentIndex: 0
+                                    model: forwardHead
+                                    height: 30
+                                }
+                                Button {
+                                    text: "add"
+                                    width: 100
+                                    height: 30
+                                    onClicked: {
+                                        // ボタン1のクリック処理
+                                        console.log("Current text:", networkComboBox.model[networkComboBox.currentIndex])
+                                    }
+                                }
+                            }
                             Item{
                                 width: firewall.width ; height: firewall.height
                                 Column {
