@@ -32,38 +32,44 @@ Item {
                     delegate: AccordionSection {
                         required property var modelData
                         title: modelData.Device
+
+                        function selectManager(){
+                            mediaComboBox.model = Array.from(new Set(modelData.caps.map(cap => cap.media)))
+
+                            let media = mediaComboBox.model[mediaComboBox.currentIndex]
+                            resolutionComboBox.model = modelData.caps.filter(cap => cap.media === media).map(cap => cap.width+"x"+cap.height)
+
+                            let resolution = resolutionComboBox.model[resolutionComboBox.currentIndex].split("x")
+                            let width = Number(resolution[0])
+                            let height = Number(resolution[1])
+                            framerateComboBox.model = modelData.caps.filter(cap => cap.media === media && cap.width === width)[0].framerate
+                        }
+
                         contentItem: Rectangle {
                             anchors.fill: parent
                             Row{
+                                Component.onCompleted: selectManager()
                                 spacing: 5
                                 ComboBox {
                                     id: mediaComboBox
                                     height: 30
                                     currentIndex: 0
-                                    model: Array.from(new Set(modelData.caps.map(cap => cap.media)))
-                                    onCurrentIndexChanged: {
-                                        let media = mediaComboBox.model[currentIndex]
-                                        resolutionComboBox.model = modelData.caps.filter(cap => cap.media === media).map(cap => cap.width+"x"+cap.height).reverse()
-                                    }
+                                    model:[]
+                                    onCurrentIndexChanged: {selectManager()}
                                 }
                                 ComboBox {
                                     id: resolutionComboBox
                                     height: 30
                                     currentIndex: 0
                                     model:[]
-                                    onCurrentIndexChanged: {
-                                        let media = mediaComboBox.currentText
-                                        let resolution = resolutionComboBox.model[currentIndex].split("x")
-                                        let width = Number(resolution[0])
-                                        let height = Number(resolution[1])
-                                        framerateComboBox.model = modelData.caps.filter(cap => cap.media === media && cap.width === width)[0].framerate
-                                    }
+                                    onCurrentIndexChanged: selectManager()
                                 }
                                 ComboBox {
                                     id: framerateComboBox
                                     height: 30
                                     currentIndex: 0
                                     model:[]
+                                    onCurrentIndexChanged: selectManager()
                                 }
                             }
                         }
