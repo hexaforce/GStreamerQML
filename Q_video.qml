@@ -34,10 +34,11 @@ Item {
                         title: modelData.Device
                         contentItem: Rectangle {
                             anchors.fill: parent
-                            Column{
-
+                            Row{
+                                spacing: 5
                                 ComboBox {
                                     id: mediaComboBox
+                                    height: 30
                                     currentIndex: 0
                                     model: Array.from(new Set(modelData.caps.map(cap => cap.media)))
                                     onCurrentIndexChanged: {
@@ -45,9 +46,9 @@ Item {
                                         resolutionComboBox.model = modelData.caps.filter(cap => cap.media === media).map(cap => cap.width+"x"+cap.height).reverse()
                                     }
                                 }
-
                                 ComboBox {
                                     id: resolutionComboBox
+                                    height: 30
                                     currentIndex: 0
                                     model:[]
                                     onCurrentIndexChanged: {
@@ -58,13 +59,12 @@ Item {
                                         framerateComboBox.model = modelData.caps.filter(cap => cap.media === media && cap.width === width)[0].framerate
                                     }
                                 }
-
                                 ComboBox {
                                     id: framerateComboBox
+                                    height: 30
                                     currentIndex: 0
                                     model:[]
                                 }
-
                             }
                         }
                     }

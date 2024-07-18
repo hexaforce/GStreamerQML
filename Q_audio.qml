@@ -33,10 +33,11 @@ Item {
                         title: modelData.Device
                         contentItem: Rectangle {
                             anchors.fill: parent
-                            Column{
-
+                            Row{
+                                spacing: 5
                                 ComboBox {
                                     id: mediaComboBox
+                                    height: 30
                                     currentIndex: 0
                                     model: Array.from(new Set(modelData.caps.map(cap => cap.media)))
                                     onCurrentIndexChanged: {
@@ -46,9 +47,9 @@ Item {
                                             formatComboBox.model = cap.format
                                     }
                                 }
-
                                 ComboBox {
                                     id: formatComboBox
+                                    height: 30
                                     currentIndex: 0
                                     model:[]
                                     onCurrentIndexChanged: {
@@ -56,7 +57,6 @@ Item {
 
                                     }
                                 }
-
                             }
                         }
                     }
