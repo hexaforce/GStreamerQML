@@ -43,11 +43,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    QQuickItem *videoItem;
-    QQuickWindow *rootObject;
-
-    rootObject = static_cast<QQuickWindow *>(engine.rootObjects().first());
-    videoItem = rootObject->findChild<QQuickItem *>("videoItem");
+    QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
+    QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
+    g_object_set(sink, "widget", videoItem, NULL);
     g_object_set(sink, "widget", videoItem, NULL);
 
     rootObject->scheduleRenderJob(new PipelineController(pipeline), QQuickWindow::BeforeSynchronizingStage);
