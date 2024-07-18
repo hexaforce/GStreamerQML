@@ -1,15 +1,15 @@
-#ifndef PIPELINECONTROLLER_H
-#define PIPELINECONTROLLER_H
+#ifndef PIPELINEMANAGER_H
+#define PIPELINEMANAGER_H
 
 #include <QRunnable>
 #include <QObject>
 #include <gst/gst.h>
 
-class PipelineController : public QRunnable
+class PipelineManager : public QRunnable
 {
 public:
-    PipelineController(GstElement *pipeline);
-    ~PipelineController();
+    PipelineManager(GstElement *pipeline);
+    ~PipelineManager();
 
     void run() override;
     // Q_INVOKABLE void startPipeline(int port);
@@ -21,4 +21,4 @@ private:
     GstElement *m_pipeline;
 };
 
-#endif // PIPELINECONTROLLER_H
+#endif // PIPELINEMANAGER_H

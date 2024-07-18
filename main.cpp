@@ -1,4 +1,4 @@
-#include "pipeline_controller.h"
+#include "pipeline_manager.h"
 #include "process_runner.h"
 #include "q_network.h"
 #include "udp_receiver.h"
@@ -12,7 +12,6 @@
 #include "q_telemetry.h"
 #include "device_monitor.h"
 #include "receive_pipelines.h"
-#include "pipeline_controller.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,8 +45,8 @@ int main(int argc, char *argv[])
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
     g_object_set(sink, "widget", videoItem, NULL);
-    // PipelineController PipelineController;
-    rootObject->scheduleRenderJob(new PipelineController(pipeline), QQuickWindow::BeforeSynchronizingStage);
+    PipelineManager *pipelineManager = new PipelineManager(pipeline);
+    rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);
 
     ret = app.exec();
 

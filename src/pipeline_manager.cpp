@@ -1,38 +1,38 @@
-#include "pipeline_controller.h"
+#include "pipeline_manager.h"
 
-PipelineController::PipelineController(GstElement *pipeline)
+PipelineManager::PipelineManager(GstElement *pipeline)
 {
     this->m_pipeline = pipeline ? static_cast<GstElement *>(gst_object_ref(pipeline)) : NULL;
 }
 
-PipelineController::~PipelineController()
+PipelineManager::~PipelineManager()
 {
     if (this->m_pipeline)
         gst_object_unref(this->m_pipeline);
 }
 
-void PipelineController::run()
+void PipelineManager::run()
 {
     if (this->m_pipeline)
         gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
 }
 
-// void PipelineController::startPipeline(int port)
+// void PipelineManager::startPipeline(int port)
 // {
 //     g_print("startPipeline.\n");
 // }
 
-// void PipelineController::stopPipeline()
+// void PipelineManager::stopPipeline()
 // {
 //     g_print("stopPipeline.\n");
 // }
 
-// GstElement *PipelineController::pipeline() const
+// GstElement *PipelineManager::pipeline() const
 // {
 //     return m_pipeline;
 // }
 
-// void PipelineController::setPipeline(GstElement *pipeline)
+// void PipelineManager::setPipeline(GstElement *pipeline)
 // {
 //     m_pipeline = pipeline;
 // }
