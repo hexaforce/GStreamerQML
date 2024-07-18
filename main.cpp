@@ -21,15 +21,6 @@ int main(int argc, char *argv[])
   {
     QGuiApplication app(argc, argv);
 
-    // GstElement *pipeline = gst_pipeline_new(NULL);
-    // GstElement *sink = gst_element_factory_make("qmlglsink", NULL);
-
-    // gint port = 5000;
-    // // setupLocalCapturePipeline(pipeline, sink);
-    // setupH26xReceivePipeline_SoftwareDecoding(pipeline, sink, port, CodecType::H264, VendorType::Libav);
-    // // setupH265ReceivePipeline(pipeline, sink, port);
-    // // setupJpegReceivePipeline(pipeline, sink, port);
-
     PipelineManager *pipelineManager = new PipelineManager();
 
     qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
