@@ -18,33 +18,10 @@
 
 #include <QtDebug>
 
-void customMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context);
-    QByteArray localMsg = msg.toLocal8Bit();
-    switch (type) {
-    case QtDebugMsg:
-        fprintf(stderr, "Debug: %s\n", localMsg.constData());
-        break;
-    case QtInfoMsg:
-        fprintf(stderr, "Info: %s\n", localMsg.constData());
-        break;
-    case QtWarningMsg:
-        fprintf(stderr, "Warning: %s\n", localMsg.constData());
-        break;
-    case QtCriticalMsg:
-        fprintf(stderr, "Critical: %s\n", localMsg.constData());
-        break;
-    case QtFatalMsg:
-        fprintf(stderr, "Fatal: %s\n", localMsg.constData());
-        abort();
-    }
-}
 
 // gst-launch-1.0 -e v4l2src device=/dev/video0 ! 'video/x-h264,width=960,height=540,framerate=30/1' ! h264parse ! rtph264pay ! udpsink host=127.0.0.1 port=5000
 int main(int argc, char *argv[])
 {
-    qInstallMessageHandler(customMessageHandler);
 
   int ret;
 
