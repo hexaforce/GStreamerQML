@@ -162,6 +162,51 @@ Item {
                                     }
                                 }
                             }
+                            Row {
+                                spacing: 5
+
+                                Label {
+                                    height: 30
+                                    text: "interface:"
+                                }
+                                ComboBox {
+                                    id: interfaceComboBox
+                                    currentIndex: 0
+                                    model: networkInterfaces.filter(interfaces => interfaces.nmcli_info["GENERAL.TYPE"] === "wifi").map(interfaces => interfaces.nmcli_info["GENERAL.DEVICE"])
+                                    width: 180
+                                    height: 30
+                                }
+                                Label {
+                                    height: 30
+                                    text: "address:"
+                                }
+                                TextField {
+                                    id: address
+                                     width: 130
+                                    height: 30
+                                    placeholderText: qsTr("192.168.4.10")
+                                }
+
+                                Label {
+                                    height: 30
+                                    text: "netmask:"
+                                }
+                                TextField {
+                                    id: netmask
+                                    width: 130
+                                    height: 30
+                                    placeholderText: qsTr("255.255.255.0")
+                                }
+                                Button {
+                                    text: "attch ip adress"
+                                    width: 160
+                                    height: 30
+                                    onClicked: {
+                                        let interfaces = interfaceComboBox.model[interfaceComboBox.currentIndex]
+                                        processRunner.runCommand("sudo", ["ifconfig", interfaces, address.text, "netmask", netmask.text, "up" ])
+                                    }
+                                }
+                            }
 
                             Text {
                                 height: 30
