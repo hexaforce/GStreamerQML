@@ -20,7 +20,7 @@ HEADERS += src/common_pipeline_manager.h \
            src/common_process_runner.h \
            src/udp_receiver.h \
            src/common_device_monitor.h \
-           src/q_network.h 
+           src/common_network_service.h 
 
 SOURCES += main.cpp \
            src/common_pipeline_manager.cpp \
@@ -28,7 +28,7 @@ SOURCES += main.cpp \
            src/common_process_runner.cpp \
            src/udp_receiver.cpp \
            src/common_device_monitor.cpp \
-           src/q_network.cpp 
+           src/common_network_service.cpp 
 
 RESOURCES += main.qrc
 

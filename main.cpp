@@ -10,7 +10,7 @@
 #include <QQuickWindow>
 #include <gst/gst.h>
 
-#include "q_network.h"
+#include "common_network_service.h"
 #include <QQuickItem>
 #include <QDebug>
 
@@ -35,13 +35,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     // qmlRegisterType<CommonPipelineManager>("jp.fpv.CommonPipelineManager", 1, 0, "CommonPipelineManager");
     
-    qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
+    // qmlRegisterType<CommonNetworkService>("jp.fpv.CommonNetworkService", 1, 0, "CommonNetworkService");
 
     QQmlApplicationEngine engine;
     CommonPipelineManager commonPipelineManager;
     engine.rootContext()->setContextProperty("commonPipelineManager", &commonPipelineManager);
     CommonDeviceMonitor commonDeviceMonitor;
     engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
+    CommonNetworkService commonNetworkService;
+    engine.rootContext()->setContextProperty("commonNetworkService", &commonNetworkService);
     // CommonProcessRunner commonProcessRunner;
     // engine.rootContext()->setContextProperty("commonProcessRunner", &commonProcessRunner);
     

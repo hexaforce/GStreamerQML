@@ -1,5 +1,5 @@
-// q_network.cpp
-#include "q_network.h"
+// common_network_service.cpp
+#include "common_network_service.h"
 #include <QProcess>
 #include <QRegularExpression>
 #include <QProcess>
@@ -20,9 +20,9 @@
 #include <QFile>
 #include <QTextStream>
 
-Q_Network::Q_Network(QObject *parent) : QObject(parent) {}
+CommonNetworkService::CommonNetworkService(QObject *parent) : QObject(parent) {}
 
-QString Q_Network::getSystemctlStatus(const QString &serviceName) {
+QString CommonNetworkService::getSystemctlStatus(const QString &serviceName) {
     QProcess process;
     process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
     process.start("sudo", QStringList() << "systemctl" << "status" << serviceName);
@@ -47,7 +47,7 @@ QString Q_Network::getSystemctlStatus(const QString &serviceName) {
     return QString::fromUtf8(QJsonDocument(jsonObject).toJson(QJsonDocument::Indented));
 }
 
-QJsonArray Q_Network::parseIptablesChain(const QString &chainName, const QStringList &lines) {
+QJsonArray CommonNetworkService::parseIptablesChain(const QString &chainName, const QStringList &lines) {
     QJsonArray chainArray;
     QRegularExpression re(R"(\s*(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+))");
 
@@ -72,7 +72,7 @@ QJsonArray Q_Network::parseIptablesChain(const QString &chainName, const QString
     return chainArray;
 }
 
-QJsonObject Q_Network::getIptablesStatus() {
+QJsonObject CommonNetworkService::getIptablesStatus() {
     QProcess process;
     process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
     process.start("sudo", QStringList() << "iptables" << "-L" << "-n" << "-v" << "--line-numbers");
@@ -126,7 +126,7 @@ QJsonObject Q_Network::getIptablesStatus() {
     return iptablesJson;
 }
 
-QString Q_Network::getCombinedStatus() {
+QString CommonNetworkService::getCombinedStatus() {
     QJsonObject combinedJson;
     combinedJson["hostapd_status"] = QJsonDocument::fromJson(getSystemctlStatus("hostapd").toUtf8()).object();
     combinedJson["hostapd_conf"] = readConfFile("/etc/hostapd/hostapd.conf");
@@ -139,7 +139,7 @@ QString Q_Network::getCombinedStatus() {
     return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
 
-    QString Q_Network::readConfFile(const QString &filePath) {
+    QString CommonNetworkService::readConfFile(const QString &filePath) {
         QFile file(filePath);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug() << "Failed to open file:" << filePath;
@@ -153,7 +153,7 @@ QString Q_Network::getCombinedStatus() {
         return content;
     }
 
-QString Q_Network::getNetworkInfoAsJson()
+QString CommonNetworkService::getNetworkInfoAsJson()
 {
     QProcess process;
     process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
@@ -346,7 +346,7 @@ QString Q_Network::getNetworkInfoAsJson()
     return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
 
-// QString Q_Network::getIwconfigOutput()
+// QString CommonNetworkService::getIwconfigOutput()
 // {
 //   QProcess process;
 //   QString program = "iwconfig";
@@ -359,13 +359,13 @@ QString Q_Network::getNetworkInfoAsJson()
 //   return result;
 // }
 
-// QStringList Q_Network::getWifiDevices()
+// QStringList CommonNetworkService::getWifiDevices()
 // {
 //   QString output = getIwconfigOutput();
 //   return parseIwconfigOutput(output);
 // }
 
-QStringList Q_Network::parseIwconfigOutput(const QString &output)
+QStringList CommonNetworkService::parseIwconfigOutput(const QString &output)
 {
   QStringList devices;
   QStringList lines = output.split('\n');
@@ -384,7 +384,7 @@ QStringList Q_Network::parseIwconfigOutput(const QString &output)
   return devices;
 }
 
-// QString Q_Network::getDeviceStatus(const QString &device)
+// QString CommonNetworkService::getDeviceStatus(const QString &device)
 // {
 //   QProcess process;
 //   process.start("nmcli", QStringList() << "device" << "show" << device);
@@ -394,7 +394,7 @@ QStringList Q_Network::parseIwconfigOutput(const QString &output)
 //   return result;
 // }
 
-// QString Q_Network::getDeviceSupport(const QString &device)
+// QString CommonNetworkService::getDeviceSupport(const QString &device)
 // {
 //   QProcess process;
 //   QString result;

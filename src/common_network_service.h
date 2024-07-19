@@ -1,6 +1,6 @@
-// q_network.h
-#ifndef Q_NETWORK_H
-#define Q_NETWORK_H
+// commonnetworkservice.h
+#ifndef COMMONNETWORKSERVICE_H
+#define COMMONNETWORKSERVICE_H
 
 #include <QObject>
 #include <QString>
@@ -19,11 +19,11 @@
 #include <QJsonObject>
 #include <QProcessEnvironment>
 
-class Q_Network : public QObject
+class CommonNetworkService : public QObject
 {
     Q_OBJECT
 public:
-    explicit Q_Network(QObject *parent = nullptr);
+    explicit CommonNetworkService(QObject *parent = nullptr);
 
 public slots:
 
@@ -39,4 +39,4 @@ private:
     QString getSystemctlStatus(const QString &serviceName);
 };
 
-#endif // Q_NETWORK_H
+#endif // COMMONNETWORKSERVICE_H

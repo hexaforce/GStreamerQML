@@ -10,7 +10,7 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 // import jp.fpv.CommonDeviceMonitor 1.0
 import jp.fpv.CommonProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
-import jp.fpv.Q_Network 1.0
+// import jp.fpv.CommonNetworkService 1.0
 
 ApplicationWindow {
     id: window
@@ -24,9 +24,9 @@ ApplicationWindow {
 
     Material.theme: Material.Dark
 
-    Q_Network {
-        id: commonNetworkService
-    }
+    // CommonNetworkService {
+    //     id: commonNetworkService
+    // }
 
     // CommonDeviceMonitor {
     //     id: commonDeviceMonitor
