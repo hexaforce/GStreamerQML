@@ -80,6 +80,10 @@ Item {
                 spacing: 1
                 property var currentItem: null
 
+                Text {
+                    text: qsTr("Reception service setting (Current machine")
+                }
+
                 AccordionSection {
                     title: "Access point and authentication server for Wi-Fi and Ethernet"
                     Rectangle {

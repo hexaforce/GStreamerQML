@@ -46,6 +46,10 @@ Item {
                 spacing: 1
                 property var currentItem: null
 
+                Text {
+                    text: qsTr("Current machine")
+                }
+
                 Repeater {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {

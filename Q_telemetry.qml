@@ -35,9 +35,9 @@ Item {
 
                 Repeater {
                     model: [
-                        { title: "Panel1 1", color: "orange" },
-                        { title: "Panel1 2", color: "lightgreen" },
-                        { title: "Panel1 3", color: "lightblue" },
+                        { title: "Panel1 1", color: "red" },
+                        { title: "Panel1 2", color: "green" },
+                        { title: "Panel1 3", color: "blue" },
                         { title: "Panel1 4", color: "yellow" }
                     ]
                     delegate: AccordionSection {
