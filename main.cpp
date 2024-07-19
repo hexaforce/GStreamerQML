@@ -1,4 +1,4 @@
-#include "pipeline_manager.h"
+#include "common_pipeline_manager.h"
 
 #include "common_device_monitor.h"
 #include "process_runner.h"
@@ -28,18 +28,18 @@ int main(int argc, char *argv[])
   {
     QGuiApplication app(argc, argv);
 
-    // PipelineManager *pipelineManager = new PipelineManager();
+    // CommonPipelineManager *commonPipelineManager = new CommonPipelineManager();
 
     // qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
     qmlRegisterType<ProcessRunner>("jp.fpv.ProcessRunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
+    // qmlRegisterType<CommonPipelineManager>("jp.fpv.CommonPipelineManager", 1, 0, "CommonPipelineManager");
     
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
 
     QQmlApplicationEngine engine;
-    PipelineManager pipelineManager;
-    engine.rootContext()->setContextProperty("pipelineManager", &pipelineManager);
+    CommonPipelineManager commonPipelineManager;
+    engine.rootContext()->setContextProperty("commonPipelineManager", &commonPipelineManager);
     CommonDeviceMonitor commonDeviceMonitor;
     engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
     // ProcessRunner processRunner;
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
-    g_object_set(pipelineManager.sink(), "widget", videoItem, NULL);
+    g_object_set(commonPipelineManager.sink(), "widget", videoItem, NULL);
 
     ret = app.exec();
 
-    gst_element_set_state(pipelineManager.pipeline(), GST_STATE_NULL);
-    gst_object_unref(pipelineManager.pipeline());
+    gst_element_set_state(commonPipelineManager.pipeline(), GST_STATE_NULL);
+    gst_object_unref(commonPipelineManager.pipeline());
   }
 
   gst_deinit();

@@ -1,4 +1,4 @@
-#include "pipeline_manager.h"
+#include "common_pipeline_manager.h"
 #include "receive_pipelines.h"
 #include <QDebug>
 #include <QStringBuilder>
@@ -6,7 +6,7 @@
 #include <QProcess>
 #include <QRegularExpression>
 
-PipelineManager::PipelineManager(QObject *parent) : QObject(parent)
+CommonPipelineManager::CommonPipelineManager(QObject *parent) : QObject(parent)
 {
     GstElement *pipeline = gst_pipeline_new(NULL);
     this->m_pipeline = static_cast<GstElement *>(gst_object_ref(pipeline));
@@ -43,7 +43,7 @@ PipelineManager::PipelineManager(QObject *parent) : QObject(parent)
 
 }
 
-QString PipelineManager::getPipelineInfo() {
+QString CommonPipelineManager::getPipelineInfo() {
     // if (!pipeline()) {
     //     qDebug() << "Pipeline is not initialized.";
     //     emit pipelineInfoChanged("Pipeline is not initialized");
@@ -86,7 +86,7 @@ QString PipelineManager::getPipelineInfo() {
     return jsonString;
 }
 
-QJsonObject PipelineManager::getElementInfo(GstElement *element) {
+QJsonObject CommonPipelineManager::getElementInfo(GstElement *element) {
     QJsonObject elementInfo;
     const gchar *element_name = gst_element_get_name(element);
     const gchar *element_type = gst_element_factory_get_longname(gst_element_get_factory(element));
@@ -119,7 +119,7 @@ QJsonObject PipelineManager::getElementInfo(GstElement *element) {
     return elementInfo;
 }
 
-PipelineManager::~PipelineManager()
+CommonPipelineManager::~CommonPipelineManager()
 {
     if (this->m_pipeline)
     {
@@ -131,30 +131,30 @@ PipelineManager::~PipelineManager()
     }
 }
 
-// void PipelineManager::run()
+// void CommonPipelineManager::run()
 // {
 //     if (this->m_pipeline)
 //         gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
 // }
 
-// void PipelineManager::startPipeline(int port)
+// void CommonPipelineManager::startPipeline(int port)
 // {
 //     // パイプラインの開始処理
-//     g_print("PipelineManager::startPipeline\n");
+//     g_print("CommonPipelineManager::startPipeline\n");
 //     // g_print(this->m_pipeline);
 // }
 
-// void PipelineManager::stopPipeline()
+// void CommonPipelineManager::stopPipeline()
 // {
 //     // パイプラインの停止処理
 // }
 
-GstElement *PipelineManager::pipeline() const
+GstElement *CommonPipelineManager::pipeline() const
 {
     return this->m_pipeline;
 }
 
-void PipelineManager::setPipeline(GstElement *pipeline)
+void CommonPipelineManager::setPipeline(GstElement *pipeline)
 {
     if (this->m_pipeline)
     {
@@ -163,12 +163,12 @@ void PipelineManager::setPipeline(GstElement *pipeline)
     this->m_pipeline = pipeline ? static_cast<GstElement *>(gst_object_ref(pipeline)) : nullptr;
 }
 
-GstElement *PipelineManager::sink() const
+GstElement *CommonPipelineManager::sink() const
 {
     return this->m_sink;
 }
 
-void PipelineManager::setSink(GstElement *sink)
+void CommonPipelineManager::setSink(GstElement *sink)
 {
     if (this->m_sink)
     {

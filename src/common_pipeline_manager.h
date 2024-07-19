@@ -1,5 +1,5 @@
-#ifndef PIPELINEMANAGER_H
-#define PIPELINEMANAGER_H
+#ifndef COMMON_COMMON_PIPELINE_MANAGER_H
+#define COMMON_COMMON_PIPELINE_MANAGER_H
 
 #include <QRunnable>
 #include <QString>
@@ -15,17 +15,17 @@
 #include <QString>
 #include <QStringList>
 
-class PipelineManager : public QObject
+class CommonPipelineManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit PipelineManager(QObject *parent = nullptr);
+    explicit CommonPipelineManager(QObject *parent = nullptr);
 
-    // class PipelineManager : public QRunnable
+    // class CommonPipelineManager : public QRunnable
     // {
     // public:
-    //     PipelineManager();
-    ~PipelineManager();
+    //     CommonPipelineManager();
+    ~CommonPipelineManager();
 
     // void run() override;
     // void startPipeline(int port);
@@ -53,4 +53,4 @@ private:
     QJsonObject getElementInfo(GstElement *element);
 };
 
-#endif // PIPELINEMANAGER_H
+#endif // COMMON_COMMON_PIPELINE_MANAGER_H

@@ -11,7 +11,7 @@ Item {
     property var pipelineElements: null
 
     Component.onCompleted: {
-        pipelineElements = JSON.parse(pipelineManager.getPipelineInfo()).elements.reverse()
+        pipelineElements = JSON.parse(commonPipelineManager.getPipelineInfo()).elements.reverse()
     }
 
     Row {
@@ -28,7 +28,7 @@ Item {
                 spacing: 1
                 property var currentItem: null
 
-                // var modelData =  JSON.parse(pipelineManager.getPipelineInfo()).elements
+                // var modelData =  JSON.parse(commonPipelineManager.getPipelineInfo()).elements
                 // console.log(JSON.stringify(modelData, null, 2))
 
 

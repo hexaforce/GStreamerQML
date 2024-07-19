@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 // import jp.fpv.NetworkSetting 1.0
-// import jp.fpv.PipelineManager 1.0
+// import jp.fpv.CommonPipelineManager 1.0
 
 Item {
     focus: true
@@ -29,9 +29,9 @@ Item {
         id: outputRule
     }
 
-    // PipelineManager {
-    //     id: pipelineManager
-    //     objectName: "pipelineManager"
+    // CommonPipelineManager {
+    //     id: commonPipelineManager
+    //     objectName: "commonPipelineManager"
     // }
 
     function appendListModel(json, listModel){
