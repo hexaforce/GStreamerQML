@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     // PipelineManager *pipelineManager = new PipelineManager();
 
     qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
-    qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
+    qmlRegisterType<ProcessRunner>("jp.fpv.ProcessRunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
     
@@ -46,6 +46,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     PipelineManager pipelineManager;
     engine.rootContext()->setContextProperty("pipelineManager", &pipelineManager);
+    // ProcessRunner processRunner;
+    // engine.rootContext()->setContextProperty("processRunner", &processRunner);
+    
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());

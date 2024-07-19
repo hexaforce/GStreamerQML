@@ -8,7 +8,7 @@ import QtQuick.Dialogs 1.3
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 import jp.fpv.DeviceMonitor 1.0
-import jp.fpv.processrunner 1.0
+import jp.fpv.ProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
 
 ApplicationWindow {
@@ -29,6 +29,9 @@ ApplicationWindow {
 
     ProcessRunner {
         id: processRunner
+        onResultChanged: {
+            console.log("Command Result:", processRunner.result)
+        }
     }
 
     UdpReceiver {

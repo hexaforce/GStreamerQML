@@ -1,9 +1,10 @@
-// ProcessRunner.h
+// process_runner.h
 #ifndef PROCESSRUNNER_H
 #define PROCESSRUNNER_H
 
 #include <QObject>
 #include <QProcess>
+#include <QDebug>
 
 class ProcessRunner : public QObject
 {

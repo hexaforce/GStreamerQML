@@ -100,15 +100,11 @@ Item {
                             Row {
                                 spacing:5
                                 Button {
-                                    text: "start2"
+                                    text: "start"
                                     width: 100
                                     height: 30
                                     onClicked: {
-                                        // console.log(pipelineManager.getPipelineInfo())
-                                        var modelData =  JSON.parse(pipelineManager.getPipelineInfo()).elements
-                                        console.log(JSON.stringify(modelData, null, 2))
-
-
+                                        processRunner.runCommand("pkexec", ["systemctl", "restart", "hostapd"])
                                     }
                                 }
                                 Button {
