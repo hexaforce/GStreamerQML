@@ -104,7 +104,10 @@ Item {
                                     width: 100
                                     height: 30
                                     onClicked: {
-                                        processRunner.runCommand("pkexec", ["systemctl", "restart", "hostapd"])
+                                        //processRunner.runCommand("sudo", ["systemctl", "restart", "hostapd"])
+                                        //processRunner.runCommand("pkexec", ["systemctl", "restart", "hostapd"])
+                                        processRunner.runCommand("echo", ["Hello World"])
+
                                     }
                                 }
                                 Button {

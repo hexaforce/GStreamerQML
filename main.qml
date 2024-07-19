@@ -32,6 +32,9 @@ ApplicationWindow {
         onResultChanged: {
             console.log("Command Result:", processRunner.result)
         }
+        onErrorChanged: {
+            console.log("Command Error:", processRunner.error)
+        }
     }
 
     UdpReceiver {
@@ -45,6 +48,16 @@ ApplicationWindow {
         udpReceiver.startListening(5009)
         // console.log( pipelineManager.get_pipeline_state())
         // console.log(  pipelineManager.get_pipeline_parameters())
+        // id: processRunner
+        // processRunner.onResultChanged=()=>{
+        //     console.log("Command Result:", processRunner.result)
+        // }
+        // processRunner.onErrorChanged=()=>{
+        //     console.log("Command Error:", processRunner.error)
+        // }
+        // // onErrorChanged: {
+        // //     console.log("Command Error:", processRunner.error)
+        // // }
     }
 
     Item {
