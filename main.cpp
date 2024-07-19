@@ -10,9 +10,6 @@
 #include <QQuickWindow>
 #include <gst/gst.h>
 
-#include "q_video.h"
-#include "q_audio.h"
-#include "q_telemetry.h"
 #include "q_network.h"
 #include <QQuickItem>
 #include <QDebug>
@@ -39,9 +36,6 @@ int main(int argc, char *argv[])
     // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
     
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
-    qmlRegisterType<Q_Video>("jp.fpv.Q_Video", 1, 0, "Q_Video");
-    qmlRegisterType<Q_Video>("jp.fpv.Q_Audio", 1, 0, "Q_Audio");
-    qmlRegisterType<Q_Video>("jp.fpv.Q_Telemetry", 1, 0, "Q_Telemetry");
 
     QQmlApplicationEngine engine;
     PipelineManager pipelineManager;

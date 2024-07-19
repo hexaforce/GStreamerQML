@@ -20,10 +20,7 @@ HEADERS += src/pipeline_manager.h \
            src/process_runner.h \
            src/udp_receiver.h \
            src/device_monitor.h \
-           src/q_network.h \
-           src/q_video.h \
-           src/q_audio.h \
-           src/q_telemetry.h
+           src/q_network.h 
 
 SOURCES += main.cpp \
            src/pipeline_manager.cpp \
@@ -31,10 +28,7 @@ SOURCES += main.cpp \
            src/process_runner.cpp \
            src/udp_receiver.cpp \
            src/device_monitor.cpp \
-           src/q_network.cpp \
-           src/q_video.cpp \
-           src/q_audio.cpp \
-           src/q_telemetry.cpp
+           src/q_network.cpp 
 
 RESOURCES += qml.qrc
 
