@@ -112,37 +112,37 @@ ApplicationWindow {
 
     Component {
         id: q_service
-            Loader {
-        source: "qrc:/qml/Q_service.qml"
-    }
+        Loader {
+            source: "qrc:/qml/Q_service.qml"
+        }
     }
 
     Component {
         id: q_network
-            Loader {
-        source: "qrc:/qml/Q_network.qml"
-    }
-    }
-
-    Component {
-        id: q_video
-            Loader {
-        source: "qrc:/qml/Q_video.qml"
-    }
+        Loader {
+            source: "qrc:/qml/Q_network.qml"
+        }
     }
 
     Component {
-        id: q_audio
-            Loader {
-        source: "qrc:/qml/Q_audio.qml"
-    }
+        id: videosetting
+        Loader {
+            source: "qrc:/qml/VideoSetting.qml"
+        }
     }
 
     Component {
-        id: q_telemetry
-            Loader {
-        source: "qrc:/qml/Q_telemetry.qml"
+        id: audiosetting
+        Loader {
+            source: "qrc:/qml/AudioSetting.qml"
+        }
     }
+
+    Component {
+        id: telemetrysetting
+        Loader {
+            source: "qrc:/qml/TelemetrySetting.qml"
+        }
 
     }
 

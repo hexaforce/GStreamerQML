@@ -6,8 +6,8 @@
         <file>qml/AccordionSection.qml</file>
         <file>qml/Q_service.qml</file>
         <file>qml/Q_network.qml</file>
-        <file>qml/Q_video.qml</file>
-        <file>qml/Q_audio.qml</file>
-        <file>qml/Q_telemetry.qml</file>
+        <file>qml/VideoSetting.qml</file>
+        <file>qml/AudioSetting.qml</file>
+        <file>qml/TelemetrySetting.qml</file>
     </qresource>
 </RCC>
