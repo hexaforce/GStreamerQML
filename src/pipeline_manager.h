@@ -4,6 +4,8 @@
 #include <QRunnable>
 #include <QString>
 #include <gst/gst.h>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class PipelineManager : public QRunnable
 {
@@ -19,10 +21,12 @@ public:
     void setPipeline(GstElement *pipeline);
     GstElement *sink() const;
     void setSink(GstElement *sink);
-
+//  Q_INVOKABLE void getPipelineInfo();
+void getPipelineInfo();
 private:
     GstElement *m_pipeline;
     GstElement *m_sink;
+    QJsonObject getElementInfo(GstElement *element);
 };
 
 #endif // PIPELINEMANAGER_H

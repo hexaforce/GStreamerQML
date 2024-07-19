@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     pipelineController->setPipelineManager(pipelineManager);
 
     g_object_set(pipelineManager->sink(), "widget", videoItem, NULL);
+    pipelineManager->getPipelineInfo();
     rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);
 
     ret = app.exec();
