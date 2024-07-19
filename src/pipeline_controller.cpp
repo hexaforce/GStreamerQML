@@ -21,25 +21,24 @@ void PipelineController::startPipeline(int port)
     this->m_pipelineManager->startPipeline(port);
 }
 
+// bool PipelineController::isPipelineRunning() const {
+//   // Check if the pipeline is currently running
+//   GstState current, pending;
+//   gst_element_get_state(pipeline, &current, &pending, 0);
+//   return (current == GST_STATE_PLAYING);
+// }
 
 QString PipelineController::get_pipeline_state()
 {
-    qInfo() << "3get_pipeline_state!";
-    if (!this->m_pipelineManager) {
-        qWarning() << "Pipeline is not initialized!";
-        return "UNINITIALIZED";
-    }
-    qInfo() << "2get_pipeline_state!";
-    if (!this->m_pipelineManager->pipeline()) {
+    if (!pipelineManager()->pipeline()) {
         qWarning() << "Pipeline is not initialized!";
         return "UNINITIALIZED";
     }
 
-    qInfo() << "1get_pipeline_state!";
     try {
-        GstState state;
-        GstState pending;
-        GstStateChangeReturn ret = gst_element_get_state(this->m_pipelineManager->pipeline(), &state, &pending, GST_CLOCK_TIME_NONE);
+        GstState state, pending;
+        // GstStateChangeReturn ret = gst_element_get_state(pipelineManager(), &state, &pending, GST_CLOCK_TIME_NONE);
+        GstStateChangeReturn ret = gst_element_get_state(pipelineManager()->pipeline(), &state, &pending, 0);
 
         qInfo() << "0get_pipeline_state!";
         if (ret == GST_STATE_CHANGE_FAILURE) {
@@ -68,6 +67,7 @@ QString PipelineController::get_pipeline_state()
         return "EXCEPTION";
     }
 }
+
 QString PipelineController::get_pipeline_parameters()
 {
     return "aaa";

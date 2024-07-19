@@ -10,7 +10,7 @@ PipelineManager::PipelineManager()
 
     gint port = 5000;
     // setupLocalCapturePipeline(pipeline, sink);
-    setupH26xReceivePipeline_SoftwareDecoding(pipeline, sink, port, CodecType::H264, VendorType::Libav);
+    setupH26xReceivePipeline_SoftwareDecoding(this->m_pipeline, this->m_sink, port, CodecType::H264, VendorType::Libav);
     // setupH265ReceivePipeline(pipeline, sink, port);
     // setupJpegReceivePipeline(pipeline, sink, port);
 }
