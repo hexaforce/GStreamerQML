@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/online-streaming-icon.svg</file>
         <file>main.qml</file>
+        <file>qml/icons/online-streaming-icon.svg</file>
         <file>qml/SideMenu.qml</file>
         <file>qml/AccordionSection.qml</file>
         <file>qml/Q_service.qml</file>

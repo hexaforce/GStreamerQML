@@ -30,7 +30,7 @@ SOURCES += main.cpp \
            src/device_monitor.cpp \
            src/q_network.cpp 
 
-RESOURCES += qml.qrc
+RESOURCES += main.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
