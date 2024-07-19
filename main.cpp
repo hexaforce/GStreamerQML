@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     // PipelineManager *pipelineManager = new PipelineManager();
 
-    qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
+    // qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
     qmlRegisterType<ProcessRunner>("jp.fpv.ProcessRunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     PipelineManager pipelineManager;
     engine.rootContext()->setContextProperty("pipelineManager", &pipelineManager);
+    CommonDeviceMonitor commonDeviceMonitor;
+    engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
     // ProcessRunner processRunner;
     // engine.rootContext()->setContextProperty("processRunner", &processRunner);
     
