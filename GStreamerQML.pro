@@ -17,7 +17,7 @@ INCLUDEPATH += src
 
 HEADERS += src/common_pipeline_manager.h \
            src/receive_pipelines.h \
-           src/process_runner.h \
+           src/common_process_runner.h \
            src/udp_receiver.h \
            src/common_device_monitor.h \
            src/q_network.h 
@@ -25,7 +25,7 @@ HEADERS += src/common_pipeline_manager.h \
 SOURCES += main.cpp \
            src/common_pipeline_manager.cpp \
            src/receive_pipelines.cpp \
-           src/process_runner.cpp \
+           src/common_process_runner.cpp \
            src/udp_receiver.cpp \
            src/common_device_monitor.cpp \
            src/q_network.cpp 

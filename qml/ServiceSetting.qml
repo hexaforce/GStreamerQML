@@ -102,7 +102,7 @@ Item {
                                         width: 100
                                         height: 30
                                         onClicked: {
-                                            processRunner.runCommand("sudo", ["systemctl", modelData, "hostapd"])
+                                            commonProcessRunner.runCommand("sudo", ["systemctl", modelData, "hostapd"])
                                         }
                                     }
                                 }
@@ -157,7 +157,7 @@ Item {
                                         width: 100
                                         height: 30
                                         onClicked: {
-                                            processRunner.runCommand("sudo", ["systemctl", modelData, "dnsmasq"])
+                                            commonProcessRunner.runCommand("sudo", ["systemctl", modelData, "dnsmasq"])
                                         }
                                     }
                                 }
@@ -203,7 +203,7 @@ Item {
                                     height: 30
                                     onClicked: {
                                         let interfaces = interfaceComboBox.model[interfaceComboBox.currentIndex]
-                                        processRunner.runCommand("sudo", ["ifconfig", interfaces, address.text, "netmask", netmask.text, "up" ])
+                                        commonProcessRunner.runCommand("sudo", ["ifconfig", interfaces, address.text, "netmask", netmask.text, "up" ])
                                     }
                                 }
                             }
@@ -273,8 +273,8 @@ Item {
                                     height: 30
                                     onClicked: {
                                         let interfaces = accessPointComboBox.model[accessPointComboBox.currentIndex]
-                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", interfaces, "-j", "ACCEPT"])
-                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-o", interfaces, "-j", "ACCEPT"])
+                                        commonProcessRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", interfaces, "-j", "ACCEPT"])
+                                        commonProcessRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-o", interfaces, "-j", "ACCEPT"])
                                     }
                                 }
                             }
@@ -316,9 +316,9 @@ Item {
                                     onClicked: {
                                         let apInterfaces = apComboBox.model[apComboBox.currentIndex]
                                         let wanInterfaces = wanComboBox.model[wanComboBox.currentIndex]
-                                        processRunner.runCommand("sudo", ["iptables", "-t", "nat", "-A", "POSTROUTING", "-o", wanInterfaces, "-j", "MASQUERADE"])
-                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", apInterfaces, "-o", wanInterfaces, "-j", "ACCEPT"])
-                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", wanInterfaces, "-o", apInterfaces, "-m", "state", "--state", "RELATED,ESTABLISHED", "-j", "ACCEPT"])
+                                        commonProcessRunner.runCommand("sudo", ["iptables", "-t", "nat", "-A", "POSTROUTING", "-o", wanInterfaces, "-j", "MASQUERADE"])
+                                        commonProcessRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", apInterfaces, "-o", wanInterfaces, "-j", "ACCEPT"])
+                                        commonProcessRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", wanInterfaces, "-o", apInterfaces, "-m", "state", "--state", "RELATED,ESTABLISHED", "-j", "ACCEPT"])
                                     }
                                 }
                             }

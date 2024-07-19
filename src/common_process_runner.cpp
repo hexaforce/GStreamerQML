@@ -1,13 +1,13 @@
-#include "process_runner.h"
+#include "common_process_runner.h"
 
-ProcessRunner::ProcessRunner(QObject *parent) : QObject(parent)
+CommonProcessRunner::CommonProcessRunner(QObject *parent) : QObject(parent)
 {
-    connect(&m_process, &QProcess::readyReadStandardOutput, this, &ProcessRunner::readProcessOutput);
-    connect(&m_process, &QProcess::readyReadStandardError, this, &ProcessRunner::readProcessError);
-    connect(&m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &ProcessRunner::processFinished);
+    connect(&m_process, &QProcess::readyReadStandardOutput, this, &CommonProcessRunner::readProcessOutput);
+    connect(&m_process, &QProcess::readyReadStandardError, this, &CommonProcessRunner::readProcessError);
+    connect(&m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &CommonProcessRunner::processFinished);
 }
 
-void ProcessRunner::runCommand(const QString &command, const QStringList &arguments)
+void CommonProcessRunner::runCommand(const QString &command, const QStringList &arguments)
 {
     qDebug() << "runCommand: " << command << arguments;
     m_result.clear();
@@ -18,31 +18,31 @@ void ProcessRunner::runCommand(const QString &command, const QStringList &argume
     }
 }
 
-QString ProcessRunner::result() const
+QString CommonProcessRunner::result() const
 {
     return m_result;
 }
 
-QString ProcessRunner::error() const
+QString CommonProcessRunner::error() const
 {
     return m_error;
 }
 
-void ProcessRunner::readProcessOutput()
+void CommonProcessRunner::readProcessOutput()
 {
     // qDebug() << "readProcessOutput";
     m_result += QString::fromUtf8(m_process.readAllStandardOutput());
     emit resultChanged();
 }
 
-void ProcessRunner::readProcessError()
+void CommonProcessRunner::readProcessError()
 {
     // qDebug() << "readProcessError";
     m_error += QString::fromUtf8(m_process.readAllStandardError());
     emit errorChanged();
 }
 
-void ProcessRunner::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void CommonProcessRunner::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     // qDebug() << "Process finished with exit code" << exitCode;
     if (exitStatus == QProcess::CrashExit) {

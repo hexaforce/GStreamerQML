@@ -8,7 +8,7 @@ import QtQuick.Dialogs 1.3
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 // import jp.fpv.CommonDeviceMonitor 1.0
-import jp.fpv.ProcessRunner 1.0
+import jp.fpv.CommonProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
 import jp.fpv.Q_Network 1.0
 
@@ -32,13 +32,13 @@ ApplicationWindow {
     //     id: commonDeviceMonitor
     // }
 
-    ProcessRunner {
-        id: processRunner
+    CommonProcessRunner {
+        id: commonProcessRunner
         onResultChanged: {
-            console.log("Command Result:", processRunner.result)
+            console.log("Command Result:", commonProcessRunner.result)
         }
         onErrorChanged: {
-            console.log("Command Error:", processRunner.error)
+            console.log("Command Error:", commonProcessRunner.error)
         }
     }
 
@@ -53,15 +53,15 @@ ApplicationWindow {
         udpReceiver.startListening(5009)
         // console.log( commonPipelineManager.get_pipeline_state())
         // console.log(  commonPipelineManager.get_pipeline_parameters())
-        // id: processRunner
-        // processRunner.onResultChanged=()=>{
-        //     console.log("Command Result:", processRunner.result)
+        // id: commonProcessRunner
+        // commonProcessRunner.onResultChanged=()=>{
+        //     console.log("Command Result:", commonProcessRunner.result)
         // }
-        // processRunner.onErrorChanged=()=>{
-        //     console.log("Command Error:", processRunner.error)
+        // commonProcessRunner.onErrorChanged=()=>{
+        //     console.log("Command Error:", commonProcessRunner.error)
         // }
         // // onErrorChanged: {
-        // //     console.log("Command Error:", processRunner.error)
+        // //     console.log("Command Error:", commonProcessRunner.error)
         // // }
     }
 
@@ -101,8 +101,8 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                        // console.log(processRunner.result)
+                        // commonProcessRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                        // console.log(commonProcessRunner.result)
                         stack.push(servicesetting)
                     }
                 }

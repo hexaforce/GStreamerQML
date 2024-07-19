@@ -1,7 +1,7 @@
 #include "common_pipeline_manager.h"
 
 #include "common_device_monitor.h"
-#include "process_runner.h"
+#include "common_process_runner.h"
 #include "udp_receiver.h"
 
 #include <QApplication>
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     // CommonPipelineManager *commonPipelineManager = new CommonPipelineManager();
 
     // qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
-    qmlRegisterType<ProcessRunner>("jp.fpv.ProcessRunner", 1, 0, "ProcessRunner");
+    qmlRegisterType<CommonProcessRunner>("jp.fpv.CommonProcessRunner", 1, 0, "CommonProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     // qmlRegisterType<CommonPipelineManager>("jp.fpv.CommonPipelineManager", 1, 0, "CommonPipelineManager");
     
@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("commonPipelineManager", &commonPipelineManager);
     CommonDeviceMonitor commonDeviceMonitor;
     engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
-    // ProcessRunner processRunner;
-    // engine.rootContext()->setContextProperty("processRunner", &processRunner);
+    // CommonProcessRunner commonProcessRunner;
+    // engine.rootContext()->setContextProperty("commonProcessRunner", &commonProcessRunner);
     
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
