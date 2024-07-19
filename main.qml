@@ -10,6 +10,7 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 import jp.fpv.DeviceMonitor 1.0
 import jp.fpv.ProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
+import jp.fpv.Q_Network 1.0
 
 ApplicationWindow {
     id: window
@@ -22,6 +23,10 @@ ApplicationWindow {
     y: (Screen.height - height) / 2
 
     Material.theme: Material.Dark
+
+    Q_Network {
+        id: q_Network
+    }
 
     DeviceMonitor {
         id: deviceMonitor

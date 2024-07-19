@@ -99,7 +99,17 @@ QJsonObject Q_Network::getIptablesStatus() {
             currentChain.clear();
             continue;
         }
-
+        // Skip lines related to Docker
+        QStringList fields = line.split(QRegExp("\\s+"), QString::SkipEmptyParts);
+        if (fields.size() >= 8) {
+            QString target = fields[3];
+            QString in = fields[6];
+            QString out = fields[7];
+            if (target.contains("DOCKER", Qt::CaseInsensitive) || in.contains("docker", Qt::CaseInsensitive) || out.contains("docker", Qt::CaseInsensitive)) {
+                continue;
+            }
+        }
+        
         if (currentChain == "INPUT") {
             inputChain.append(parseIptablesChain(currentChain, { line }));
         } else if (currentChain == "FORWARD") {

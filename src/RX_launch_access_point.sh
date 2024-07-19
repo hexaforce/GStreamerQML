@@ -103,8 +103,17 @@ sudo sysctl -w net.ipv4.ip_forward=1
 
 # iptablesルールの設定
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-sudo iptables -A FORWARD -i eth0 -o $INTERFACE -m state --state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A FORWARD -i $INTERFACE -o eth0 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o wlxe0e1a91d6625 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlxe0e1a91d6625 -o eth0 -j ACCEPT
+
+# Debian/Ubuntu 系:
+# ルールを永続化
+# sudo netfilter-persistent save
+# sudo systemctl restart netfilter-persistent
+
+# Red Hat/CentOS 系:
+# sudo service iptables save
+# sudo systemctl restart iptables
 
 echo " "
 echo "Setup completed successfully."
@@ -129,7 +138,7 @@ echo "DHCP Range: $DHCP_RANGE_START - $DHCP_RANGE_END"
 # sudo iptables -L -n -v --line-numbers
 
 # sudo iptables -D FORWARD 10
-# sudo iptables -D FORWARD 9
+# sudo iptables -D FORWARD 7
 
 $ cat /etc/dnsmasq.conf
 interface=wlxe0e1a91d6625
