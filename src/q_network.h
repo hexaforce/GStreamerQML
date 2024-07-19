@@ -18,6 +18,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QProcessEnvironment>
+
 class Q_Network : public QObject
 {
     Q_OBJECT
@@ -25,23 +26,15 @@ public:
     explicit Q_Network(QObject *parent = nullptr);
 
 public slots:
-    // QString getHostapdStatus();
-    // QString getDnsmasqStatus();
-    // QString getUfwStatus();
-    
+
     QJsonArray parseIptablesChain(const QString &chainName, const QStringList &lines);
     QJsonObject getIptablesStatus();
     QString getCombinedStatus();
 
     QString getNetworkInfoAsJson();
 
-    QString getIwconfigOutput();
-    QStringList getWifiDevices();
-    QString getDeviceStatus(const QString &device);
-    QString getDeviceSupport(const QString &device);
-
 private:
-QString readConfFile(const QString &filePath);
+    QString readConfFile(const QString &filePath);
     QStringList parseIwconfigOutput(const QString &output);
     QString getSystemctlStatus(const QString &serviceName);
 };
