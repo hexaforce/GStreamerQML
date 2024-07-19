@@ -12,7 +12,7 @@ Item {
 
     // property var combinedStatus: null
     // Component.onCompleted: {
-    //     combinedStatus = JSON.parse(q_Network.getCombinedStatus())
+    //     combinedStatus = JSON.parse(networkSetting.getCombinedStatus())
     //     console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));
     //     console.log(combinedStatus.hostapd_conf);
     //     console.log(JSON.stringify(combinedStatus.dnsmasq_status, null, 2));
@@ -31,7 +31,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_network"
+            current: "networksetting"
         }
         Item {
             visible: true
@@ -47,7 +47,7 @@ Item {
                 }
 
                 Repeater {
-                    model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
+                    model: JSON.parse(commonNetworkService.getNetworkInfoAsJson()).network_interfaces
                     delegate: AccordionSection {
                         required property var modelData
                         title: "[" + modelData.nmcli_info["GENERAL.TYPE"]+"] " + modelData.udevadm_info["ID_MODEL_FROM_DATABASE"]

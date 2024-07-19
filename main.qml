@@ -25,7 +25,7 @@ ApplicationWindow {
     Material.theme: Material.Dark
 
     Q_Network {
-        id: q_Network
+        id: commonNetworkService
     }
 
     DeviceMonitor {
@@ -103,7 +103,7 @@ ApplicationWindow {
                     onClicked: {
                         // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
                         // console.log(processRunner.result)
-                        stack.push(q_service)
+                        stack.push(servicesetting)
                     }
                 }
             }
@@ -111,16 +111,16 @@ ApplicationWindow {
     }
 
     Component {
-        id: q_service
+        id: servicesetting
         Loader {
-            source: "qrc:/qml/Q_service.qml"
+            source: "qrc:/qml/ServiceSetting.qml"
         }
     }
 
     Component {
-        id: q_network
+        id: networksetting
         Loader {
-            source: "qrc:/qml/Q_network.qml"
+            source: "qrc:/qml/NetworkSetting.qml"
         }
     }
 

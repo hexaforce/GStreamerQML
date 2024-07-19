@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Network 1.0
+// import jp.fpv.NetworkSetting 1.0
 // import jp.fpv.PipelineManager 1.0
 
 Item {
@@ -43,11 +43,11 @@ Item {
     }
 
     Component.onCompleted: {
-        combinedStatus = JSON.parse(q_Network.getCombinedStatus())
+        combinedStatus = JSON.parse(commonNetworkService.getCombinedStatus())
         appendListModel(combinedStatus.iptables_status.OUTPUT, inputRule)
         appendListModel(combinedStatus.iptables_status.FORWARD, forwardRule)
         appendListModel(combinedStatus.iptables_status.OUTPUT, outputRule)
-        networkInterfaces = JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
+        networkInterfaces = JSON.parse(commonNetworkService.getNetworkInfoAsJson()).network_interfaces
         // console.log(JSON.stringify(networkInterfaces, null, 2))
     }
 
@@ -64,7 +64,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_service"
+            current: "servicesetting"
         }
         Item {
             visible: true

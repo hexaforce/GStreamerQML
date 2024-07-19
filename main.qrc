@@ -4,8 +4,8 @@
         <file>qml/icons/online-streaming-icon.svg</file>
         <file>qml/SideMenu.qml</file>
         <file>qml/AccordionSection.qml</file>
-        <file>qml/Q_service.qml</file>
-        <file>qml/Q_network.qml</file>
+        <file>qml/ServiceSetting.qml</file>
+        <file>qml/NetworkSetting.qml</file>
         <file>qml/VideoSetting.qml</file>
         <file>qml/AudioSetting.qml</file>
         <file>qml/TelemetrySetting.qml</file>

@@ -23,16 +23,16 @@ Column {
         Button {
             text: "Go Service"
             Layout.fillWidth: true
-            onClicked: stack.push(q_service)
-            enabled: current !== "q_service"
+            onClicked: stack.push(servicesetting)
+            enabled: current !== "servicesetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Network"
             Layout.fillWidth: true
-            onClicked: stack.push(q_network)
-            enabled: current !== "q_network"
+            onClicked: stack.push(networksetting)
+            enabled: current !== "networksetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
