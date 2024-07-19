@@ -7,7 +7,7 @@ import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
-import jp.fpv.DeviceMonitor 1.0
+import jp.fpv.CommonDeviceMonitor 1.0
 import jp.fpv.ProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
 import jp.fpv.Q_Network 1.0
@@ -28,8 +28,8 @@ ApplicationWindow {
         id: commonNetworkService
     }
 
-    DeviceMonitor {
-        id: deviceMonitor
+    CommonDeviceMonitor {
+        id: commonDeviceMonitor
     }
 
     ProcessRunner {

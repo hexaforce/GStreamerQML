@@ -1,6 +1,6 @@
 #include "pipeline_manager.h"
 
-#include "device_monitor.h"
+#include "common_device_monitor.h"
 #include "process_runner.h"
 #include "udp_receiver.h"
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     // PipelineManager *pipelineManager = new PipelineManager();
 
-    qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
+    qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
     qmlRegisterType<ProcessRunner>("jp.fpv.ProcessRunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");

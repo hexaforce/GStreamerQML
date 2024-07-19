@@ -22,7 +22,7 @@ Item {
                 spacing: 1
                 property var currentItem: null
                 Repeater {
-                    model: JSON.parse(deviceMonitor.listDevices("Audio"))
+                    model: JSON.parse(commonDeviceMonitor.listDevices("Audio"))
                     delegate: AccordionSection {
                         required property var modelData
                         title: modelData.Device

@@ -61,7 +61,7 @@ Item {
                 }
 
                 Repeater {
-                    model: JSON.parse(deviceMonitor.listDevices("Video"))
+                    model: JSON.parse(commonDeviceMonitor.listDevices("Video"))
                     delegate: AccordionSection {
                         required property var modelData
                         title: modelData.Device

@@ -74,12 +74,12 @@ int main(int argc, char *argv[])
 {
     gst_init(&argc, &argv);
 
-    GstDeviceMonitor *deviceMonitor = gst_device_monitor_new();
-    gst_device_monitor_add_filter(deviceMonitor, "Video/Source", nullptr);
-    // gst_device_monitor_add_filter(deviceMonitor, "Audio/Source", nullptr);
+    GstCommonDeviceMonitor *commonDeviceMonitor = gst_device_monitor_new();
+    gst_device_monitor_add_filter(commonDeviceMonitor, "Video/Source", nullptr);
+    // gst_device_monitor_add_filter(commonDeviceMonitor, "Audio/Source", nullptr);
 
-    gst_device_monitor_start(deviceMonitor);
-    GList *devices = gst_device_monitor_get_devices(deviceMonitor);
+    gst_device_monitor_start(commonDeviceMonitor);
+    GList *devices = gst_device_monitor_get_devices(commonDeviceMonitor);
     Json::Value devicesArray(Json::arrayValue);
 
     for (GList *l = devices; l != nullptr; l = l->next)
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
     }
 
     g_list_free(devices);
-    gst_object_unref(deviceMonitor);
+    gst_object_unref(commonDeviceMonitor);
 
     Json::StreamWriterBuilder writer;
     writer["emitUTF8"] = true;

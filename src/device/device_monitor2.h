@@ -1,15 +1,15 @@
-#ifndef DEVICE_MONITOR_H
-#define DEVICE_MONITOR_H
+#ifndef COMMON_DEVICE_MONITOR_H
+#define COMMON_DEVICE_MONITOR_H
 
 #include <QObject>
 #include <QString>
 #include <QJsonArray>
 #include <gst/gst.h>
 
-class DeviceMonitor : public QObject {
+class CommonDeviceMonitor : public QObject {
     Q_OBJECT
 public:
-    explicit DeviceMonitor(QObject *parent = nullptr);
+    explicit CommonDeviceMonitor(QObject *parent = nullptr);
 
     Q_INVOKABLE QString listDevices(const QString &deviceType);
 
@@ -18,4 +18,4 @@ private:
     QJsonArray deviceToJson(GstElementFactory *factory);
 };
 
-#endif // DEVICE_MONITOR_H
+#endif // COMMON_DEVICE_MONITOR_H

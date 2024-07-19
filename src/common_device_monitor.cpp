@@ -1,15 +1,14 @@
-#include "device_monitor.h"
+#include "common_device_monitor.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QStringList>
-
-DeviceMonitor::DeviceMonitor(QObject *parent) : QObject(parent)
+CommonDeviceMonitor::CommonDeviceMonitor(QObject *parent) : QObject(parent)
 {
     gst_init(nullptr, nullptr);
 }
 
-QJsonArray DeviceMonitor::capsToJson(GstCaps *caps)
+QJsonArray CommonDeviceMonitor::capsToJson(GstCaps *caps)
 {
     QJsonArray capsArray;
 
@@ -76,7 +75,7 @@ QJsonArray DeviceMonitor::capsToJson(GstCaps *caps)
     return capsArray;
 }
 
-QJsonObject DeviceMonitor::deviceToJson(GstDevice *device)
+QJsonObject CommonDeviceMonitor::deviceToJson(GstDevice *device)
 {
     QJsonObject deviceJson;
     const gchar *deviceName = gst_device_get_display_name(device);
@@ -128,7 +127,7 @@ QJsonObject DeviceMonitor::deviceToJson(GstDevice *device)
     return deviceJson;
 }
 
-QString DeviceMonitor::listDevices(const QString &deviceType)
+QString CommonDeviceMonitor::listDevices(const QString &deviceType)
 {
     GstDeviceMonitor *deviceMonitor = gst_device_monitor_new();
     QString filter = "Source/" + deviceType;

@@ -1,13 +1,13 @@
-#include "device_monitor.h"
+#include "common_device_monitor.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
 
-DeviceMonitor::DeviceMonitor(QObject *parent) : QObject(parent) {
+CommonDeviceMonitor::CommonDeviceMonitor(QObject *parent) : QObject(parent) {
     gst_init(nullptr, nullptr);
 }
 
-QJsonArray DeviceMonitor::capsToJson(GstCaps *caps) {
+QJsonArray CommonDeviceMonitor::capsToJson(GstCaps *caps) {
     QJsonArray capsArray;
 
     for (guint i = 0; i < gst_caps_get_size(caps); ++i) {
@@ -20,7 +20,7 @@ QJsonArray DeviceMonitor::capsToJson(GstCaps *caps) {
     return capsArray;
 }
 
-QJsonArray DeviceMonitor::deviceToJson(GstElementFactory *factory) {
+QJsonArray CommonDeviceMonitor::deviceToJson(GstElementFactory *factory) {
     QJsonArray devicesArray;
     QJsonObject deviceJson;
     const gchar *deviceName = gst_plugin_feature_get_name(GST_PLUGIN_FEATURE(factory));
@@ -44,7 +44,7 @@ QJsonArray DeviceMonitor::deviceToJson(GstElementFactory *factory) {
     return devicesArray;
 }
 
-QString DeviceMonitor::listDevices(const QString &deviceType) {
+QString CommonDeviceMonitor::listDevices(const QString &deviceType) {
     GstRegistry *registry = gst_registry_get();
     GList *features = gst_registry_get_feature_list(registry, GST_TYPE_ELEMENT_FACTORY);
 

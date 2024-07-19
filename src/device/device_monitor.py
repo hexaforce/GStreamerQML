@@ -47,11 +47,11 @@ def device_to_dict(device):
 def main():
     Gst.init(None)
 
-    device_monitor = Gst.DeviceMonitor.new()
-    device_monitor.add_filter("Video/Source", None)
-    # device_monitor.add_filter("Audio/Source", None)
+    common_device_monitor = Gst.CommonDeviceMonitor.new()
+    common_device_monitor.add_filter("Video/Source", None)
+    # common_device_monitor.add_filter("Audio/Source", None)
 
-    device_list = device_monitor.get_devices()
+    device_list = common_device_monitor.get_devices()
 
     devices = []
     for device in device_list:
