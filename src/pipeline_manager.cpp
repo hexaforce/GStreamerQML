@@ -43,7 +43,7 @@ PipelineManager::PipelineManager(QObject *parent) : QObject(parent)
 
 }
 
-void PipelineManager::getPipelineInfo() {
+QString PipelineManager::getPipelineInfo() {
     // if (!pipeline()) {
     //     qDebug() << "Pipeline is not initialized.";
     //     emit pipelineInfoChanged("Pipeline is not initialized");
@@ -81,8 +81,9 @@ void PipelineManager::getPipelineInfo() {
 
     QJsonDocument doc(pipelineInfo);
     QString jsonString = doc.toJson(QJsonDocument::Compact);
-    qDebug() << jsonString;
+    // qDebug() << jsonString;
     // emit pipelineInfoChanged(jsonString);
+    return jsonString;
 }
 
 QJsonObject PipelineManager::getElementInfo(GstElement *element) {

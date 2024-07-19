@@ -18,6 +18,7 @@ Item {
             id: sideMenu
             current: "q_telemetry"
         }
+
         Item {
             visible: true
             width: window.width - sideMenu.width ; height: window.height
@@ -25,13 +26,41 @@ Item {
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 1
+
                 property var currentItem: null
+                Text {
+                    id: name1
+                    text: qsTr("text")
+                }
+
                 Repeater {
                     model: [
-                        { title: "Panel 1", color: "orange" },
-                        { title: "Panel 2", color: "lightgreen" },
-                        { title: "Panel 3", color: "lightblue" },
-                        { title: "Panel 4", color: "yellow" }
+                        { title: "Panel1 1", color: "orange" },
+                        { title: "Panel1 2", color: "lightgreen" },
+                        { title: "Panel1 3", color: "lightblue" },
+                        { title: "Panel1 4", color: "yellow" }
+                    ]
+                    delegate: AccordionSection {
+                        required property var modelData
+                        title: modelData.title
+                        contentItem: Rectangle {
+                            color: modelData.color
+                            anchors.fill: parent
+                        }
+                    }
+                }
+
+                Text {
+                    id: name2
+                    text: qsTr("text")
+                }
+
+                Repeater {
+                    model: [
+                        { title: "Panel2 1", color: "orange" },
+                        { title: "Panel2 2", color: "lightgreen" },
+                        { title: "Panel2 3", color: "lightblue" },
+                        { title: "Panel2 4", color: "yellow" }
                     ]
                     delegate: AccordionSection {
                         required property var modelData

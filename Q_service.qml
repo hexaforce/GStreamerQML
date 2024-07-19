@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 import jp.fpv.Q_Network 1.0
+// import jp.fpv.PipelineManager 1.0
 
 Item {
     focus: true
@@ -21,6 +22,10 @@ Item {
         id: forwardRule
     }
 
+    // PipelineManager {
+    //     id: pipelineManager
+    //     objectName: "pipelineManager"
+    // }
 
     Component.onCompleted: {
         combinedStatus = JSON.parse(q_Network.getCombinedStatus())
@@ -91,11 +96,15 @@ Item {
                             Row {
                                 spacing:5
                                 Button {
-                                    text: "start"
+                                    text: "start2"
                                     width: 100
                                     height: 30
                                     onClicked: {
-                                   console.log( pipelineManager.get_pipeline_state())
+                                        // console.log(pipelineManager.getPipelineInfo())
+                                        var modelData =  JSON.parse(pipelineManager.getPipelineInfo()).elements
+                                        console.log(JSON.stringify(modelData, null, 2))
+
+
                                     }
                                 }
                                 Button {

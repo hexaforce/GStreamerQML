@@ -10,7 +10,6 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 import jp.fpv.DeviceMonitor 1.0
 import jp.fpv.processrunner 1.0
 import jp.fpv.UdpReceiver 1.0
-import jp.fpv.PipelineManager 1.0
 
 ApplicationWindow {
     id: window
@@ -26,11 +25,6 @@ ApplicationWindow {
 
     DeviceMonitor {
         id: deviceMonitor
-    }
-
-    PipelineManager {
-        id: pipelineManager
-        objectName: "pipelineManager"
     }
 
     ProcessRunner {

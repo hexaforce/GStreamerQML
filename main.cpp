@@ -14,8 +14,10 @@
 #include "q_audio.h"
 #include "q_telemetry.h"
 #include "q_network.h"
+#include <QQuickItem>
+#include <QDebug>
 
-#include <QtDebug>
+#include <QQmlContext>
 
 
 // gst-launch-1.0 -e v4l2src device=/dev/video0 ! 'video/x-h264,width=960,height=540,framerate=30/1' ! h264parse ! rtph264pay ! udpsink host=127.0.0.1 port=5000
@@ -29,13 +31,12 @@ int main(int argc, char *argv[])
   {
     QGuiApplication app(argc, argv);
 
-    PipelineManager *pipelineManager = new PipelineManager();
+    // PipelineManager *pipelineManager = new PipelineManager();
 
     qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
     qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
+    // qmlRegisterType<PipelineManager>("jp.fpv.PipelineManager", 1, 0, "PipelineManager");
     
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
     qmlRegisterType<Q_Video>("jp.fpv.Q_Video", 1, 0, "Q_Video");
@@ -43,23 +44,18 @@ int main(int argc, char *argv[])
     qmlRegisterType<Q_Video>("jp.fpv.Q_Telemetry", 1, 0, "Q_Telemetry");
 
     QQmlApplicationEngine engine;
+    PipelineManager pipelineManager;
+    engine.rootContext()->setContextProperty("pipelineManager", &pipelineManager);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
-
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
-    // pipelineManager->setPipelineManager(pipelineManager);
-
-    // PipelineManager *pipelineManager = rootObject->findChild<PipelineManager *>("pipelineManager");
-    g_object_set(pipelineManager->sink(), "widget", videoItem, NULL);
-    
-    // pipelineManager->getPipelineInfo();
-    // rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);
+    g_object_set(pipelineManager.sink(), "widget", videoItem, NULL);
 
     ret = app.exec();
 
-    gst_element_set_state(pipelineManager->pipeline(), GST_STATE_NULL);
-    gst_object_unref(pipelineManager->pipeline());
+    gst_element_set_state(pipelineManager.pipeline(), GST_STATE_NULL);
+    gst_object_unref(pipelineManager.pipeline());
   }
 
   gst_deinit();

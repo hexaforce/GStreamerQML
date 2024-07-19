@@ -35,8 +35,8 @@ public:
     void setPipeline(GstElement *pipeline);
     GstElement *sink() const;
     void setSink(GstElement *sink);
-    //  Q_INVOKABLE void getPipelineInfo();
-    void getPipelineInfo();
+     Q_INVOKABLE QString getPipelineInfo();
+    // void getPipelineInfo();
 
     // Q_INVOKABLE void getPipelineInfo();
     // Q_INVOKABLE void getState();
