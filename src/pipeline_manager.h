@@ -2,6 +2,7 @@
 #define PIPELINEMANAGER_H
 
 #include <QRunnable>
+#include <QString>
 #include <gst/gst.h>
 
 class PipelineManager : public QRunnable

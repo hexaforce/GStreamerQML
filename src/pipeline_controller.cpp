@@ -30,6 +30,8 @@ void PipelineController::startPipeline(int port)
 
 QString PipelineController::get_pipeline_state()
 {
+
+
     if (!pipelineManager()->pipeline()) {
         qWarning() << "Pipeline is not initialized!";
         return "UNINITIALIZED";
