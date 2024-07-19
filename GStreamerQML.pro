@@ -16,23 +16,21 @@ DEFINES += GST_USE_UNSTABLE_API
 INCLUDEPATH += src
 
 HEADERS += src/pipeline_manager.h \
+           src/receive_pipelines.h \
            src/process_runner.h \
            src/udp_receiver.h \
            src/device_monitor.h \
-           src/receive_pipelines.h \
-           src/pipeline_controller.h \
            src/q_network.h \
            src/q_video.h \
            src/q_audio.h \
            src/q_telemetry.h
 
 SOURCES += main.cpp \
-           src/pipeline_manager.cpp  \
+           src/pipeline_manager.cpp \
+           src/receive_pipelines.cpp \
            src/process_runner.cpp \
            src/udp_receiver.cpp \
            src/device_monitor.cpp \
-           src/receive_pipelines.cpp \
-           src/pipeline_controller.cpp \
            src/q_network.cpp \
            src/q_video.cpp \
            src/q_audio.cpp \

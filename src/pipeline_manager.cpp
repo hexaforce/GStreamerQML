@@ -3,8 +3,10 @@
 #include <QDebug>
 #include <QStringBuilder>
 #include <QJsonDocument>
+#include <QProcess>
+#include <QRegularExpression>
 
-PipelineManager::PipelineManager()
+PipelineManager::PipelineManager(QObject *parent) : QObject(parent)
 {
     GstElement *pipeline = gst_pipeline_new(NULL);
     this->m_pipeline = static_cast<GstElement *>(gst_object_ref(pipeline));
@@ -19,7 +21,7 @@ PipelineManager::PipelineManager()
     setupH26xReceivePipeline_SoftwareDecoding(this->m_pipeline, this->m_sink, port, CodecType::H264, VendorType::Libav);
     // setupH265ReceivePipeline(pipeline, sink, port);
     // setupJpegReceivePipeline(pipeline, sink, port);
-
+    gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
 
     GstState state, pending;
     GstStateChangeReturn ret = gst_element_get_state(pipeline, &state, &pending, GST_CLOCK_TIME_NONE);
@@ -55,20 +57,20 @@ void PipelineManager::getPipelineInfo() {
 
     while (!done) {
         switch (gst_iterator_next(iter, &item)) {
-            case GST_ITERATOR_OK: {
-                GstElement *element = GST_ELEMENT(g_value_get_object(&item));
-                QJsonObject elementInfo = getElementInfo(element);
-                elementsArray.append(elementInfo);
-                g_value_reset(&item);
-                break;
-            }
-            case GST_ITERATOR_RESYNC:
-                gst_iterator_resync(iter);
-                break;
-            case GST_ITERATOR_ERROR:
-            case GST_ITERATOR_DONE:
-                done = TRUE;
-                break;
+        case GST_ITERATOR_OK: {
+            GstElement *element = GST_ELEMENT(g_value_get_object(&item));
+            QJsonObject elementInfo = getElementInfo(element);
+            elementsArray.append(elementInfo);
+            g_value_reset(&item);
+            break;
+        }
+        case GST_ITERATOR_RESYNC:
+            gst_iterator_resync(iter);
+            break;
+        case GST_ITERATOR_ERROR:
+        case GST_ITERATOR_DONE:
+            done = TRUE;
+            break;
         }
     }
 
@@ -128,23 +130,23 @@ PipelineManager::~PipelineManager()
     }
 }
 
-void PipelineManager::run()
-{
-    if (this->m_pipeline)
-        gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
-}
+// void PipelineManager::run()
+// {
+//     if (this->m_pipeline)
+//         gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);
+// }
 
-void PipelineManager::startPipeline(int port)
-{
-    // パイプラインの開始処理
-    g_print("PipelineManager::startPipeline\n");
-    // g_print(this->m_pipeline);
-}
+// void PipelineManager::startPipeline(int port)
+// {
+//     // パイプラインの開始処理
+//     g_print("PipelineManager::startPipeline\n");
+//     // g_print(this->m_pipeline);
+// }
 
-void PipelineManager::stopPipeline()
-{
-    // パイプラインの停止処理
-}
+// void PipelineManager::stopPipeline()
+// {
+//     // パイプラインの停止処理
+// }
 
 GstElement *PipelineManager::pipeline() const
 {

@@ -95,7 +95,7 @@ Item {
                                     width: 100
                                     height: 30
                                     onClicked: {
-                                   console.log( pipelineController.get_pipeline_state())
+                                   console.log( pipelineManager.get_pipeline_state())
                                     }
                                 }
                                 Button {
