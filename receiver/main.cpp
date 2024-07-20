@@ -1,5 +1,5 @@
 #include "common_pipeline_manager.h"
-
+#include "common_network_service.h"
 #include "common_device_monitor.h"
 #include "common_process_runner.h"
 #include "common_telemetry_socket.h"
@@ -10,7 +10,6 @@
 #include <QQuickWindow>
 #include <gst/gst.h>
 
-#include "common_network_service.h"
 #include <QQuickItem>
 #include <QDebug>
 

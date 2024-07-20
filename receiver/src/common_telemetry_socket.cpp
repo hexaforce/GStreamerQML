@@ -25,6 +25,7 @@ void CommonTelemetrySocket::processPendingDatagrams()
         udpSocket->readDatagram(datagram.data(), datagram.size());
 
         QString message = QString::fromUtf8(datagram);
+        // qDebug << message;
         emit messageReceived(message);
     }
 }

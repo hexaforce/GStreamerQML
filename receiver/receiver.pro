@@ -13,10 +13,12 @@ DEFINES += GST_USE_UNSTABLE_API
 # INCLUDEPATH += message
 INCLUDEPATH += src
 
-HEADERS += src/receive_pipelines.h
+HEADERS += src/receive_pipelines.h \
+           src/common_telemetry_socket.h
 
 SOURCES += main.cpp \
-           src/receive_pipelines.cpp
+           src/receive_pipelines.cpp\
+           src/common_telemetry_socket.cpp
 
 RESOURCES += main.qrc
 
