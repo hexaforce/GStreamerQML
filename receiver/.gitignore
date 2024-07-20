@@ -1,0 +1,15 @@
+qrc_qml.o
+qrc_qml.cpp
+Makefile
+main.o
+GStreamerQML
+.qmake.stash
+GStreamerQML.pro.user
+build/
+video_streamer
+message_receiver
+message_streamer
+.vscode/settings.json
+data/UdpStreamer
+data/UdpSender
+main.qml.autosave

@@ -1,0 +1,13 @@
+# GStreamerQML
+```bash
+g++ -o video_streamer receiver/src/video_streamer.cpp receiver/src/transmit_pipelines.cpp `pkg-config --cflags --libs gstreamer-1.0`
+./video_streamer
+
+g++ -o audio_streamer src/media_transmitter/audio_streamer.cpp `pkg-config --cflags --libs gstreamer-1.0`
+./audio_streamer
+
+
+960x540 (qHD): quarter HD
+1280x720 (HD): High Definition
+1920x1080 (FHD): Full High Definition
+
