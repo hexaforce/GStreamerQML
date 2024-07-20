@@ -46,8 +46,8 @@ ApplicationWindow {
 
     Component.onCompleted: {
         udpReceiver.startListening(5009)
-        console.log( pipelineController.get_pipeline_state())
-        console.log(  pipelineController.get_pipeline_parameters())
+        // console.log( pipelineController.get_pipeline_state())
+        // console.log(  pipelineController.get_pipeline_parameters())
        
     }
 
@@ -90,36 +90,48 @@ ApplicationWindow {
                     onClicked: {
                         // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
                         // console.log(processRunner.result)
-                        stack.push(q_service)
+                        stack.push(servicesetting)
                     }
                 }
             }
         }
     }
 
+
     Component {
-        id: q_service
-        Q_service {  }
+        id: servicesetting
+        Loader {
+            source: "qrc:/qml/ServiceSetting.qml"
+        }
     }
 
     Component {
-        id: q_network
-        Q_network {  }
+        id: networksetting
+        Loader {
+            source: "qrc:/qml/NetworkSetting.qml"
+        }
     }
 
     Component {
-        id: q_video
-        Q_video { }
+        id: videosetting
+        Loader {
+            source: "qrc:/qml/VideoSetting.qml"
+        }
     }
 
     Component {
-        id: q_audio
-        Q_audio {  }
+        id: audiosetting
+        Loader {
+            source: "qrc:/qml/AudioSetting.qml"
+        }
     }
 
     Component {
-        id: q_telemetry
-        Q_telemetry {  }
+        id: telemetrysetting
+        Loader {
+            source: "qrc:/qml/TelemetrySetting.qml"
+        }
+
     }
 
 }

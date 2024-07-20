@@ -6,7 +6,7 @@ Column {
     property string current: ""
 
     Text {
-        text: "This is " + current
+        text: "menu " + current
     }
 
     GridLayout {
@@ -23,40 +23,40 @@ Column {
         Button {
             text: "Go Service"
             Layout.fillWidth: true
-            onClicked: stack.push(q_service)
-            enabled: current !== "q_service"
+            onClicked: stack.push(servicesetting)
+            enabled: current !== "servicesetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Network"
             Layout.fillWidth: true
-            onClicked: stack.push(q_network)
-            enabled: current !== "q_network"
+            onClicked: stack.push(networksetting)
+            enabled: current !== "networksetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Video"
             Layout.fillWidth: true
-            onClicked: stack.push(q_video)
-            enabled: current !== "q_video"
+            onClicked: stack.push(videosetting)
+            enabled: current !== "videosetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Audio"
             Layout.fillWidth: true
-            onClicked: stack.push(q_audio)
-            enabled: current !== "q_audio"
+            onClicked: stack.push(audiosetting)
+            enabled: current !== "audiosetting"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Telemetry"
             Layout.fillWidth: true
-            onClicked: stack.push(q_telemetry)
-            enabled: current !== "q_telemetry"
+            onClicked: stack.push(telemetrysetting)
+            enabled: current !== "telemetrysetting"
             opacity: enabled ? 1.0 : 0.75
         }
     }
