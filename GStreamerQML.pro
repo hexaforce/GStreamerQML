@@ -1,39 +1,17 @@
-TEMPLATE = app
+TEMPLATE = subdirs
 
-QT += qml quick widgets
+#SUBDIRS += common
+#SUBDIRS += transmitter
+SUBDIRS += receiver
 
-QT_CONFIG -= no-pkg-config
-CONFIG += link_pkgconfig debug
-PKGCONFIG += \
-    gstreamer-1.0 \
-    gstreamer-video-1.0 \
-    protobuf
+# Define common include paths, library paths, and other settings here if needed
+# For example, if both subprojects share the same include path:
+# INCLUDEPATH += /path/to/shared/include
 
-DEFINES += GST_USE_UNSTABLE_API
+# Common configuration settings (optional)
+# CONFIG += c++11
+# QMAKE_CXXFLAGS += -Wall -Wextra
 
-# INCLUDEPATH += ../lib
-# INCLUDEPATH += message
-INCLUDEPATH += src
-
-HEADERS += src/common_pipeline_manager.h \
-           src/receive_pipelines.h \
-           src/common_process_runner.h \
-           src/common_telemetry_socket.h \
-           src/common_device_monitor.h \
-           src/common_network_service.h 
-
-SOURCES += main.cpp \
-           src/common_pipeline_manager.cpp \
-           src/receive_pipelines.cpp \
-           src/common_process_runner.cpp \
-           src/common_telemetry_socket.cpp \
-           src/common_device_monitor.cpp \
-           src/common_network_service.cpp 
-
-RESOURCES += main.qrc
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Include the directory where protoc generated the headers and sources
-INCLUDEPATH += .
+# Define additional build steps or configurations if needed
+# For example, custom commands for pre- or post-build steps
+# QMAKE_POST_LINK += custom_command
