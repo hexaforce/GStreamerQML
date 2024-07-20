@@ -17,13 +17,16 @@ int main(int argc, char *argv[])
     int video_port = 5000;
     int audio_port = 5001;
 
-    GstStateChangeReturn ret_video = setupVideoTransmitPipeline(video_pipeline, video_device, host, video_port, CodecType::H264);
+    // GstStateChangeReturn ret_video = setupVideoTransmitPipeline(video_pipeline, video_device, host, video_port, CodecType::H264);
+    GstStateChangeReturn ret_video = setupH26xTransmitPipeline(video_pipeline, video_device, host, video_port, CodecType::H264);
     GstStateChangeReturn ret_audio = setupAudioTransmitPipeline(audio_pipeline, audio_device, host, audio_port);
 
     if (ret_video == GST_STATE_CHANGE_FAILURE || ret_audio == GST_STATE_CHANGE_FAILURE) {
         g_printerr("Failed to start one or both pipelines.\n");
         return -1;
     }
+    GstBus     *bus = gst_element_get_bus(video_pipeline);
+    GstMessage *msg = gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, GST_MESSAGE_EOS);
 
     // Qtのタイマーを使って定期的にGStreamerのバスメッセージを処理
     QTimer timer;

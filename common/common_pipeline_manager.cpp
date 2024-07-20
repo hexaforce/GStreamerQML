@@ -1,5 +1,4 @@
 #include "common_pipeline_manager.h"
-// #include "receive_pipelines.h"
 #include <QDebug>
 #include <QStringBuilder>
 #include <QJsonDocument>

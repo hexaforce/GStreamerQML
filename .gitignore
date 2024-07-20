@@ -1,3 +1,4 @@
 *.pro.user
 build/
 .vscode/settings.json
+video_streamer

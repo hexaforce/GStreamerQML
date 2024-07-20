@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += common
-#SUBDIRS += transmitter
+SUBDIRS += transmitter
 SUBDIRS += receiver
 
 # Define common include paths, library paths, and other settings here if needed
