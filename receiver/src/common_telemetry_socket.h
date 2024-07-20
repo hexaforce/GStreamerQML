@@ -4,25 +4,25 @@
 #include <QObject>
 #include <QUdpSocket>
 
-class CommonTelemetrySocket : public QObject
-{
-    Q_OBJECT
+class CommonTelemetrySocket : public QObject {
+  Q_OBJECT
 public:
-    explicit CommonTelemetrySocket(QObject *parent = nullptr);
-    ~CommonTelemetrySocket();
+  explicit CommonTelemetrySocket(QObject *parent = nullptr);
+  ~CommonTelemetrySocket();
+
+  void messageSend(const QString &message, const QString &host, int port);
 
 public slots:
-    void startListening(int port);
-    void messageSend(const QString &message, const QString &host, int port);
+  void startListening(int port);
 
 signals:
-    void messageReceived(const QString &message);
+  void messageReceived(const QString &message);
 
 private slots:
-    void processPendingDatagrams();
+  void processPendingDatagrams();
 
 private:
-    QUdpSocket *udpSocket;
+  QUdpSocket *udpSocket;
 };
 
 #endif // CommonTelemetrySocket_H

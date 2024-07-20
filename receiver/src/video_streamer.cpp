@@ -9,8 +9,8 @@
 // const char *host   = argv[2];
 // int         port   = atoi(argv[3]);
 
-#include <gst/gst.h>
 #include "transmit_pipelines.h"
+#include <gst/gst.h>
 
 int main(int argc, char *argv[]) {
 
@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
 
   {
     const char *device = "/dev/video0";
-    const char *host   = "127.0.0.1"; // destinationAddress
-    int         port   = 5000;        // videoPort
+    const char *host = "127.0.0.1"; // destinationAddress
+    int port = 5000;                // videoPort
 
     // Create elements
     GstElement *pipeline = gst_pipeline_new(NULL);
@@ -36,13 +36,13 @@ int main(int argc, char *argv[]) {
     }
 
     // Wait until error or EOS
-    GstBus     *bus = gst_element_get_bus(pipeline);
+    GstBus *bus = gst_element_get_bus(pipeline);
     GstMessage *msg = gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, GST_MESSAGE_EOS);
 
     // Parse message
     if (msg != NULL) {
       GError *err;
-      gchar  *debug_info;
+      gchar *debug_info;
       switch (GST_MESSAGE_TYPE(msg)) {
       case GST_MESSAGE_ERROR:
         gst_message_parse_error(msg, &err, &debug_info);

@@ -19,18 +19,18 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
-#include <google/protobuf/port_undef.inc>
-#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/extension_set.h> // IWYU pragma: export
+#include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/generated_message_table_driven.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/inlined_string_field.h>
-#include <google/protobuf/metadata_lite.h>
-#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/message.h>
-#include <google/protobuf/repeated_field.h>  // IWYU pragma: export
-#include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/metadata_lite.h>
+#include <google/protobuf/port_undef.inc>
+#include <google/protobuf/repeated_field.h> // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -38,17 +38,14 @@
 PROTOBUF_NAMESPACE_OPEN
 namespace internal {
 class AnyMetadata;
-}  // namespace internal
+} // namespace internal
 PROTOBUF_NAMESPACE_CLOSE
 
 // Internal implementation detail -- do not use these members.
 struct TableStruct_video_5fdata_2eproto {
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField entries[]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
@@ -58,119 +55,101 @@ class VideoFrame;
 class VideoFrameDefaultTypeInternal;
 extern VideoFrameDefaultTypeInternal _VideoFrame_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::VideoFrame* Arena::CreateMaybeMessage<::VideoFrame>(Arena*);
+template <>::VideoFrame *Arena::CreateMaybeMessage<::VideoFrame>(Arena *);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
 
-class VideoFrame PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:VideoFrame) */ {
- public:
+class VideoFrame PROTOBUF_FINAL : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:VideoFrame) */ {
+public:
   inline VideoFrame() : VideoFrame(nullptr) {};
   virtual ~VideoFrame();
 
-  VideoFrame(const VideoFrame& from);
-  VideoFrame(VideoFrame&& from) noexcept
-    : VideoFrame() {
-    *this = ::std::move(from);
-  }
+  VideoFrame(const VideoFrame &from);
+  VideoFrame(VideoFrame &&from) noexcept : VideoFrame() { *this = ::std::move(from); }
 
-  inline VideoFrame& operator=(const VideoFrame& from) {
+  inline VideoFrame &operator=(const VideoFrame &from) {
     CopyFrom(from);
     return *this;
   }
-  inline VideoFrame& operator=(VideoFrame&& from) noexcept {
+  inline VideoFrame &operator=(VideoFrame &&from) noexcept {
     if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
+      if (this != &from)
+        InternalSwap(&from);
     } else {
       CopyFrom(from);
     }
     return *this;
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const VideoFrame& default_instance();
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor *descriptor() { return GetDescriptor(); }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor *GetDescriptor() { return GetMetadataStatic().descriptor; }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection *GetReflection() { return GetMetadataStatic().reflection; }
+  static const VideoFrame &default_instance();
 
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const VideoFrame* internal_default_instance() {
-    return reinterpret_cast<const VideoFrame*>(
-               &_VideoFrame_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    0;
+  static void InitAsDefaultInstance(); // FOR INTERNAL USE ONLY
+  static inline const VideoFrame *internal_default_instance() { return reinterpret_cast<const VideoFrame *>(&_VideoFrame_default_instance_); }
+  static constexpr int kIndexInFileMessages = 0;
 
-  friend void swap(VideoFrame& a, VideoFrame& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(VideoFrame* other) {
-    if (other == this) return;
+  friend void swap(VideoFrame &a, VideoFrame &b) { a.Swap(&b); }
+  inline void Swap(VideoFrame *other) {
+    if (other == this)
+      return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
     } else {
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(VideoFrame* other) {
-    if (other == this) return;
+  void UnsafeArenaSwap(VideoFrame *other) {
+    if (other == this)
+      return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline VideoFrame* New() const final {
-    return CreateMaybeMessage<VideoFrame>(nullptr);
-  }
+  inline VideoFrame *New() const final { return CreateMaybeMessage<VideoFrame>(nullptr); }
 
-  VideoFrame* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<VideoFrame>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const VideoFrame& from);
-  void MergeFrom(const VideoFrame& from);
+  VideoFrame *New(::PROTOBUF_NAMESPACE_ID::Arena *arena) const final { return CreateMaybeMessage<VideoFrame>(arena); }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message &from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message &from) final;
+  void CopyFrom(const VideoFrame &from);
+  void MergeFrom(const VideoFrame &from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
   size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  const char *_InternalParse(const char *ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext *ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8 *_InternalSerialize(::PROTOBUF_NAMESPACE_ID::uint8 *target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream *stream) const final;
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
-  private:
+private:
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(VideoFrame* other);
+  void InternalSwap(VideoFrame *other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "VideoFrame";
-  }
-  protected:
-  explicit VideoFrame(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() { return "VideoFrame"; }
 
+protected:
+  explicit VideoFrame(::PROTOBUF_NAMESPACE_ID::Arena *arena);
+
+private:
+  static void ArenaDtor(void *object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena *arena);
+
+public:
   ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
+
+private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_video_5fdata_2eproto);
     return ::descriptor_table_video_5fdata_2eproto.file_level_metadata[kIndexInFileMessages];
   }
 
-  public:
-
+public:
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
@@ -182,49 +161,51 @@ class VideoFrame PROTOBUF_FINAL :
   };
   // bytes data = 3;
   void clear_data();
-  const std::string& data() const;
-  void set_data(const std::string& value);
-  void set_data(std::string&& value);
-  void set_data(const char* value);
-  void set_data(const void* value, size_t size);
-  std::string* mutable_data();
-  std::string* release_data();
-  void set_allocated_data(std::string* data);
+  const std::string &data() const;
+  void set_data(const std::string &value);
+  void set_data(std::string &&value);
+  void set_data(const char *value);
+  void set_data(const void *value, size_t size);
+  std::string *mutable_data();
+  std::string *release_data();
+  void set_allocated_data(std::string *data);
   GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_data();
+                                     "    string fields are deprecated and will be removed in a"
+                                     "    future release.")
+  std::string *unsafe_arena_release_data();
   GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_data(
-      std::string* data);
-  private:
-  const std::string& _internal_data() const;
-  void _internal_set_data(const std::string& value);
-  std::string* _internal_mutable_data();
-  public:
+                                     "    string fields are deprecated and will be removed in a"
+                                     "    future release.")
+  void unsafe_arena_set_allocated_data(std::string *data);
 
+private:
+  const std::string &_internal_data() const;
+  void _internal_set_data(const std::string &value);
+  std::string *_internal_mutable_data();
+
+public:
   // uint32 width = 1;
   void clear_width();
   ::PROTOBUF_NAMESPACE_ID::uint32 width() const;
   void set_width(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
+
+private:
   ::PROTOBUF_NAMESPACE_ID::uint32 _internal_width() const;
   void _internal_set_width(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
 
+public:
   // uint32 height = 2;
   void clear_height();
   ::PROTOBUF_NAMESPACE_ID::uint32 height() const;
   void set_height(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
+
+private:
   ::PROTOBUF_NAMESPACE_ID::uint32 _internal_height() const;
   void _internal_set_height(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
 
+public:
   // @@protoc_insertion_point(class_scope:VideoFrame)
- private:
+private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
@@ -238,144 +219,108 @@ class VideoFrame PROTOBUF_FINAL :
 };
 // ===================================================================
 
-
 // ===================================================================
 
 #ifdef __GNUC__
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wstrict-aliasing"
-#endif  // __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#endif // __GNUC__
 // VideoFrame
 
 // uint32 width = 1;
-inline void VideoFrame::clear_width() {
-  width_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::_internal_width() const {
-  return width_;
-}
+inline void VideoFrame::clear_width() { width_ = 0u; }
+inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::_internal_width() const { return width_; }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::width() const {
   // @@protoc_insertion_point(field_get:VideoFrame.width)
   return _internal_width();
 }
-inline void VideoFrame::_internal_set_width(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  width_ = value;
-}
+inline void VideoFrame::_internal_set_width(::PROTOBUF_NAMESPACE_ID::uint32 value) { width_ = value; }
 inline void VideoFrame::set_width(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_width(value);
   // @@protoc_insertion_point(field_set:VideoFrame.width)
 }
 
 // uint32 height = 2;
-inline void VideoFrame::clear_height() {
-  height_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::_internal_height() const {
-  return height_;
-}
+inline void VideoFrame::clear_height() { height_ = 0u; }
+inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::_internal_height() const { return height_; }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 VideoFrame::height() const {
   // @@protoc_insertion_point(field_get:VideoFrame.height)
   return _internal_height();
 }
-inline void VideoFrame::_internal_set_height(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  height_ = value;
-}
+inline void VideoFrame::_internal_set_height(::PROTOBUF_NAMESPACE_ID::uint32 value) { height_ = value; }
 inline void VideoFrame::set_height(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_height(value);
   // @@protoc_insertion_point(field_set:VideoFrame.height)
 }
 
 // bytes data = 3;
-inline void VideoFrame::clear_data() {
-  data_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& VideoFrame::data() const {
+inline void VideoFrame::clear_data() { data_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena()); }
+inline const std::string &VideoFrame::data() const {
   // @@protoc_insertion_point(field_get:VideoFrame.data)
   return _internal_data();
 }
-inline void VideoFrame::set_data(const std::string& value) {
+inline void VideoFrame::set_data(const std::string &value) {
   _internal_set_data(value);
   // @@protoc_insertion_point(field_set:VideoFrame.data)
 }
-inline std::string* VideoFrame::mutable_data() {
+inline std::string *VideoFrame::mutable_data() {
   // @@protoc_insertion_point(field_mutable:VideoFrame.data)
   return _internal_mutable_data();
 }
-inline const std::string& VideoFrame::_internal_data() const {
-  return data_.Get();
-}
-inline void VideoFrame::_internal_set_data(const std::string& value) {
-  
-  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void VideoFrame::set_data(std::string&& value) {
-  
-  data_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+inline const std::string &VideoFrame::_internal_data() const { return data_.Get(); }
+inline void VideoFrame::_internal_set_data(const std::string &value) { data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena()); }
+inline void VideoFrame::set_data(std::string &&value) {
+
+  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:VideoFrame.data)
 }
-inline void VideoFrame::set_data(const char* value) {
+inline void VideoFrame::set_data(const char *value) {
   GOOGLE_DCHECK(value != nullptr);
-  
-  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
+
+  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value), GetArena());
   // @@protoc_insertion_point(field_set_char:VideoFrame.data)
 }
-inline void VideoFrame::set_data(const void* value,
-    size_t size) {
-  
-  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
+inline void VideoFrame::set_data(const void *value, size_t size) {
+
+  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(reinterpret_cast<const char *>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:VideoFrame.data)
 }
-inline std::string* VideoFrame::_internal_mutable_data() {
-  
-  return data_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* VideoFrame::release_data() {
+inline std::string *VideoFrame::_internal_mutable_data() { return data_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena()); }
+inline std::string *VideoFrame::release_data() {
   // @@protoc_insertion_point(field_release:VideoFrame.data)
   return data_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void VideoFrame::set_allocated_data(std::string* data) {
+inline void VideoFrame::set_allocated_data(std::string *data) {
   if (data != nullptr) {
-    
+
   } else {
-    
   }
-  data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
-      GetArena());
+  data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data, GetArena());
   // @@protoc_insertion_point(field_set_allocated:VideoFrame.data)
 }
-inline std::string* VideoFrame::unsafe_arena_release_data() {
+inline std::string *VideoFrame::unsafe_arena_release_data() {
   // @@protoc_insertion_point(field_unsafe_arena_release:VideoFrame.data)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return data_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
+
+  return data_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void VideoFrame::unsafe_arena_set_allocated_data(
-    std::string* data) {
+inline void VideoFrame::unsafe_arena_set_allocated_data(std::string *data) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (data != nullptr) {
-    
+
   } else {
-    
   }
-  data_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      data, GetArena());
+  data_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:VideoFrame.data)
 }
 
 #ifdef __GNUC__
-  #pragma GCC diagnostic pop
-#endif  // __GNUC__
+#pragma GCC diagnostic pop
+#endif // __GNUC__
 
 // @@protoc_insertion_point(namespace_scope)
-
 
 // @@protoc_insertion_point(global_scope)
 
 #include <google/protobuf/port_undef.inc>
-#endif  // GOOGLE_PROTOBUF_INCLUDED_GOOGLE_PROTOBUF_INCLUDED_video_5fdata_2eproto
+#endif // GOOGLE_PROTOBUF_INCLUDED_GOOGLE_PROTOBUF_INCLUDED_video_5fdata_2eproto

@@ -19,18 +19,18 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
-#include <google/protobuf/port_undef.inc>
-#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/extension_set.h> // IWYU pragma: export
+#include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/generated_message_table_driven.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/inlined_string_field.h>
-#include <google/protobuf/metadata_lite.h>
-#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/message.h>
-#include <google/protobuf/repeated_field.h>  // IWYU pragma: export
-#include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/metadata_lite.h>
+#include <google/protobuf/port_undef.inc>
+#include <google/protobuf/repeated_field.h> // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -38,17 +38,14 @@
 PROTOBUF_NAMESPACE_OPEN
 namespace internal {
 class AnyMetadata;
-}  // namespace internal
+} // namespace internal
 PROTOBUF_NAMESPACE_CLOSE
 
 // Internal implementation detail -- do not use these members.
 struct TableStruct_message_2eproto {
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField entries[]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
-    PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
@@ -58,119 +55,101 @@ class Data;
 class DataDefaultTypeInternal;
 extern DataDefaultTypeInternal _Data_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Data* Arena::CreateMaybeMessage<::Data>(Arena*);
+template <>::Data *Arena::CreateMaybeMessage<::Data>(Arena *);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
 
-class Data PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Data) */ {
- public:
+class Data PROTOBUF_FINAL : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Data) */ {
+public:
   inline Data() : Data(nullptr) {};
   virtual ~Data();
 
-  Data(const Data& from);
-  Data(Data&& from) noexcept
-    : Data() {
-    *this = ::std::move(from);
-  }
+  Data(const Data &from);
+  Data(Data &&from) noexcept : Data() { *this = ::std::move(from); }
 
-  inline Data& operator=(const Data& from) {
+  inline Data &operator=(const Data &from) {
     CopyFrom(from);
     return *this;
   }
-  inline Data& operator=(Data&& from) noexcept {
+  inline Data &operator=(Data &&from) noexcept {
     if (GetArena() == from.GetArena()) {
-      if (this != &from) InternalSwap(&from);
+      if (this != &from)
+        InternalSwap(&from);
     } else {
       CopyFrom(from);
     }
     return *this;
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const Data& default_instance();
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor *descriptor() { return GetDescriptor(); }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor *GetDescriptor() { return GetMetadataStatic().descriptor; }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection *GetReflection() { return GetMetadataStatic().reflection; }
+  static const Data &default_instance();
 
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Data* internal_default_instance() {
-    return reinterpret_cast<const Data*>(
-               &_Data_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    0;
+  static void InitAsDefaultInstance(); // FOR INTERNAL USE ONLY
+  static inline const Data *internal_default_instance() { return reinterpret_cast<const Data *>(&_Data_default_instance_); }
+  static constexpr int kIndexInFileMessages = 0;
 
-  friend void swap(Data& a, Data& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Data* other) {
-    if (other == this) return;
+  friend void swap(Data &a, Data &b) { a.Swap(&b); }
+  inline void Swap(Data *other) {
+    if (other == this)
+      return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
     } else {
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Data* other) {
-    if (other == this) return;
+  void UnsafeArenaSwap(Data *other) {
+    if (other == this)
+      return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Data* New() const final {
-    return CreateMaybeMessage<Data>(nullptr);
-  }
+  inline Data *New() const final { return CreateMaybeMessage<Data>(nullptr); }
 
-  Data* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Data>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Data& from);
-  void MergeFrom(const Data& from);
+  Data *New(::PROTOBUF_NAMESPACE_ID::Arena *arena) const final { return CreateMaybeMessage<Data>(arena); }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message &from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message &from) final;
+  void CopyFrom(const Data &from);
+  void MergeFrom(const Data &from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
   size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  const char *_InternalParse(const char *ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext *ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8 *_InternalSerialize(::PROTOBUF_NAMESPACE_ID::uint8 *target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream *stream) const final;
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
-  private:
+private:
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Data* other);
+  void InternalSwap(Data *other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Data";
-  }
-  protected:
-  explicit Data(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() { return "Data"; }
 
+protected:
+  explicit Data(::PROTOBUF_NAMESPACE_ID::Arena *arena);
+
+private:
+  static void ArenaDtor(void *object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena *arena);
+
+public:
   ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
+
+private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_message_2eproto);
     return ::descriptor_table_message_2eproto.file_level_metadata[kIndexInFileMessages];
   }
 
-  public:
-
+public:
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
@@ -180,31 +159,31 @@ class Data PROTOBUF_FINAL :
   };
   // string message = 1;
   void clear_message();
-  const std::string& message() const;
-  void set_message(const std::string& value);
-  void set_message(std::string&& value);
-  void set_message(const char* value);
-  void set_message(const char* value, size_t size);
-  std::string* mutable_message();
-  std::string* release_message();
-  void set_allocated_message(std::string* message);
+  const std::string &message() const;
+  void set_message(const std::string &value);
+  void set_message(std::string &&value);
+  void set_message(const char *value);
+  void set_message(const char *value, size_t size);
+  std::string *mutable_message();
+  std::string *release_message();
+  void set_allocated_message(std::string *message);
   GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_message();
+                                     "    string fields are deprecated and will be removed in a"
+                                     "    future release.")
+  std::string *unsafe_arena_release_message();
   GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_message(
-      std::string* message);
-  private:
-  const std::string& _internal_message() const;
-  void _internal_set_message(const std::string& value);
-  std::string* _internal_mutable_message();
-  public:
+                                     "    string fields are deprecated and will be removed in a"
+                                     "    future release.")
+  void unsafe_arena_set_allocated_message(std::string *message);
 
+private:
+  const std::string &_internal_message() const;
+  void _internal_set_message(const std::string &value);
+  std::string *_internal_mutable_message();
+
+public:
   // @@protoc_insertion_point(class_scope:Data)
- private:
+private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
@@ -216,104 +195,82 @@ class Data PROTOBUF_FINAL :
 };
 // ===================================================================
 
-
 // ===================================================================
 
 #ifdef __GNUC__
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wstrict-aliasing"
-#endif  // __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#endif // __GNUC__
 // Data
 
 // string message = 1;
-inline void Data::clear_message() {
-  message_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& Data::message() const {
+inline void Data::clear_message() { message_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena()); }
+inline const std::string &Data::message() const {
   // @@protoc_insertion_point(field_get:Data.message)
   return _internal_message();
 }
-inline void Data::set_message(const std::string& value) {
+inline void Data::set_message(const std::string &value) {
   _internal_set_message(value);
   // @@protoc_insertion_point(field_set:Data.message)
 }
-inline std::string* Data::mutable_message() {
+inline std::string *Data::mutable_message() {
   // @@protoc_insertion_point(field_mutable:Data.message)
   return _internal_mutable_message();
 }
-inline const std::string& Data::_internal_message() const {
-  return message_.Get();
-}
-inline void Data::_internal_set_message(const std::string& value) {
-  
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void Data::set_message(std::string&& value) {
-  
-  message_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+inline const std::string &Data::_internal_message() const { return message_.Get(); }
+inline void Data::_internal_set_message(const std::string &value) { message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena()); }
+inline void Data::set_message(std::string &&value) {
+
+  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:Data.message)
 }
-inline void Data::set_message(const char* value) {
+inline void Data::set_message(const char *value) {
   GOOGLE_DCHECK(value != nullptr);
-  
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
+
+  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value), GetArena());
   // @@protoc_insertion_point(field_set_char:Data.message)
 }
-inline void Data::set_message(const char* value,
-    size_t size) {
-  
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
+inline void Data::set_message(const char *value, size_t size) {
+
+  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(reinterpret_cast<const char *>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:Data.message)
 }
-inline std::string* Data::_internal_mutable_message() {
-  
-  return message_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* Data::release_message() {
+inline std::string *Data::_internal_mutable_message() { return message_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena()); }
+inline std::string *Data::release_message() {
   // @@protoc_insertion_point(field_release:Data.message)
   return message_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Data::set_allocated_message(std::string* message) {
+inline void Data::set_allocated_message(std::string *message) {
   if (message != nullptr) {
-    
+
   } else {
-    
   }
-  message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message,
-      GetArena());
+  message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message, GetArena());
   // @@protoc_insertion_point(field_set_allocated:Data.message)
 }
-inline std::string* Data::unsafe_arena_release_message() {
+inline std::string *Data::unsafe_arena_release_message() {
   // @@protoc_insertion_point(field_unsafe_arena_release:Data.message)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return message_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
+
+  return message_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Data::unsafe_arena_set_allocated_message(
-    std::string* message) {
+inline void Data::unsafe_arena_set_allocated_message(std::string *message) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (message != nullptr) {
-    
+
   } else {
-    
   }
-  message_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      message, GetArena());
+  message_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Data.message)
 }
 
 #ifdef __GNUC__
-  #pragma GCC diagnostic pop
-#endif  // __GNUC__
+#pragma GCC diagnostic pop
+#endif // __GNUC__
 
 // @@protoc_insertion_point(namespace_scope)
-
 
 // @@protoc_insertion_point(global_scope)
 
 #include <google/protobuf/port_undef.inc>
-#endif  // GOOGLE_PROTOBUF_INCLUDED_GOOGLE_PROTOBUF_INCLUDED_message_2eproto
+#endif // GOOGLE_PROTOBUF_INCLUDED_GOOGLE_PROTOBUF_INCLUDED_message_2eproto

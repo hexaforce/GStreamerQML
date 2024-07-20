@@ -1,7 +1,6 @@
 #include "receive_pipelines.h"
 
-void setupLocalCapturePipeline(GstElement *pipeline, GstElement *sink)
-{
+void setupLocalCapturePipeline(GstElement *pipeline, GstElement *sink) {
   GstElement *src = gst_element_factory_make("v4l2src", NULL);
   GstElement *videoconvert = gst_element_factory_make("videoconvert", NULL);
   GstElement *glupload = gst_element_factory_make("glupload", NULL);
@@ -10,8 +9,7 @@ void setupLocalCapturePipeline(GstElement *pipeline, GstElement *sink)
   gst_element_link_many(src, videoconvert, glupload, sink, NULL);
 }
 
-void setupJpegReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement *sink, gint port, VendorType vendorType)
-{
+void setupJpegReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement *sink, gint port, VendorType vendorType) {
   GstElement *src = gst_element_factory_make("udpsrc", NULL);
   GstElement *rtpdepay = gst_element_factory_make("rtpjpegdepay", NULL);
   GstElement *jpegparse = gst_element_factory_make("jpegparse", NULL);
@@ -28,8 +26,7 @@ void setupJpegReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement 
   gst_element_link_many(src, rtpdepay, jpegparse, decoder, videoconvert, glupload, sink, NULL);
 }
 
-void setupH26xReceivePipeline_HardwareDecoding(GstElement *pipeline, GstElement *sink, gint port, CodecType codecType)
-{
+void setupH26xReceivePipeline_HardwareDecoding(GstElement *pipeline, GstElement *sink, gint port, CodecType codecType) {
   GstElement *src = gst_element_factory_make("udpsrc", NULL);
   GstElement *rtpdepay = nullptr;
   GstElement *parse = nullptr;
@@ -38,18 +35,13 @@ void setupH26xReceivePipeline_HardwareDecoding(GstElement *pipeline, GstElement 
 
   g_object_set(src, "port", port, NULL);
 
-  if (codecType == CodecType::H264)
-  {
+  if (codecType == CodecType::H264) {
     rtpdepay = gst_element_factory_make("rtph264depay", NULL);
     parse = gst_element_factory_make("h264parse", NULL);
-  }
-  else if (codecType == CodecType::H265)
-  {
+  } else if (codecType == CodecType::H265) {
     rtpdepay = gst_element_factory_make("rtph265depay", NULL);
     parse = gst_element_factory_make("h265parse", NULL);
-  }
-  else
-  {
+  } else {
     g_printerr("Unsupported codec type.\n");
     return;
   }
@@ -60,15 +52,13 @@ void setupH26xReceivePipeline_HardwareDecoding(GstElement *pipeline, GstElement 
 
   gst_bin_add_many(GST_BIN(pipeline), src, rtpdepay, parse, decoder, videoconvert, sink, NULL);
 
-  if (!gst_element_link_many(src, rtpdepay, parse, decoder, videoconvert, sink, NULL))
-  {
+  if (!gst_element_link_many(src, rtpdepay, parse, decoder, videoconvert, sink, NULL)) {
     g_printerr("Failed to link elements.\n");
     return;
   }
 }
 
-void setupH26xReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement *sink, gint port, CodecType codecType, VendorType vendorType)
-{
+void setupH26xReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement *sink, gint port, CodecType codecType, VendorType vendorType) {
   GstElement *src = gst_element_factory_make("udpsrc", NULL);
   GstElement *rtpdepay = nullptr;
   GstElement *parse = nullptr;
@@ -78,20 +68,15 @@ void setupH26xReceivePipeline_SoftwareDecoding(GstElement *pipeline, GstElement 
 
   g_object_set(src, "port", port, NULL);
 
-  if (codecType == CodecType::H264)
-  {
+  if (codecType == CodecType::H264) {
     rtpdepay = gst_element_factory_make("rtph264depay", NULL);
     parse = gst_element_factory_make("h264parse", NULL);
     decoder = gst_element_factory_make(vendorType == VendorType::Libav ? "avdec_h264" : "nvh264dec", NULL);
-  }
-  else if (codecType == CodecType::H265)
-  {
+  } else if (codecType == CodecType::H265) {
     rtpdepay = gst_element_factory_make("rtph265depay", NULL);
     parse = gst_element_factory_make("h265parse", NULL);
     decoder = gst_element_factory_make(vendorType == VendorType::Libav ? "avdec_h265" : "nvh265dec", NULL);
-  }
-  else
-  {
+  } else {
     g_printerr("Unsupported codec type.\n");
     return;
   }
