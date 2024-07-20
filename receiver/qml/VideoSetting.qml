@@ -8,11 +8,11 @@ import QtQuick.Dialogs 1.3
 Item {
     focus: true
 
-    property var pipelineElements: null
+    // property var pipelineElements: null
 
-    Component.onCompleted: {
-        pipelineElements = JSON.parse(commonPipelineManager.getPipelineInfo()).elements.reverse()
-    }
+    // Component.onCompleted: {
+    //     pipelineElements = JSON.parse(commonPipelineManager.getPipelineInfo()).elements.reverse()
+    // }
 
     Row {
         SideMenu {
@@ -36,25 +36,25 @@ Item {
                     text: qsTr("Reception pipline setting (Current machine")
                 }
 
-                Repeater {
-                    model: pipelineElements
-                    delegate: AccordionSection {
-                        required property var modelData
-                        property int index: pipelineElements.findIndex(element => element.name === modelData.name)
-                        title: "    ".repeat(index) + " > " + modelData.type + " (" + modelData.name + ")"
-                        contentItem: Rectangle {
-                            anchors.fill: parent
-                            Row{
-                                // Component.onCompleted: selectManager()
-                                spacing: 5
-                                Text {
-                                    text: qsTr(JSON.stringify(modelData.properties, null, 2))
+                // Repeater {
+                //     model: pipelineElements
+                //     delegate: AccordionSection {
+                //         required property var modelData
+                //         property int index: pipelineElements.findIndex(element => element.name === modelData.name)
+                //         title: "    ".repeat(index) + " > " + modelData.type + " (" + modelData.name + ")"
+                //         contentItem: Rectangle {
+                //             anchors.fill: parent
+                //             Row{
+                //                 // Component.onCompleted: selectManager()
+                //                 spacing: 5
+                //                 Text {
+                //                     text: qsTr(JSON.stringify(modelData.properties, null, 2))
 
-                                }
-                            }
-                        }
-                    }
-                }
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
 
                 Text {
                     text: qsTr("Reception pipline setting (Current machine")

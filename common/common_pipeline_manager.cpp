@@ -42,6 +42,12 @@ CommonPipelineManager::CommonPipelineManager(QObject *parent) : QObject(parent)
 
 }
 
+void CommonPipelineManager::run()
+{
+    if (pipeline())
+        gst_element_set_state(pipeline(), GST_STATE_PLAYING);
+}
+
 QString CommonPipelineManager::getPipelineInfo() {
     // if (!pipeline()) {
     //     qDebug() << "Pipeline is not initialized.";

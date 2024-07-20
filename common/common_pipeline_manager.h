@@ -14,8 +14,9 @@
 #include <QDebug>
 #include <QString>
 #include <QStringList>
+#include <QRunnable>
 
-class CommonPipelineManager : public QObject
+class CommonPipelineManager : public QRunnable, public QObject
 {
     Q_OBJECT
 public:
@@ -27,7 +28,7 @@ public:
     //     CommonPipelineManager();
     ~CommonPipelineManager();
 
-    // void run() override;
+    void run() override;
     // void startPipeline(int port);
     // void stopPipeline();
 
