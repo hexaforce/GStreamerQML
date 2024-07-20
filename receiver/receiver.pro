@@ -1,5 +1,4 @@
 TEMPLATE = app
-
 QT += qml quick widgets
 
 QT_CONFIG -= no-pkg-config
@@ -14,20 +13,10 @@ DEFINES += GST_USE_UNSTABLE_API
 # INCLUDEPATH += message
 INCLUDEPATH += src
 
-HEADERS += src/common_pipeline_manager.h \
-           src/receive_pipelines.h \
-           src/common_process_runner.h \
-           src/common_telemetry_socket.h \
-           src/common_device_monitor.h \
-           src/common_network_service.h 
+HEADERS += src/receive_pipelines.h
 
 SOURCES += main.cpp \
-           src/common_pipeline_manager.cpp \
-           src/receive_pipelines.cpp \
-           src/common_process_runner.cpp \
-           src/common_telemetry_socket.cpp \
-           src/common_device_monitor.cpp \
-           src/common_network_service.cpp 
+           src/receive_pipelines.cpp
 
 RESOURCES += main.qrc
 
@@ -36,3 +25,9 @@ QML_IMPORT_PATH =
 
 # Include the directory where protoc generated the headers and sources
 INCLUDEPATH += .
+
+# Include the common directory
+INCLUDEPATH += ../common
+
+# Link the common library
+LIBS += -L$$OUT_PWD/../common -lcommon

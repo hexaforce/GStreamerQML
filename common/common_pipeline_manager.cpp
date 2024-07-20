@@ -1,5 +1,5 @@
 #include "common_pipeline_manager.h"
-#include "receive_pipelines.h"
+// #include "receive_pipelines.h"
 #include <QDebug>
 #include <QStringBuilder>
 #include <QJsonDocument>
@@ -18,7 +18,7 @@ CommonPipelineManager::CommonPipelineManager(QObject *parent) : QObject(parent)
 
     gint port = 5000;
     // setupLocalCapturePipeline(pipeline, sink);
-    setupH26xReceivePipeline_SoftwareDecoding(this->m_pipeline, this->m_sink, port, CodecType::H264, VendorType::Libav);
+    // setupH26xReceivePipeline_SoftwareDecoding(this->m_pipeline, this->m_sink, port, CodecType::H264, VendorType::Libav);
     // setupH265ReceivePipeline(pipeline, sink, port);
     // setupJpegReceivePipeline(pipeline, sink, port);
     gst_element_set_state(this->m_pipeline, GST_STATE_PLAYING);

@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-#SUBDIRS += common
+SUBDIRS += common
 #SUBDIRS += transmitter
 SUBDIRS += receiver
 

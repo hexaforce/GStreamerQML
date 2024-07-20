@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG += shared
-QT += core
+QT += qml
 
 CONFIG += c++11
 CONFIG += link_pkgconfig
