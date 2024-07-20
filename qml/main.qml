@@ -97,7 +97,7 @@ ApplicationWindow {
                 layer.enabled: true
                 x:10
                 y:10
-                source: "qml/icons/online-streaming-icon.svg"
+                source: "icons/online-streaming-icon.svg"
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {

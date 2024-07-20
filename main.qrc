@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>qml/main.qml</file>
         <file>qml/icons/online-streaming-icon.svg</file>
         <file>qml/SideMenu.qml</file>
         <file>qml/AccordionSection.qml</file>

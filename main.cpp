@@ -28,14 +28,8 @@ int main(int argc, char *argv[])
   {
     QGuiApplication app(argc, argv);
 
-    // CommonPipelineManager *commonPipelineManager = new CommonPipelineManager();
-
-    // qmlRegisterType<CommonDeviceMonitor>("jp.fpv.CommonDeviceMonitor", 1, 0, "CommonDeviceMonitor");
     qmlRegisterType<CommonProcessRunner>("jp.fpv.CommonProcessRunner", 1, 0, "CommonProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    // qmlRegisterType<CommonPipelineManager>("jp.fpv.CommonPipelineManager", 1, 0, "CommonPipelineManager");
-    
-    // qmlRegisterType<CommonNetworkService>("jp.fpv.CommonNetworkService", 1, 0, "CommonNetworkService");
 
     QQmlApplicationEngine engine;
     CommonPipelineManager commonPipelineManager;
@@ -44,11 +38,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
     CommonNetworkService commonNetworkService;
     engine.rootContext()->setContextProperty("commonNetworkService", &commonNetworkService);
-    // CommonProcessRunner commonProcessRunner;
-    // engine.rootContext()->setContextProperty("commonProcessRunner", &commonProcessRunner);
-    
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
