@@ -21,10 +21,7 @@ HEADERS += src/pipeline_manager.h \
            src/device_monitor.h \
            src/receive_pipelines.h \
            src/pipeline_controller.h \
-           src/q_network.h \
-           src/q_video.h \
-           src/q_audio.h \
-           src/q_telemetry.h
+           src/q_network.h 
 
 SOURCES += main.cpp \
            src/pipeline_manager.cpp  \
@@ -33,10 +30,7 @@ SOURCES += main.cpp \
            src/device_monitor.cpp \
            src/receive_pipelines.cpp \
            src/pipeline_controller.cpp \
-           src/q_network.cpp \
-           src/q_video.cpp \
-           src/q_audio.cpp \
-           src/q_telemetry.cpp
+           src/q_network.cpp 
 
 RESOURCES += qml.qrc
 

@@ -5,14 +5,8 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Network 1.0
-
 Item {
     focus: true
-
-    Q_Network {
-        id: q_Network
-    }
 
     property var combinedStatus: null
     property var forwardHead: null
@@ -20,7 +14,6 @@ Item {
     ListModel {
         id: forwardRule
     }
-
 
     Component.onCompleted: {
         combinedStatus = JSON.parse(q_Network.getCombinedStatus())

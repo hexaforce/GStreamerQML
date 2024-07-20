@@ -5,14 +5,9 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Telemetry 1.0
-
 Item {
     focus: true
 
-    Q_Telemetry {
-        id: q_Telemetry
-    }
     Row {
         SideMenu {
             id: sideMenu

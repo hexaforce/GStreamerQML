@@ -5,14 +5,9 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Audio 1.0
-
 Item {
     focus: true
 
-    Q_Audio {
-        id: q_Audio
-    }
     Row {
         SideMenu {
             id: sideMenu
