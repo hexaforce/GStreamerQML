@@ -11,8 +11,7 @@ Item {
     focus: true
 
     Q_Network {
-            id: sideMenu
-            current: "networksetting"
+            id: q_Network
     }
 
     // property var combinedStatus: null
@@ -36,7 +35,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_network"
+            current: "networksetting"
         }
         Item {
             visible: true

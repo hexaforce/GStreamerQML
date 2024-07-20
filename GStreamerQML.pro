@@ -16,7 +16,7 @@ DEFINES += GST_USE_UNSTABLE_API
 INCLUDEPATH += src
 
 HEADERS += src/pipeline_manager.h \
-           src/process_runner.h \
+           src/common_process_runner.h \
            src/udp_receiver.h \
            src/device_monitor.h \
            src/receive_pipelines.h \
@@ -25,7 +25,7 @@ HEADERS += src/pipeline_manager.h \
 
 SOURCES += main.cpp \
            src/pipeline_manager.cpp  \
-           src/process_runner.cpp \
+           src/common_process_runner.cpp \
            src/udp_receiver.cpp \
            src/device_monitor.cpp \
            src/receive_pipelines.cpp \

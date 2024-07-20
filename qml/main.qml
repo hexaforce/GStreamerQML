@@ -8,7 +8,7 @@ import QtQuick.Dialogs 1.3
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 import jp.fpv.DeviceMonitor 1.0
-import jp.fpv.processrunner 1.0
+
 import jp.fpv.UdpReceiver 1.0
 import jp.fpv.PipelineController 1.0
 
@@ -33,9 +33,6 @@ ApplicationWindow {
         objectName: "pipelineController"
     }
 
-    ProcessRunner {
-        id: processRunner
-    }
 
     UdpReceiver {
         id: udpReceiver
@@ -88,8 +85,8 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
-                        // console.log(processRunner.result)
+                        // commonProcessRunner.runCommand("v4l2-ctl", ["--list-devices"])
+                        // console.log(commonProcessRunner.result)
                         stack.push(servicesetting)
                     }
                 }

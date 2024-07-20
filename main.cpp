@@ -2,7 +2,7 @@
 #include "pipeline_controller.h"
 
 #include "device_monitor.h"
-#include "process_runner.h"
+
 #include "udp_receiver.h"
 
 #include <QApplication>
@@ -11,7 +11,7 @@
 #include <QQuickWindow>
 #include <gst/gst.h>
 
-#include "q_network.h"
+#include "common_process_runner.h"
 
 #include <QtDebug>
 
@@ -29,13 +29,16 @@ int main(int argc, char *argv[])
     PipelineManager *pipelineManager = new PipelineManager();
 
     qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
-    qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     qmlRegisterType<PipelineController>("jp.fpv.PipelineController", 1, 0, "PipelineController");
     
-    qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
+    // qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
 
     QQmlApplicationEngine engine;
+    CommonDeviceMonitor commonDeviceMonitor;
+    engine.rootContext()->setContextProperty("commonDeviceMonitor", &commonDeviceMonitor);
+    CommonNetworkService commonNetworkService;
+    engine.rootContext()->setContextProperty("commonNetworkService", &commonNetworkService);
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
