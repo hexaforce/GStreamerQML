@@ -11,7 +11,8 @@ Item {
     focus: true
 
     Q_Network {
-        id: q_Network
+            id: sideMenu
+            current: "networksetting"
     }
 
     // property var combinedStatus: null

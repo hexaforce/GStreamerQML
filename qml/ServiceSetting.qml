@@ -56,7 +56,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_service"
+            current: "servicesetting"
         }
         Item {
             visible: true

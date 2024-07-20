@@ -11,7 +11,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_audio"
+            current: "audiosetting"
         }
         Item {
             visible: true
