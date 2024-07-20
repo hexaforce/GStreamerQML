@@ -1,5 +1,5 @@
 #include "SerialToUdpStreamer.h"
-#include "udp_receiver.h"
+#include "common_telemetry_socket.h"
 #include <iostream>
 #include <string>
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
         try
         {
-            UdpReceiver receiver(udp_ip, udp_port);
+            CommonTelemetrySocket receiver(udp_ip, udp_port);
             receiver.startListening();
         }
         catch (const std::exception &e)

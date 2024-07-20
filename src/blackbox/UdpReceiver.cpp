@@ -1,5 +1,5 @@
-// udp_receiver.cpp
-#include "udp_receiver.h"
+// common_telemetry_socket.cpp
+#include "common_telemetry_socket.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -7,19 +7,19 @@
 #include <cstring>
 #include <stdexcept>
 
-UdpReceiver::UdpReceiver(const std::string &ip, unsigned short port)
+CommonTelemetrySocket::CommonTelemetrySocket(const std::string &ip, unsigned short port)
     : udp_ip(ip), udp_port(port)
 {
     // Initialize socket, bind, etc.
     setupUdpSocket(); // setupUdpSocket 関数を呼び出す
 }
 
-UdpReceiver::~UdpReceiver()
+CommonTelemetrySocket::~CommonTelemetrySocket()
 {
     close(udp_socket);
 }
 
-void UdpReceiver::setupUdpSocket()
+void CommonTelemetrySocket::setupUdpSocket()
 {
     // Create UDP socket
     udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
@@ -41,7 +41,7 @@ void UdpReceiver::setupUdpSocket()
     }
 }
 
-void UdpReceiver::startListening()
+void CommonTelemetrySocket::startListening()
 {
     char buffer[1024];
     struct sockaddr_in client_addr;

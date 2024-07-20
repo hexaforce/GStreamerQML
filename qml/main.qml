@@ -9,7 +9,7 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 // import jp.fpv.CommonDeviceMonitor 1.0
 import jp.fpv.CommonProcessRunner 1.0
-import jp.fpv.UdpReceiver 1.0
+import jp.fpv.CommonTelemetrySocket 1.0
 // import jp.fpv.CommonNetworkService 1.0
 
 ApplicationWindow {
@@ -42,15 +42,15 @@ ApplicationWindow {
         }
     }
 
-    UdpReceiver {
-        id: udpReceiver
+    CommonTelemetrySocket {
+        id: commonTelemetrySocket
         onMessageReceived: {
             console.log("Received message in QML:", message)
         }
     }
 
     Component.onCompleted: {
-        udpReceiver.startListening(5009)
+        commonTelemetrySocket.startListening(5009)
         // console.log( commonPipelineManager.get_pipeline_state())
         // console.log(  commonPipelineManager.get_pipeline_parameters())
         // id: commonProcessRunner

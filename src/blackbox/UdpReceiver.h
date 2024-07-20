@@ -1,14 +1,14 @@
-// udp_receiver.h
-#ifndef UDPRECEIVER_H
-#define UDPRECEIVER_H
+// common_telemetry_socket.h
+#ifndef CommonTelemetrySocket_H
+#define CommonTelemetrySocket_H
 
 #include <string>
 
-class UdpReceiver
+class CommonTelemetrySocket
 {
 public:
-    UdpReceiver(const std::string &ip, unsigned short port);
-    ~UdpReceiver();
+    CommonTelemetrySocket(const std::string &ip, unsigned short port);
+    ~CommonTelemetrySocket();
 
     void startListening();
 
@@ -20,4 +20,4 @@ private:
     void setupUdpSocket(); // 関数の宣言を追加
 };
 
-#endif // UDPRECEIVER_H
+#endif // CommonTelemetrySocket_H

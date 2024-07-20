@@ -2,7 +2,7 @@
 
 #include "common_device_monitor.h"
 #include "common_process_runner.h"
-#include "udp_receiver.h"
+#include "common_telemetry_socket.h"
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<CommonProcessRunner>("jp.fpv.CommonProcessRunner", 1, 0, "CommonProcessRunner");
-    qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
+    qmlRegisterType<CommonTelemetrySocket>("jp.fpv.CommonTelemetrySocket", 1, 0, "CommonTelemetrySocket");
 
     QQmlApplicationEngine engine;
     CommonPipelineManager commonPipelineManager;
