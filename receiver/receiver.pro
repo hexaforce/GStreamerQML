@@ -32,4 +32,4 @@ INCLUDEPATH += .
 INCLUDEPATH += ../common
 
 # Link the common library
-LIBS += -L$$OUT_PWD/../common -lcommon
+LIBS += -L../common -lcommon
