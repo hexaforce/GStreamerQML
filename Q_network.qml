@@ -5,14 +5,10 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Network 1.0 
-
 Item {
     focus: true
 
-    Q_Network {
-        id: q_Network
-    }
+
 
     // property var combinedStatus: null
     // Component.onCompleted: {
@@ -45,6 +41,10 @@ Item {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
+
+                Text {
+                    text: qsTr("Current machine")
+                }
 
                 Repeater {
                     model: JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces

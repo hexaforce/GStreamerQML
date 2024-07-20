@@ -6,48 +6,49 @@ import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 import jp.fpv.Q_Network 1.0
+// import jp.fpv.PipelineManager 1.0
 
 Item {
     focus: true
 
-    Q_Network {
-        id: q_Network
-    }
 
     property var combinedStatus: null
-    property var forwardHead: null
+    property var forwardHead: ["num","pkts","bytes","target","prot","opt","in","out","source","destination"]
+    property var networkInterfaces: null
+
+
+    ListModel {
+        id: inputRule
+    }
 
     ListModel {
         id: forwardRule
     }
 
+    ListModel {
+        id: outputRule
+    }
+
+    // PipelineManager {
+    //     id: pipelineManager
+    //     objectName: "pipelineManager"
+    // }
+
+    function appendListModel(json, listModel){
+        var temp = json.filter(function(rule) { return rule.length !== 0; }).map(function(rule) { return rule[0]; })
+        listModel.clear()
+        for (var i = 0; i < temp.length; i++) {
+            listModel.append(temp[i])
+        }
+    }
 
     Component.onCompleted: {
         combinedStatus = JSON.parse(q_Network.getCombinedStatus())
-        // console.log(JSON.stringify(combinedStatus.hostapd_status, null, 2));
-        // console.log(combinedStatus.hostapd_conf);
-        // console.log(JSON.stringify(combinedStatus.dnsmasq_status, null, 2));
-        // console.log(combinedStatus.dnsmasq_conf);
-        // console.log(JSON.stringify(combinedStatus.ufw_status, null, 2));
-
-        var FORWARD = combinedStatus.iptables_status.FORWARD.filter(function(rule) { return rule.length !== 0; }).map(function(rule) { return rule[0]; })
-        forwardHead = Object.keys(FORWARD[0])
-        forwardRule.clear();
-        for (var i = 0; i < FORWARD.length; i++) {
-            forwardRule.append(FORWARD[i])
-        }
-        // console.log(forwardHead)
-
-        // var INPUT = combinedStatus.iptables_status.INPUT
-        // .filter(function(rule) { return rule.length !== 0; })
-        // .map(function(rule) { return rule[0]; })
-        // // console.log(JSON.stringify(INPUT, null, 2))
-
-        // var OUTPUT = combinedStatus.iptables_status.OUTPUT
-        // .filter(function(rule) { return rule.length !== 0; })
-        // .map(function(rule) { return rule[0]; })
-        // // console.log(JSON.stringify(OUTPUT, null, 2))
-
+        appendListModel(combinedStatus.iptables_status.OUTPUT, inputRule)
+        appendListModel(combinedStatus.iptables_status.FORWARD, forwardRule)
+        appendListModel(combinedStatus.iptables_status.OUTPUT, outputRule)
+        networkInterfaces = JSON.parse(q_Network.getNetworkInfoAsJson()).network_interfaces
+        // console.log(JSON.stringify(networkInterfaces, null, 2))
     }
 
     function statusColor(statusText){
@@ -75,6 +76,10 @@ Item {
                 spacing: 1
                 property var currentItem: null
 
+                Text {
+                    text: qsTr("Reception service setting (Current machine")
+                }
+
                 AccordionSection {
                     title: "Access point and authentication server for Wi-Fi and Ethernet"
                     Rectangle {
@@ -90,28 +95,15 @@ Item {
                             }
                             Row {
                                 spacing:5
-                                Button {
-                                    text: "start"
-                                    width: 100
-                                    height: 30
-                                    onClicked: {
-                                        // ボタン1のクリック処理
-                                    }
-                                }
-                                Button {
-                                    text: "stop"
-                                    width: 100
-                                    height: 30
-                                    onClicked: {
-                                        // ボタン2のクリック処理
-                                    }
-                                }
-                                Button {
-                                    text: "restart"
-                                    width: 100
-                                    height: 30
-                                    onClicked: {
-                                        // ボタン3のクリック処理
+                                Repeater {
+                                    model: ["start","stop","restart","unmask","status","enable","disable"]
+                                    delegate: Button {
+                                        text: modelData
+                                        width: 100
+                                        height: 30
+                                        onClicked: {
+                                            processRunner.runCommand("sudo", ["systemctl", modelData, "hostapd"])
+                                        }
                                     }
                                 }
                             }
@@ -158,28 +150,60 @@ Item {
                             }
                             Row {
                                 spacing: 5
-                                Button {
-                                    text: "start"
-                                    width: 100
-                                    height: 30
-                                    onClicked: {
-                                        // ボタン1のクリック処理
+                                Repeater {
+                                    model: ["start","stop","restart","unmask","status","enable","disable"]
+                                    delegate: Button {
+                                        text: modelData
+                                        width: 100
+                                        height: 30
+                                        onClicked: {
+                                            processRunner.runCommand("sudo", ["systemctl", modelData, "dnsmasq"])
+                                        }
                                     }
                                 }
-                                Button {
-                                    text: "stop"
-                                    width: 100
+                            }
+                            Row {
+                                spacing: 5
+
+                                Label {
                                     height: 30
-                                    onClicked: {
-                                        // ボタン2のクリック処理
-                                    }
+                                    text: "interface:"
+                                }
+                                ComboBox {
+                                    id: interfaceComboBox
+                                    currentIndex: 0
+                                    model: networkInterfaces.filter(interfaces => interfaces.nmcli_info["GENERAL.TYPE"] === "wifi").map(interfaces => interfaces.nmcli_info["GENERAL.DEVICE"])
+                                    width: 180
+                                    height: 30
+                                }
+                                Label {
+                                    height: 30
+                                    text: "address:"
+                                }
+                                TextField {
+                                    id: address
+                                     width: 130
+                                    height: 30
+                                    placeholderText: qsTr("192.168.4.10")
+                                }
+
+                                Label {
+                                    height: 30
+                                    text: "netmask:"
+                                }
+                                TextField {
+                                    id: netmask
+                                    width: 130
+                                    height: 30
+                                    placeholderText: qsTr("255.255.255.0")
                                 }
                                 Button {
-                                    text: "restart"
-                                    width: 100
+                                    text: "attch ip adress"
+                                    width: 160
                                     height: 30
                                     onClicked: {
-                                        // ボタン3のクリック処理
+                                        let interfaces = interfaceComboBox.model[interfaceComboBox.currentIndex]
+                                        processRunner.runCommand("sudo", ["ifconfig", interfaces, address.text, "netmask", netmask.text, "up" ])
                                     }
                                 }
                             }
@@ -225,23 +249,134 @@ Item {
                                 color: statusColor(combinedStatus.ufw_status.Active)
                                 height: 30
                             }
+                            Text {
+                                text: "Access point traffic"
+                                height: 30
+                                verticalAlignment: Text.AlignBottom
+                            }
                             Row {
                                 spacing: 5
+                                Label {
+                                    height: 30
+                                    text: "AP:"
+                                }
                                 ComboBox {
-                                    id: networkComboBox
+                                    id: accessPointComboBox
                                     currentIndex: 0
-                                    model: forwardHead
+                                    model: networkInterfaces.filter(interfaces => interfaces.nmcli_info["GENERAL.TYPE"] === "wifi").map(interfaces => interfaces.nmcli_info["GENERAL.DEVICE"])
+                                    width: 180
                                     height: 30
                                 }
                                 Button {
-                                    text: "add"
-                                    width: 100
+                                    text: "allow inbound/outbound"
+                                    width: 200
                                     height: 30
                                     onClicked: {
-                                        // ボタン1のクリック処理
-                                        console.log("Current text:", networkComboBox.model[networkComboBox.currentIndex])
+                                        let interfaces = accessPointComboBox.model[accessPointComboBox.currentIndex]
+                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", interfaces, "-j", "ACCEPT"])
+                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-o", interfaces, "-j", "ACCEPT"])
                                     }
                                 }
+                            }
+                            Text {
+                                text: "Internet access via access point"
+                                height: 30
+                                verticalAlignment: Text.AlignBottom
+                            }
+                            Row {
+                                spacing: 5
+                                Label {
+                                    height: 30
+                                    text: "AP:"
+                                    // Layout.alignment: Qt.AlignRight
+                                    // horizontalAlignment: Text.AlignHCenter
+                                }
+                                ComboBox {
+                                    id: apComboBox
+                                    currentIndex: 0
+                                    model: networkInterfaces.filter(interfaces => interfaces.nmcli_info["GENERAL.TYPE"] === "wifi").map(interfaces => interfaces.nmcli_info["GENERAL.DEVICE"])
+                                    width: 180
+                                    height: 30
+                                }
+                                Label {
+                                    height: 30
+                                    text: "WAN:"
+                                }
+                                ComboBox {
+                                    id: wanComboBox
+                                    currentIndex: 0
+                                    model: networkInterfaces.map(interfaces => interfaces.nmcli_info["GENERAL.DEVICE"])
+                                    width: 180
+                                    height: 30
+                                }
+                                Button {
+                                    text: "allow internet access"
+                                    width: 200
+                                    height: 30
+                                    onClicked: {
+                                        let apInterfaces = apComboBox.model[apComboBox.currentIndex]
+                                        let wanInterfaces = wanComboBox.model[wanComboBox.currentIndex]
+                                        processRunner.runCommand("sudo", ["iptables", "-t", "nat", "-A", "POSTROUTING", "-o", wanInterfaces, "-j", "MASQUERADE"])
+                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", apInterfaces, "-o", wanInterfaces, "-j", "ACCEPT"])
+                                        processRunner.runCommand("sudo", ["iptables", "-A", "FORWARD", "-i", wanInterfaces, "-o", apInterfaces, "-m", "state", "--state", "RELATED,ESTABLISHED", "-j", "ACCEPT"])
+                                    }
+                                }
+                            }
+
+                            // Text {
+                            //     text: "INPUT"
+                            //     height: 30
+                            //     verticalAlignment: Text.AlignBottom
+                            // }
+                            // Item{
+                            //     width: firewall.width ; height: firewall.height
+                            //     Column {
+                            //         Row {
+                            //             Repeater {
+                            //                 model: forwardHead
+                            //                 delegate: Rectangle {
+                            //                     // width: modelData === "target" ? 150 : 75
+                            //                     width: 85
+                            //                     height: 30
+                            //                     color: "lightgray"
+                            //                     border.color: "black"
+                            //                     border.width: .5
+                            //                     Text {
+                            //                         anchors.centerIn: parent
+                            //                         text: modelData;
+                            //                         font.bold: true
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //         ListView {
+                            //             width: firewall.width ; height: firewall.height
+                            //             model: inputRule
+                            //             delegate: Row {
+                            //                 property var rule: model
+                            //                 Repeater {
+                            //                     model: forwardHead
+                            //                     delegate: Rectangle {
+                            //                         // width: modelData === "target" ? 150 : 75
+                            //                         width: 85
+                            //                         height: 30
+                            //                         border.color: "black"
+                            //                         border.width: .5
+                            //                         Text {
+                            //                             anchors.centerIn: parent
+                            //                             text: rule[modelData]
+                            //                         }
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+
+                            Text {
+                                text: "FORWARD"
+                                height: 30
+                                verticalAlignment: Text.AlignBottom
                             }
                             Item{
                                 width: firewall.width ; height: firewall.height
@@ -250,7 +385,8 @@ Item {
                                         Repeater {
                                             model: forwardHead
                                             delegate: Rectangle {
-                                                width: modelData === "target" ? 150 : 75
+                                                // width: modelData === "target" ? 150 : 75
+                                                width: 85
                                                 height: 30
                                                 color: "lightgray"
                                                 border.color: "black"
@@ -271,7 +407,8 @@ Item {
                                             Repeater {
                                                 model: forwardHead
                                                 delegate: Rectangle {
-                                                    width: modelData === "target" ? 150 : 75
+                                                    // width: modelData === "target" ? 150 : 75
+                                                    width: 85
                                                     height: 30
                                                     border.color: "black"
                                                     border.width: .5
@@ -285,6 +422,57 @@ Item {
                                     }
                                 }
                             }
+
+                            // Text {
+                            //     text: "OUTPUT"
+                            //     height: 30
+                            //     verticalAlignment: Text.AlignBottom
+                            // }
+                            // Item{
+                            //     width: firewall.width ; height: firewall.height
+                            //     Column {
+                            //         Row {
+                            //             Repeater {
+                            //                 model: forwardHead
+                            //                 delegate: Rectangle {
+                            //                     // width: modelData === "target" ? 150 : 75
+                            //                     width: 85
+                            //                     height: 30
+                            //                     color: "lightgray"
+                            //                     border.color: "black"
+                            //                     border.width: .5
+                            //                     Text {
+                            //                         anchors.centerIn: parent
+                            //                         text: modelData;
+                            //                         font.bold: true
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //         ListView {
+                            //             width: firewall.width ; height: firewall.height
+                            //             model: outputRule
+                            //             delegate: Row {
+                            //                 property var rule: model
+                            //                 Repeater {
+                            //                     model: forwardHead
+                            //                     delegate: Rectangle {
+                            //                         // width: modelData === "target" ? 150 : 75
+                            //                         width: 85
+                            //                         height: 30
+                            //                         border.color: "black"
+                            //                         border.width: .5
+                            //                         Text {
+                            //                             anchors.centerIn: parent
+                            //                             text: rule[modelData]
+                            //                         }
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+
                         }
                     }
                 }

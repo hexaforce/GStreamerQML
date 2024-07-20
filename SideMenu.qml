@@ -6,7 +6,7 @@ Column {
     property string current: ""
 
     Text {
-        text: "This is " + current
+        text: "menu " + current
     }
 
     GridLayout {

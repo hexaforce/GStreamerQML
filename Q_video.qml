@@ -5,15 +5,15 @@ import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
-import jp.fpv.Q_Video 1.0
-
-
 Item {
     focus: true
 
-    Q_Video {
-        id: q_Video
+    property var pipelineElements: null
+
+    Component.onCompleted: {
+        pipelineElements = JSON.parse(pipelineManager.getPipelineInfo()).elements.reverse()
     }
+
     Row {
         SideMenu {
             id: sideMenu
@@ -27,6 +27,39 @@ Item {
                 anchors.fill: parent
                 spacing: 1
                 property var currentItem: null
+
+                // var modelData =  JSON.parse(pipelineManager.getPipelineInfo()).elements
+                // console.log(JSON.stringify(modelData, null, 2))
+
+
+                Text {
+                    text: qsTr("Reception pipline setting (Current machine")
+                }
+
+                Repeater {
+                    model: pipelineElements
+                    delegate: AccordionSection {
+                        required property var modelData
+                        property int index: pipelineElements.findIndex(element => element.name === modelData.name)
+                        title: "    ".repeat(index) + " > " + modelData.type + " (" + modelData.name + ")"
+                        contentItem: Rectangle {
+                            anchors.fill: parent
+                            Row{
+                                // Component.onCompleted: selectManager()
+                                spacing: 5
+                                Text {
+                                    text: qsTr(JSON.stringify(modelData.properties, null, 2))
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Text {
+                    text: qsTr("Reception pipline setting (Current machine")
+                }
+
                 Repeater {
                     model: JSON.parse(deviceMonitor.listDevices("Video"))
                     delegate: AccordionSection {
@@ -75,6 +108,7 @@ Item {
                         }
                     }
                 }
+
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true

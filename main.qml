@@ -8,9 +8,9 @@ import QtQuick.Dialogs 1.3
 import org.freedesktop.gstreamer.GLVideoItem 1.0
 
 import jp.fpv.DeviceMonitor 1.0
-import jp.fpv.processrunner 1.0
+import jp.fpv.ProcessRunner 1.0
 import jp.fpv.UdpReceiver 1.0
-import jp.fpv.PipelineController 1.0
+import jp.fpv.Q_Network 1.0
 
 ApplicationWindow {
     id: window
@@ -24,17 +24,22 @@ ApplicationWindow {
 
     Material.theme: Material.Dark
 
+    Q_Network {
+        id: q_Network
+    }
+
     DeviceMonitor {
         id: deviceMonitor
     }
 
-    PipelineController {
-        id: pipelineController
-        objectName: "pipelineController"
-    }
-
     ProcessRunner {
         id: processRunner
+        onResultChanged: {
+            console.log("Command Result:", processRunner.result)
+        }
+        onErrorChanged: {
+            console.log("Command Error:", processRunner.error)
+        }
     }
 
     UdpReceiver {
@@ -46,11 +51,19 @@ ApplicationWindow {
 
     Component.onCompleted: {
         udpReceiver.startListening(5009)
-        console.log( pipelineController.get_pipeline_state())
-        console.log(  pipelineController.get_pipeline_parameters())
-       
+        // console.log( pipelineManager.get_pipeline_state())
+        // console.log(  pipelineManager.get_pipeline_parameters())
+        // id: processRunner
+        // processRunner.onResultChanged=()=>{
+        //     console.log("Command Result:", processRunner.result)
+        // }
+        // processRunner.onErrorChanged=()=>{
+        //     console.log("Command Error:", processRunner.error)
+        // }
+        // // onErrorChanged: {
+        // //     console.log("Command Error:", processRunner.error)
+        // // }
     }
-
 
     Item {
         anchors.fill: parent
