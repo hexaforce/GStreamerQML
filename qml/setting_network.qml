@@ -35,7 +35,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_network"
+            current: "setting_network"
         }
         Item {
             visible: true

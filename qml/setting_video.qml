@@ -11,7 +11,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_video"
+            current: "setting_video"
         }
         Item {
             visible: true

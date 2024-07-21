@@ -83,7 +83,7 @@ ApplicationWindow {
                     onClicked: {
                         // processRunner.runCommand("v4l2-ctl", ["--list-devices"])
                         // console.log(processRunner.result)
-                        stack.push(q_service)
+                        stack.push(setting_service)
                     }
                 }
             }
@@ -91,35 +91,35 @@ ApplicationWindow {
     }
 
     Component {
-        id: q_service
+        id: setting_service
                 Loader {
             source: "qrc:/qml/setting_service.qml"
         }
     }
 
     Component {
-        id: q_network
+        id: setting_network
                 Loader {
             source: "qrc:/qml/setting_network.qml"
         }
     }
 
     Component {
-        id: q_video
+        id: setting_video
                 Loader {
             source: "qrc:/qml/setting_video.qml"
         }
     }
 
     Component {
-        id: q_audio
+        id: setting_audio
                 Loader {
             source: "qrc:/qml/setting_audio.qml"
         }
     }
 
     Component {
-        id: q_telemetry
+        id: setting_telemetry
                 Loader {
             source: "qrc:/qml/setting_telemetry.qml"
         }

@@ -23,40 +23,40 @@ Column {
         Button {
             text: "Go Service"
             Layout.fillWidth: true
-            onClicked: stack.push(q_service)
-            enabled: current !== "q_service"
+            onClicked: stack.push(setting_service)
+            enabled: current !== "setting_service"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Network"
             Layout.fillWidth: true
-            onClicked: stack.push(q_network)
-            enabled: current !== "q_network"
+            onClicked: stack.push(setting_network)
+            enabled: current !== "setting_network"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Video"
             Layout.fillWidth: true
-            onClicked: stack.push(q_video)
-            enabled: current !== "q_video"
+            onClicked: stack.push(setting_video)
+            enabled: current !== "setting_video"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Audio"
             Layout.fillWidth: true
-            onClicked: stack.push(q_audio)
-            enabled: current !== "q_audio"
+            onClicked: stack.push(setting_audio)
+            enabled: current !== "setting_audio"
             opacity: enabled ? 1.0 : 0.75
         }
 
         Button {
             text: "Go Telemetry"
             Layout.fillWidth: true
-            onClicked: stack.push(q_telemetry)
-            enabled: current !== "q_telemetry"
+            onClicked: stack.push(setting_telemetry)
+            enabled: current !== "setting_telemetry"
             opacity: enabled ? 1.0 : 0.75
         }
     }

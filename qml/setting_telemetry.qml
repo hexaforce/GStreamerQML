@@ -12,7 +12,7 @@ Item {
     Row {
         SideMenu {
             id: sideMenu
-            current: "q_telemetry"
+            current: "setting_telemetry"
         }
         Item {
             visible: true

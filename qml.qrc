@@ -7,8 +7,8 @@
 
         <file>qml/setting_service.qml</file>
         <file>qml/setting_network.qml</file>
-        <file>qml/setting_audio.qml</file>
         <file>qml/setting_video.qml</file>
+        <file>qml/setting_audio.qml</file>
         <file>qml/setting_telemetry.qml</file>
     </qresource>
 </RCC>
