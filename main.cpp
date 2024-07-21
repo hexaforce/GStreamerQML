@@ -1,5 +1,5 @@
 #include "pipeline_manager.h"
-#include "pipeline_controller.h"
+// #include "pipeline_controller.h"
 
 #include "device_monitor.h"
 #include "process_runner.h"
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    qmlRegisterType<PipelineController>("jp.fpv.PipelineController", 1, 0, "PipelineController");
+    // qmlRegisterType<PipelineController>("jp.fpv.PipelineController", 1, 0, "PipelineController");
     
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
     qmlRegisterType<Q_Video>("jp.fpv.Q_Video", 1, 0, "Q_Video");
@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
 
     QQuickWindow *rootObject = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     QQuickItem *videoItem = rootObject->findChild<QQuickItem *>("videoItem");
-    PipelineController *pipelineController = rootObject->findChild<PipelineController *>("pipelineController");
-    pipelineController->setPipelineManager(pipelineManager);
+    // PipelineController *pipelineController = rootObject->findChild<PipelineController *>("pipelineController");
+    // pipelineController->setPipelineManager(pipelineManager);
 
     g_object_set(pipelineManager->sink(), "widget", videoItem, NULL);
     rootObject->scheduleRenderJob(pipelineManager, QQuickWindow::BeforeSynchronizingStage);
