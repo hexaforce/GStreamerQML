@@ -4,10 +4,11 @@
         <file>qml/main.qml</file>
         <file>qml/SideMenu.qml</file>
         <file>qml/AccordionSection.qml</file>
-        <file>qml/service_setting.qml</file>
-        <file>qml/network_setting.qml</file>
-        <file>qml/telemetry_setting.qml</file>
-        <file>qml/audio_setting.qml</file>
-        <file>qml/video_setting.qml</file>
+
+        <file>qml/setting_service.qml</file>
+        <file>qml/setting_network.qml</file>
+        <file>qml/setting_audio.qml</file>
+        <file>qml/setting_video.qml</file>
+        <file>qml/setting_telemetry.qml</file>
     </qresource>
 </RCC>
