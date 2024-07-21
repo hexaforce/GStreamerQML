@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Dialogs 1.3
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
+import jp.fpv.QtGLVideoItem 1.0
 
 import jp.fpv.DeviceMonitor 1.0
 import jp.fpv.processrunner 1.0
@@ -46,9 +47,6 @@ ApplicationWindow {
 
     Component.onCompleted: {
         udpReceiver.startListening(5009)
-        console.log( pipelineController.get_pipeline_state())
-        console.log(  pipelineController.get_pipeline_parameters())
-       
     }
 
 

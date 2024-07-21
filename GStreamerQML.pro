@@ -7,7 +7,7 @@ CONFIG += link_pkgconfig debug
 PKGCONFIG += \
     gstreamer-1.0 \
     gstreamer-video-1.0 \
-    protobuf
+    gstreamer-gl-1.0
 
 DEFINES += GST_USE_UNSTABLE_API
 
@@ -24,7 +24,11 @@ HEADERS += src/pipeline_manager.h \
            src/q_network.h \
            src/q_video.h \
            src/q_audio.h \
-           src/q_telemetry.h
+           src/q_telemetry.h \
+           src/qtitem.h \
+           src/gstqtglutility.h \
+           src/gstqtgl.h \
+           src/gstqsgtexture.h \
 
 SOURCES += main.cpp \
            src/pipeline_manager.cpp  \
@@ -36,7 +40,10 @@ SOURCES += main.cpp \
            src/q_network.cpp \
            src/q_video.cpp \
            src/q_audio.cpp \
-           src/q_telemetry.cpp
+           src/q_telemetry.cpp \
+           src/qtitem.cc \
+           src/gstqtglutility.cc \
+           src/gstqsgtexture.cc \
 
 RESOURCES += qml.qrc
 
