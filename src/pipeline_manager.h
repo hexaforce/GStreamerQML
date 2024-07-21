@@ -1,5 +1,5 @@
-#ifndef PIPELINEMANAGER_H
-#define PIPELINEMANAGER_H
+#ifndef PIPELINE_MANAGER_H
+#define PIPELINE_MANAGER_H
 
 #include <QRunnable>
 #include <gst/gst.h>
@@ -11,8 +11,6 @@ public:
     ~PipelineManager();
 
     void run() override;
-    void startPipeline(int port);
-    void stopPipeline();
 
     GstElement *pipeline() const;
     void setPipeline(GstElement *pipeline);
@@ -24,4 +22,4 @@ private:
     GstElement *m_sink;
 };
 
-#endif // PIPELINEMANAGER_H
+#endif // PIPELINE_MANAGER_H
