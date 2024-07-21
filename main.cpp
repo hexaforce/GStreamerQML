@@ -1,18 +1,13 @@
 #include "pipeline_manager.h"
-// #include "pipeline_controller.h"
-
 #include "device_monitor.h"
 #include "process_runner.h"
 #include "udp_receiver.h"
-
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
 #include <QQuickWindow>
 #include <gst/gst.h>
-
 #include "q_network.h"
-
 #include <QtDebug>
 
 // gst-launch-1.0 -e v4l2src device=/dev/video0 ! 'video/x-h264,width=960,height=540,framerate=30/1' ! h264parse ! rtph264pay ! udpsink host=127.0.0.1 port=5000
@@ -31,8 +26,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeviceMonitor>("jp.fpv.DeviceMonitor", 1, 0, "DeviceMonitor");
     qmlRegisterType<ProcessRunner>("jp.fpv.processrunner", 1, 0, "ProcessRunner");
     qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    qmlRegisterType<UdpReceiver>("jp.fpv.UdpReceiver", 1, 0, "UdpReceiver");
-    
     qmlRegisterType<Q_Network>("jp.fpv.Q_Network", 1, 0, "Q_Network");
 
     QQmlApplicationEngine engine;
@@ -48,6 +41,7 @@ int main(int argc, char *argv[])
 
     gst_element_set_state(pipelineManager->pipeline(), GST_STATE_NULL);
     gst_object_unref(pipelineManager->pipeline());
+    
   }
 
   gst_deinit();
