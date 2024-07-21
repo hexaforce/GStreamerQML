@@ -92,37 +92,23 @@ ApplicationWindow {
 
     Component {
         id: setting_service
-                Loader {
-            source: "qrc:/qml/setting_service.qml"
-        }
+        Loader { source: "qrc:/qml/setting_service.qml" }
     }
-
     Component {
         id: setting_network
-                Loader {
-            source: "qrc:/qml/setting_network.qml"
-        }
+        Loader { source: "qrc:/qml/setting_network.qml" }
     }
-
     Component {
         id: setting_video
-                Loader {
-            source: "qrc:/qml/setting_video.qml"
-        }
+        Loader { source: "qrc:/qml/setting_video.qml" }
     }
-
     Component {
         id: setting_audio
-                Loader {
-            source: "qrc:/qml/setting_audio.qml"
-        }
+        Loader { source: "qrc:/qml/setting_audio.qml" }
     }
-
     Component {
         id: setting_telemetry
-                Loader {
-            source: "qrc:/qml/setting_telemetry.qml"
-        }
+        Loader { source: "qrc:/qml/setting_telemetry.qml" }
     }
 
 }
